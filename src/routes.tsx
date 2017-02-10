@@ -2,6 +2,7 @@ var {Scene, Router} = require('react-native-router-flux');
 import { StyleSheet, Navigator} from 'react-native'
 import React, { Component } from "react";
 import App from './App'
+import App1 from './App.1'
 import NavBer from './navbar'
 
 export default class Routes extends React.Component <{},{}> {
@@ -9,8 +10,9 @@ export default class Routes extends React.Component <{},{}> {
   render() {
     return( 
       <Router >
-        <Scene key="root" >
-              <Scene key="app" component={App} initial={true} hideNavBar={false}  navBar={NavBer} />
+        <Scene key="root"  hideNavBar={true}>
+              <Scene key="app" component={App}  />
+              <Scene key="app1" component={App1} initial={true} />
         </Scene>
       </Router>
     )
