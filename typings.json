@@ -1,5 +1,5 @@
 {
-  "name": "ReactNativeTS",
+  "name": "Authenticator",
   "dependencies": {
     "react": "registry:dt/react#15.0.0+20170208212821",
     "react-native": "registry:dt/react-native#0.37.0+20170123203653"

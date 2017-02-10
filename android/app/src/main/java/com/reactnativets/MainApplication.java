@@ -1,4 +1,4 @@
-package com.reactnativets;
+package com.authenticator;
 
 import android.app.Application;
 import android.util.Log;
