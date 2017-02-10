@@ -17,8 +17,8 @@ class App extends React.Component<any,{}> {
     }
     render() {
          return (
-          <View>
-            <Text>33333</Text>
+          <View style={{margin: 128}}>
+            <Text>333dasdas</Text>
          </View>
         );
     }
