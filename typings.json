@@ -5,6 +5,7 @@
     "react-native": "registry:dt/react-native#0.37.0+20170123203653"
   },
   "globalDependencies": {
-    "redux-saga": "registry:dt/redux-saga#0.9.1+20160703120921"
+    "redux-saga": "registry:dt/redux-saga#0.9.1+20160703120921",
+    "remote-redux-devtools": "registry:dt/remote-redux-devtools#0.3.2+20161005184000"
   }
 }
