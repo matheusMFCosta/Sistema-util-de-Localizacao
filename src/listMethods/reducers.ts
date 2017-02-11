@@ -4,7 +4,7 @@ const initialState = {
 }
 
 
-export default function auth(state = {
+export function listMethods(state = {
     wow: false,
 }, action) {
     switch (action.type) {
