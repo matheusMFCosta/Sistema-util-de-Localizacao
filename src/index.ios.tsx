@@ -1,19 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
 import { Provider } from 'react-redux';
-var {Actions} = require('react-native-router-flux');
-
 import { rootSaga } from './sagas/index';
 import createSagaMiddleware from 'redux-saga';
-
 import createStore from './createStore'
-
-const sagaMiddleware = createSagaMiddleware();
-
-const store = createStore(sagaMiddleware)
-
 import Router from './routes'
 
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(sagaMiddleware)
 sagaMiddleware.run(rootSaga);
 
 

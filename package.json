@@ -1,5 +1,5 @@
 {
-  "name": "ReactNativeTS",
+  "name": "Authenticator",
   "version": "0.0.3",
   "private": true,
   "scripts": {
@@ -17,11 +17,14 @@
     "react-native-button": "^1.7.1",
     "react-native-router-flux": "^3.37.0",
     "redux-saga": "0.14.3",
-    "redux":"3.6.0",
-    "invariant":"2.2.2",
-    "react-redux":"5.0.2"
+    "redux": "3.6.0",
+    "invariant": "2.2.2",
+    "react-redux": "5.0.2",
+    "native-base": "2.0.5",
+    "redux-actions":"1.2.1"
   },
   "devDependencies": {
+    "remote-redux-devtools": "^0.5.7",
     "tslint": "^4.4.2",
     "typescript": "^2.1.5",
     "typings": "^2.1.0"

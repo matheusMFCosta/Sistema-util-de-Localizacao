@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "es2015",
-        "module": "es2015",
+        "target": "es6",
+        "module": "es6",
         "jsx": "react",
         "outDir": "build",
         "rootDir": "src",
@@ -9,8 +9,10 @@
         "noImplicitAny": false,
         "experimentalDecorators": true,
         "preserveConstEnums": true,
-        "allowJs": true,
-        "sourceMap": true
+        "allowJs": false,
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "strictNullChecks": true
     },
     "filesGlob": [
         "typings/index.d.ts",
