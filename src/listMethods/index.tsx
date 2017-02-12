@@ -35,7 +35,7 @@ const mapStateToProps = (state,ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   teste: () =>
-    dispatch(teste())
+    dispatch(teste(true))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(listMethods);

@@ -10,9 +10,14 @@ const testeInitialState: Teste ={
 } 
 
 
-export const roleReducer  = handleActions<Teste>({
-    [TESTE]: (state : Teste , action : Action<any>): Teste => {
-        return Object.assign({}, state,{ teste:  action.payload} );
+function assign<T> (state : T, patch : Partial<T>) : T {
+  return Object.assign({}, state, patch);
+}
+    
+    
+export const listMethods  = handleActions<Teste>({
+    [TESTE]: (state : Teste , action : Action): Teste => {
+        return assign(state, { teste: !state.teste} );
     },
 
 }, testeInitialState)

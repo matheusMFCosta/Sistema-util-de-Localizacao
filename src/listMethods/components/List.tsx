@@ -26,8 +26,8 @@ const mapStateToProps = (state,ownProps) => ({
   });
 
 const mapDispatchToProps = dispatch => ({
-  teste: () =>
-    dispatch(teste(false))
+  teste: (wow:string) =>
+    dispatch(teste(true))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

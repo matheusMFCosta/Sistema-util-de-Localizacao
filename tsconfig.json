@@ -9,8 +9,10 @@
         "noImplicitAny": false,
         "experimentalDecorators": true,
         "preserveConstEnums": true,
-        "allowJs": true,
-        "sourceMap": true
+        "allowJs": false,
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "strictNullChecks": true
     },
     "filesGlob": [
         "typings/index.d.ts",
