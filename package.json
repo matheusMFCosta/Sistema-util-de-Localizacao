@@ -20,7 +20,8 @@
     "redux": "3.6.0",
     "invariant": "2.2.2",
     "react-redux": "5.0.2",
-    "native-base": "2.0.5"
+    "native-base": "2.0.5",
+    "redux-actions":"1.2.1"
   },
   "devDependencies": {
     "remote-redux-devtools": "^0.5.7",

@@ -1,6 +1,9 @@
+import { createAction, Action } from 'redux-actions';
+import { Teste } from './listMethods'
 
-export const teste = () => {
-  return {
-    type: "TESTE",
-  }
-}
+export const TESTE = "TESTE"
+
+
+export const teste = createAction<Teste>(TESTE);
+
+

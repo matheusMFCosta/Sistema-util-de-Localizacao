@@ -1,7 +1,8 @@
-const initialState = {
-  idGen: 0,
-  counters: { }
-}
+import { handleActions, Action } from 'redux-actions';
+
+import {
+  TESTE
+} from './actions'
 
 
 export function listMethods(state = {
