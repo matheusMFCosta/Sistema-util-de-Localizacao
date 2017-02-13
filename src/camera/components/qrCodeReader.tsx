@@ -1,5 +1,9 @@
 "use strict";
- import React, { PropTypes } from 'react'
+
+import { connect } from 'react-redux'
+var { Actions } = require('react-native-router-flux')
+import React, { PropTypes } from 'react'
+import { setCameraBeOpenStatus, changeQrCode } from './../actions'
 import {AppRegistry,
     StyleSheet,
     Text,
@@ -7,43 +11,49 @@ import {AppRegistry,
     AlertIOS,createClass,
     Dimensions}  from "react-native"
 
-var   Camera  = require("react-native-camera").default;
- 
+var  Camera  = require("react-native-camera").default;
 
 
-
-interface Appprops {
-    teste: Function,
-}
-
-interface QrCodeReaderState {
-    showCamera: boolean,
-    cameraType:any
+interface QrCodeReaderProps {
+    shouldCameraBeOpen: boolean,
+    setCameraBeOpenStatus: Function,
+    changeQrCode: Function
 }
 
 
-export default class QrCodeReader extends React.Component<any,any> {
+class QrCodeReader extends React.Component<QrCodeReaderProps,{}> {
 
- onBarCodeRead(barcode) {
-     console.log("allalalal",barcode.data)
- }
+    componentWillMount(){
+        this.props.setCameraBeOpenStatus(true);
+    }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Camera
-          ref="cam"
-          style={styles.preview}
-          aspect={Camera.constants.Aspect.fill}
-          onBarCodeRead={(e) => {this.onBarCodeRead(e),console.log("dasdadsa")}}> 
-          <Text style={styles.capture} >[CAPTURE2]</Text>
-        </Camera>
-      </View>
-    );
-  }
+    onBarCodeRead(barcode:string) {
+        this.props.setCameraBeOpenStatus(false);
+        this.props.changeQrCode(barcode);
+    }
+
+    capture(){
+        this.props.setCameraBeOpenStatus(false);
+        this.props.changeQrCode("testeBarCode");
+        Actions.ListMethods();
+    }
+
+    render() {
+        if(this.props.shouldCameraBeOpen){
+            return (
+                <View style={styles.container}>
+                    <Camera
+                        ref="cam"
+                        style={styles.preview}
+                        aspect={Camera.constants.Aspect.fill}
+                        onBarCodeRead={(barcode) => this.onBarCodeRead(barcode.data)}> 
+                        <Text style={styles.capture} onPress={()=>this.capture()}>[CAPTURE]</Text>
+                    </Camera>
+                </View>
+            );
+        } 
+        return (<View></View>)}
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -67,10 +77,15 @@ const styles = StyleSheet.create({
 });
 
 
-// const mapStateToProps = (state,ownProps) => ({
-//   });
+const mapStateToProps = (state,ownProps) => ({
+    shouldCameraBeOpen: state.camera.shouldCameraBeOpen,
+  });
 
-// const mapDispatchToProps = dispatch => ({
-//   teste: (wow:string) =>
-//     dispatch(teste(true))
-// });
+const mapDispatchToProps = dispatch => ({
+  setCameraBeOpenStatus: (status:boolean) =>
+    dispatch(setCameraBeOpenStatus(status)),
+  changeQrCode: (qrCode:string) =>
+    dispatch(changeQrCode(qrCode)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(QrCodeReader);

@@ -12,8 +12,8 @@ export default class Routes extends React.Component <{},{}> {
     return( 
       <Router >
         <Scene key="root"  hideNavBar={true}>
-              <Scene key="ListMethods" component={ListMethods}  />
-              <Scene key="qrCodeReader" component={qrCodeReader} initial={true} />
+              <Scene key="ListMethods" component={ListMethods}  initial={true} />
+              <Scene key="qrCodeReader" component={qrCodeReader}/>
         </Scene>
       </Router>
     )
