@@ -1507,6 +1507,7 @@ module 'react' {
 
     // @see https://facebook.github.io/react-native/docs/view.html#style
     export interface ViewStyle extends FlexStyle, TransformsStyle {
+        position?: any;
         backfaceVisibility?: "visible" | "hidden"
         backgroundColor?: string;
         borderBottomColor?: string;

@@ -2,10 +2,9 @@ import React, { PropTypes } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { connect } from 'react-redux'
 var { Container, Header, Title, Button, Left, Right, Body, Icon } = require('native-base');
-var { Actions } = require("react-native-router-flux");
 
 interface Appprops {
-    openCamera: Function
+    changeAddCodeFooterStatus: Function
 }
 
 class Navbar extends React.Component<any,{}> {
@@ -27,7 +26,7 @@ class Navbar extends React.Component<any,{}> {
                             <Title>Header</Title>
                         </Body>
                         <Right>
-                            <Button transparent onPress={() => this.props.openCamera()}>
+                            <Button transparent onPress={()=>this.props.changeAddCodeFooterStatus()} >
                                 <Icon name='menu' />
                             </Button>
                         </Right>

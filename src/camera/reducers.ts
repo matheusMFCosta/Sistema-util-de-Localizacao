@@ -18,10 +18,10 @@ function assign<T> (state : T, patch : Partial<T>) : T {
     
     
 export const cameraReducer  = handleActions<Camera>({
-    [SET_CAMERA_BE_OPEN_STATUS]: (state : Camera , action : Action): Camera => {
+    [SET_CAMERA_BE_OPEN_STATUS]: (state : Camera , action : Action<boolean> ): Camera => {
         return assign(state, { shouldCameraBeOpen: action.payload } );
     },
-    [CHANGE_QR_CODE]: (state : Camera , action : Action): Camera => {
+    [CHANGE_QR_CODE]: (state : Camera , action : Action<string>): Camera => {
         return assign(state, { qrCode: action.payload } );
     },
 

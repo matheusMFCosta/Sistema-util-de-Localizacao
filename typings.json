@@ -8,5 +8,7 @@
   "globalDependencies": {
     "redux-saga": "registry:dt/redux-saga#0.9.1+20160703120921",
     "remote-redux-devtools": "registry:dt/remote-redux-devtools#0.3.2+20161005184000"
+    ,
+    "native-base":"egistry:dt/native-base#0.9.1+20160703120921"
   }
 }

@@ -55,12 +55,12 @@
 		8E4158671782433CAC632125 /* Georgia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 320B6677B5A7428696DCC268 /* Georgia.ttf */; };
 		9BDD78A51396407784CE21DF /* Arial Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC43E7BE16F6493F994DCD6D /* Arial Black.ttf */; };
 		BB29DE6707744D7A816B89C6 /* SF-UI-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DEEAB177165B454DAE6AB0A2 /* SF-UI-Text-Regular.otf */; };
+		C289BC5E16CE4A61BA322661 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6971BC483284890A170174B /* libRCTCamera.a */; };
 		C42A33D50AF44317BF9A8FF4 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2704572E1B1B447BA01E8B29 /* rubicon-icon-font.ttf */; };
 		CA33F2B2A9EA4A4FA2D528F4 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10FC4F788DE14F02801973D5 /* FontAwesome.ttf */; };
 		CC01AF6B3FFA4E72B0B7746B /* SanFranciscoThin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A66B0D3359948AC8D89E0CE /* SanFranciscoThin.ttf */; };
 		CD8278BE47204FF4A6663C0D /* Times New Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8318AD1060C4BC0A27CCA8C /* Times New Roman.ttf */; };
 		D40D087431BF4FBC8FE70FFD /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 157AB27EC539437F9C4188FD /* Zocial.ttf */; };
-		D50F1A8FD20148138DC0D7D3 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16A71FA2C4274269BEC84D31 /* libRCTCamera.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		D541458954B141B1BBC805D4 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E2099C3226F49999B738BBA /* Roboto.ttf */; };
 		D80DF435B9284763A9EAD0DF /* SanFranciscoBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2757AE3B647D461FB99E2F44 /* SanFranciscoBold.ttf */; };
 		DBE72810C7954312B42EBF44 /* Rubik-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3972E76F0B82483A8D8B1650 /* Rubik-MediumItalic.ttf */; };
@@ -235,9 +235,9 @@
 			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
 			remoteInfo = "jschelpers-tvOS";
 		};
-		3F2DC0C91E51094600914442 /* PBXContainerItemProxy */ = {
+		3F3B9D6F1E51EAF4001EC50F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E9697AEE9C5F4DD7AAABB1D6 /* RCTCamera.xcodeproj */;
+			containerPortal = D7BFB7BD12D8497FAA19E10E /* RCTCamera.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
 			remoteInfo = RCTCamera;
@@ -297,7 +297,6 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1549CE9206A641E4B7DE6165 /* Microsoft Sans Serif.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Microsoft Sans Serif.ttf"; path = "../node_modules/native-base/Fonts/Microsoft Sans Serif.ttf"; sourceTree = "<group>"; };
 		157AB27EC539437F9C4188FD /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		16A71FA2C4274269BEC84D31 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		1D1C077EF8C241A59CB2B961 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Medium.ttf"; path = "../node_modules/native-base/Fonts/Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		2704572E1B1B447BA01E8B29 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		2757AE3B647D461FB99E2F44 /* SanFranciscoBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SanFranciscoBold.ttf; path = "../node_modules/native-base/Fonts/SanFranciscoBold.ttf"; sourceTree = "<group>"; };
@@ -320,14 +319,15 @@
 		923E12F9A0F342DCB51A30DF /* Rubik-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Light.ttf"; path = "../node_modules/native-base/Fonts/Rubik-Light.ttf"; sourceTree = "<group>"; };
 		9E57B7104C1C44ADAFBBAEA6 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Bold.ttf"; path = "../node_modules/native-base/Fonts/Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		9F4C68F304E54E458144D06F /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
+		A6971BC483284890A170174B /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		A8C083D5861943758A124E98 /* SanFrancisco.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SanFrancisco.ttf; path = "../node_modules/native-base/Fonts/SanFrancisco.ttf"; sourceTree = "<group>"; };
 		C04749BE2B4B4811B4867799 /* Arial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Arial.ttf; path = "../node_modules/native-base/Fonts/Arial.ttf"; sourceTree = "<group>"; };
 		C3CC89D055294F85ACA3E7B4 /* Andale Mono.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Andale Mono.ttf"; path = "../node_modules/native-base/Fonts/Andale Mono.ttf"; sourceTree = "<group>"; };
 		C3F94A3796A0421283DDC8C8 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		D7BFB7BD12D8497FAA19E10E /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		DDAA4EBEE22149C2B1320F0B /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		DEEAB177165B454DAE6AB0A2 /* SF-UI-Text-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF-UI-Text-Regular.otf"; path = "../node_modules/native-base/Fonts/SF-UI-Text-Regular.otf"; sourceTree = "<group>"; };
 		DFB532B5A89141208BE0750B /* Courier New.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Courier New.ttf"; path = "../node_modules/native-base/Fonts/Courier New.ttf"; sourceTree = "<group>"; };
-		E9697AEE9C5F4DD7AAABB1D6 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		EDE7A3F406204F9681475669 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		F0F65471D7DE458B8B244619 /* Comic Sans MS.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Comic Sans MS.ttf"; path = "../node_modules/native-base/Fonts/Comic Sans MS.ttf"; sourceTree = "<group>"; };
 		F8318AD1060C4BC0A27CCA8C /* Times New Roman.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Times New Roman.ttf"; path = "../node_modules/native-base/Fonts/Times New Roman.ttf"; sourceTree = "<group>"; };
@@ -359,7 +359,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				D50F1A8FD20148138DC0D7D3 /* libRCTCamera.a in Frameworks */,
+				C289BC5E16CE4A61BA322661 /* libRCTCamera.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,10 +494,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3F2DC0C31E51094600914442 /* Products */ = {
+		3F3B9D691E51EAF4001EC50F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3F2DC0CA1E51094600914442 /* libRCTCamera.a */,
+				3F3B9D701E51EAF4001EC50F /* libRCTCamera.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -575,7 +575,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				E9697AEE9C5F4DD7AAABB1D6 /* RCTCamera.xcodeproj */,
+				D7BFB7BD12D8497FAA19E10E /* RCTCamera.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -739,8 +739,8 @@
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
 				},
 				{
-					ProductGroup = 3F2DC0C31E51094600914442 /* Products */;
-					ProjectRef = E9697AEE9C5F4DD7AAABB1D6 /* RCTCamera.xcodeproj */;
+					ProductGroup = 3F3B9D691E51EAF4001EC50F /* Products */;
+					ProjectRef = D7BFB7BD12D8497FAA19E10E /* RCTCamera.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -937,11 +937,11 @@
 			remoteRef = 3DAD3EAE1DF850E9000B6D8A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3F2DC0CA1E51094600914442 /* libRCTCamera.a */ = {
+		3F3B9D701E51EAF4001EC50F /* libRCTCamera.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRCTCamera.a;
-			remoteRef = 3F2DC0C91E51094600914442 /* PBXContainerItemProxy */;
+			remoteRef = 3F3B9D6F1E51EAF4001EC50F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */ = {

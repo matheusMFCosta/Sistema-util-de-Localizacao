@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import reducer  from './reducers/index'
 import devToolsEnhancer from 'remote-redux-devtools';
+
 //var composeWithDevTools = require('remote-redux-devtools');
 
 
