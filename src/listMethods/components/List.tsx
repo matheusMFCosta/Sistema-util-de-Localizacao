@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { teste } from './../actions'
 import { connect } from 'react-redux'
+
 interface Appprops {
     teste: Function
 }

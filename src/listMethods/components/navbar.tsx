@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 var { Container, Header, Title, Button, Left, Right, Body, Icon } = require('native-base');
 
 interface Appprops {
+    openCamera: Function
 }
 
 class Navbar extends React.Component<any,{}> {
@@ -26,7 +27,7 @@ class Navbar extends React.Component<any,{}> {
                             <Title>Header</Title>
                         </Body>
                         <Right>
-                            <Button transparent>
+                            <Button transparent onClick={() => this.props.openCamera()}>
                                 <Icon name='menu' />
                             </Button>
                         </Right>

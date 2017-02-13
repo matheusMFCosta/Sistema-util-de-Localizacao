@@ -2345,7 +2345,7 @@ namespace React {
         pointsAtY?: number | string;
         pointsAtZ?: number | string;
         preserveAlpha?: number | string;
-        preserveAspectRatio?: string;
+        preserveAspectRatio?: string | any;
         primitiveUnits?: number | string;
         r?: number | string;
         radius?: number | string;
