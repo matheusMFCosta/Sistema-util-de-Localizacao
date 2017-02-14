@@ -18,16 +18,14 @@ class Navbar extends React.Component<any,{}> {
                 <Container >
                     <Header>
                         <Left>
-                            <Button transparent>
-                                <Icon name='arrow-back' />
-                            </Button>
+                            <View/>
                         </Left>
                         <Body>
-                            <Title>Header</Title>
+                            <Title>Accounts</Title>
                         </Body>
                         <Right>
                             <Button transparent onPress={()=>this.props.changeAddCodeFooterStatus()} >
-                                <Icon name='menu' />
+                                <Icon name='ios-add' />
                             </Button>
                         </Right>
                     </Header>

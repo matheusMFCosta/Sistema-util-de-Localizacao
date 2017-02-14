@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, StyleSheet,Text} from 'react-native'
+import { View, StyleSheet, Text} from 'react-native'
 import { Account } from './../../main/main'   
+import  getOTP  from './../../utils/getAccountCode'
 var { Container, Content, Card, CardItem, Body, List, ListItem, Left, Right } = require('native-base');
+
 ​
 interface AccountCardsProps {
     accountList: Array<Account>
@@ -35,7 +37,7 @@ export default class AccountCards extends Component<AccountCardsProps,{}> {
                                         <Right>
                                             <View>
                                                 <Text>
-                                                    {key.code}
+                                                    {getOTP(key.code)}
                                                 </Text>
                                             </View>
                                             </Right>
