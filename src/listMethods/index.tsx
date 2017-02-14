@@ -1,16 +1,19 @@
-import React, { PropTypes } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import React from 'react'
+import {  View } from 'react-native'
 var { Actions } = require('react-native-router-flux')
 import { teste, changeAddCodeFooterStatus } from './actions'
 import { connect } from 'react-redux'
+import { Account } from './../main/main'
 import  Navbar  from './components/navbar'
-import List from './components/List'
+import AccountCards from './components/accountCards'
 import FooterTab from './components/footerTab'
 
 interface Appprops {
     teste: Function,
-    changeAddCodeFooterStatus: Function,
     showAddCodeFooter: string
+    accountList: Array<Account>
+    changeAddCodeFooterStatus: Function,
+
 }
 
 class listMethods extends React.Component<any,{}> {
@@ -18,7 +21,6 @@ class listMethods extends React.Component<any,{}> {
         super(props, context);
     }
     componentDidMount(){
-        console.log("dsadasdas")
       this.props.teste()
     }
 
@@ -28,9 +30,9 @@ class listMethods extends React.Component<any,{}> {
             <View >
                 <Navbar changeAddCodeFooterStatus={()=> this.props.changeAddCodeFooterStatus(true)} />
             </View>
-            <View>
-                <List/>
-            </View>
+            <View style={{flex: 1, flexDirection: 'column'}}>
+                <AccountCards accountList={this.props.accountList} />
+            </View >
             <View style={{flex: 1, flexDirection: 'column'}}>
                 <FooterTab 
                     openCamera={Actions.QrCodeReader} 
@@ -45,7 +47,8 @@ class listMethods extends React.Component<any,{}> {
 
 
 const mapStateToProps = (state,ownProps) => ({
-    showAddCodeFooter: state.listMethods.showAddCodeFooter
+    showAddCodeFooter: state.listMethods.showAddCodeFooter,
+    accountList: state.main.accountList
   });
 
 const mapDispatchToProps = dispatch => ({

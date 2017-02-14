@@ -3,9 +3,9 @@ import { StyleSheet, Navigator} from 'react-native'
 import React, { Component } from "react";
 
 import ListMethods from './listMethods/index'
-import QrCodeReader from './camera/components/qrCodeReader'
+import QrCodeReader from './addAccount/components/qrCodeReader'
 import FooterTab from './listMethods/components/footerTab'
-import QrcodeInput from './camera/components/qrCodeInput'
+import QrcodeInput from './addAccount/components/qrCodeInput'
 
 export default class Routes extends React.Component <{},{}> {
 

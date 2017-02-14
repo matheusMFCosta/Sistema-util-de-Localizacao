@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 var { Actions } = require('react-native-router-flux')
 import React, { PropTypes } from 'react'
-import { setCameraBeOpenStatus, changeQrCode } from './../actions'
+import { setCameraBeOpenStatus, changeAccountCodeInput } from './../actions'
 import {AppRegistry,
     StyleSheet,
     Text,
@@ -17,7 +17,7 @@ var  Camera  = require("react-native-camera").default;
 interface QrCodeReaderProps {
     shouldCameraBeOpen: boolean,
     setCameraBeOpenStatus: Function,
-    changeQrCode: Function
+    changeAccountCodeInput: Function
 }
 
 
@@ -29,12 +29,12 @@ class QrCodeReader extends React.Component<QrCodeReaderProps,{}> {
 
     onBarCodeRead(barcode:string) {
         this.props.setCameraBeOpenStatus(false);
-        this.props.changeQrCode(barcode);
+        this.props.changeAccountCodeInput(barcode);
     }
 
     capture(){
         this.props.setCameraBeOpenStatus(false);
-        this.props.changeQrCode("testeBarCode");
+        this.props.changeAccountCodeInput("testeBarCode");
         Actions.ListMethods();
     }
 
@@ -85,7 +85,7 @@ const mapDispatchToProps = dispatch => ({
   setCameraBeOpenStatus: (status:boolean) =>
     dispatch(setCameraBeOpenStatus(status)),
   changeQrCode: (qrCode:string) =>
-    dispatch(changeQrCode(qrCode)),
+    dispatch(changeAccountCodeInput(qrCode)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QrCodeReader);

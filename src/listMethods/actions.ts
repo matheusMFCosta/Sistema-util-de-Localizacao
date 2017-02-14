@@ -1,4 +1,4 @@
-import {Action, createAction }from 'redux-actions';
+import { Action, createAction } from 'redux-actions';
 import { ListMethods } from './listMethods'
 
 export const TESTE = "TESTE"
