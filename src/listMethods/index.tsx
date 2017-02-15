@@ -86,16 +86,25 @@ class listMethods extends React.Component<any,{}> {
                     <View>
                     <Image style={{width:580, height:400,position:'absolute'}}
                           source={require('./../../images/base/graph.png')}/>
+
                       <View style={{position:'absolute'}}>
                         <Svg 
-                            height="100"
-                            width="100"
+                            height="580"
+                            width="400"
                         >
+                            <Line
+                                x1="2"
+                                y1="0"
+                                x2="580"
+                                y2="0"
+                                stroke="red"
+                                strokeWidth="2"
+                            />
                             <Line
                                 x1="0"
                                 y1="0"
-                                x2="100"
-                                y2="200"
+                                x2="580"
+                                y2="400"
                                 stroke="red"
                                 strokeWidth="2"
                             />
