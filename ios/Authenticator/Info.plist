@@ -40,6 +40,8 @@
     <false/>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string/>
+    <key>NSCameraUsageDescription</key>
+    <string>Your message to user when the camera is accessed for the first time</string>
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSExceptionDomains</key>

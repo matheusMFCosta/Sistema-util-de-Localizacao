@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
-import { listMethods } from './../listMethods/reducers'
+import { listMethodsReducer } from './../listMethods/reducers'
+import { addAccountReducer } from './../addAccount/reducers'
+import { mainReducer } from './../main/reducers'
 
 export default  combineReducers({
-  listMethods: listMethods,
+  listMethods: listMethodsReducer,
+  addAccount: addAccountReducer,
+  main: mainReducer
 });

@@ -61,6 +61,8 @@ declare module 'redux-saga/effects' {
     1: EffectFunction<T1, T2, T3>;
   }
 
+  export function actionChannel(wow:any):any;
+  
   export function take(pattern?: Pattern): Effect;
 
   export function put(action: any): Effect;

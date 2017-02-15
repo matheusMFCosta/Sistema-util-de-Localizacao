@@ -2,6 +2,7 @@
 // Source: https://raw.githubusercontent.com/andrew-w-ross/typings-redux/master/redux.d.ts
 declare module '~react-redux~redux' {
 module redux {
+
 	//This should be extended
 	export interface IAction {
 		type: string | number;

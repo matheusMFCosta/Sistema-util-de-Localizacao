@@ -20,7 +20,7 @@ interface State {
 
 export default class Ios extends Component<Props, State> {
 
-    render() {
+    render(): JSX.Element {
         return (
         <Provider store={store}>
             <Router/>

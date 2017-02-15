@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { teste } from './../actions'
 import { connect } from 'react-redux'
+
 interface Appprops {
     teste: Function
 }
@@ -16,7 +17,7 @@ class List extends React.Component<any,{}> {
     render() {
          return (
             <View>
-                <Text>11111</Text>
+                <Text>1134ddd2321444211</Text>
             </View>
         );
     }

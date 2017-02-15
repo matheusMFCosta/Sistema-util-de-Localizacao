@@ -1,3 +1,5 @@
-export interface Teste {
-  teste: boolean
+export interface ListMethods {
+  teste: boolean,
+  showAddCodeFooter: boolean,
+  seconds: number
 }
