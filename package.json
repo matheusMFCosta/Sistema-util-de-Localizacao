@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "invariant": "2.2.2",
+    "isomorphic-fetch": "^2.2.1",
     "jssha": "1.6.0",
     "native-base": "2.0.5",
     "node-dijkstra": "^2.3.0",

@@ -1,4 +1,4 @@
-import { pathPoints, destinationPoint } from './../maps/maps'
+import { pathPoints, destinationPoint, mapsData, pointsOfInterest, mapsImage } from './../maps/maps'
 
 export interface AddAccount {
     accountName: string,
@@ -6,6 +6,9 @@ export interface AddAccount {
     accountSecret: string,
     shouldCameraBeOpen: boolean,
     pathPoints: pathPoints,
+    mapsData: mapsData,
+    mapsImage: mapsImage, 
+    pointsOfInterest: pointsOfInterest,
     destinationPoint: destinationPoint,
     originPoint: destinationPoint
 }

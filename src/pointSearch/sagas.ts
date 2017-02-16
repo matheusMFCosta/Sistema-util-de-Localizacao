@@ -1,75 +1,65 @@
 import { takeEvery, takeLatest } from 'redux-saga'
+
 import { actionChannel, call, take, put, race } from 'redux-saga/effects'
 import { pathPoints, destinationPoint } from './../maps/maps'
+import fetch from 'isomorphic-fetch';
 import * as actions from './actions'
  const Graph = require('node-dijkstra')
 
+
+
+function getMapInformation() {
+  return fetch(`https://miex-food.herokuapp.com/teste/json`, {
+      method: 'GET',
+    })
+      .then(response => {
+       if(response.ok){
+         return response.json()
+       } else {
+         return Promise.reject(response);
+       }
+    })
+    .then(
+      response => ({response}),
+      error => ({error: {message:'Something bad happened'}})
+    )
+} 
+
+
 function* getMapPathPoints(action): IterableIterator<any> {
         
-       const itemsList : pathPoints = [{
-          id:"A",
-          adjacentes:{ B:2, H:3 },
-          x: 50,
-          y: 110
-        },
-        {
-          id:"B",
-          adjacentes:{ A:2, I:3, C:3 },
-          x: 250,
-          y: 110
-        },
-        {
-          id:"C",
-          adjacentes:{ B:3, J:3 },
-          x: 525,
-          y: 110
-        },
-        {
-          id:"D",
-          adjacentes:{ J:2, E:3, G:2 },
-          x: 525,
-          y: 540
-        },
-        {
-          id:"E",
-          adjacentes:{ F:2, I:2 , D:3 },
-          x: 250 ,
-          y: 549
-        },
-        {
-          id:"F",
-          adjacentes:{ H:2, E:2},
-          x: 50,
-          y: 540
-        },
-        {
-          id:"G",
-          adjacentes:{ D:2 },
-          x: 731,
-          y: 540
-        },
-        {
-          id:"H",
-          adjacentes:{ A:3, I:2, F:2 },
-          x: 50,
-          y: 325
-        },
-        {
-          id:"I",
-          adjacentes:{ H:2, B:3, J:3, E:2 },
-          x: 250,
-          y: 325
-        },
-        {
-          id:"J",
-          adjacentes:{ C:3, I:3, D:2 },
-          x: 525,
-          y: 325
-        }
-        ]
+      const { response , error}  = yield call(getMapInformation);
 
-        yield put(actions.setMapPathPoints(itemsList));
+      yield put(actions.setMapsDataFromServer(response));
 }   
+
+
+function getMapImage() {
+  return fetch(`https://miex-food.herokuapp.com/teste/images/graph2`, {
+      method: 'GET',
+    })
+      .then(response => {
+       if(response.ok){
+         return response.blob()
+       } else {
+         return Promise.reject(response);
+       }
+    })
+    .then(
+      response => ({response}),
+      error => ({error: {message:'Something bad happened'}})
+    )
+} 
+
+
+
+function* setMapsImageFromServer(action): IterableIterator<any> {
+        
+      const { response , error}  = yield call(getMapImage);
+      console.log(response , error)
+      //yield put(actions.setMapsDataFromServer(response));
+}   
+
 
 function* getDestinationPointDetails(action): IterableIterator<any> {
     
@@ -77,6 +67,7 @@ function* getDestinationPointDetails(action): IterableIterator<any> {
         id: "dest",
         adjacentes: {A:1, H:1},
         description: "nada origin",
+        mapReference:"graph2",
         x: 50,
         y: 220
     }
@@ -92,6 +83,7 @@ function* getOriginPointDetails(action): IterableIterator<any> {
         id: "orig",
         adjacentes: {E:1, I:1},
         description: "nada ainda",
+        mapReference:"graph2",
         x: 250,
         y: 430
     }
@@ -111,4 +103,6 @@ export function* watchGetOriginPointDetails(action): IterableIterator<any> {
   yield* takeLatest( actions.GET_ORIGIN_POINT_DETAILS, getOriginPointDetails);
 }
 
-
+export function* watchSetMapsDataFromServer(action): IterableIterator<any> {
+  yield* takeLatest( actions.SET_MAPS_DATA_FROM_SERVER, setMapsImageFromServer);
+}

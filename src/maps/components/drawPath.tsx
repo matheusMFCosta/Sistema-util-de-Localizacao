@@ -6,17 +6,13 @@ var { Line, Svg, G, Circle } = require('react-native-svg');
 import { pathPoint, pathPoints, destinationPoint } from './../maps'
 import { connect } from 'react-redux'
 
-            
-
-
 const DrawLines = (props) => {
-  const keys: Array<string> = props.getPathMap(props.pathPoints,props.originPoint,props.destinationPoint)
-  console.log(keys)
+  const keys: Array<string> = props.getPathMap()
   return(
     <G>
       {keys.map((key,index) =>{
-          const originCordenates = props.getPointCordenates(key,props.pathPoints) 
-         const destinationCordenates = props.getPointCordenates(keys[index+1],props.pathPoints) 
+            const originCordenates = props.getPointCordenates(key,props.pathPoints) 
+            const destinationCordenates = props.getPointCordenates(keys[index+1],props.pathPoints) 
           if(index < keys.length -1){
               
               return(
@@ -38,7 +34,7 @@ const DrawLines = (props) => {
              )
           } else {
               return(
-                <G>
+                <G key={index} >
                     <Circle
                         cx={originCordenates.x}
                         cy={originCordenates.y}
@@ -56,13 +52,11 @@ const DrawLines = (props) => {
 
 interface Appprops {
     getPointCordenates: Function
-    pathPoints: pathPoints
-    destinationPoint: destinationPoint,
-    originPoint: destinationPoint,
+    pathPoints: pathPoints,
     getPathMap: Function
 }
 
-class app extends React.Component<Appprops,{}> {
+class drawPath extends React.Component<Appprops,{}> {
     constructor(props, context) {
         super(props, context);
     }
@@ -72,31 +66,14 @@ class app extends React.Component<Appprops,{}> {
             <Svg 
                 height={800}
                 width={1000}>
-
-
-                        <DrawLines
-                            getPathMap={this.props.getPathMap}
-                            destinationPoint={this.props.destinationPoint}
-                            originPoint={this.props.originPoint} 
-                            pathPoints={this.props.pathPoints}
-                            getPointCordenates={this.props.getPointCordenates} 
-
-                        />
-                    
-
-
+                    <DrawLines
+                        getPathMap={this.props.getPathMap}
+                        pathPoints={this.props.pathPoints}
+                        getPointCordenates={this.props.getPointCordenates} 
+                    />
             </Svg>
         )
     }
 }
 
-
-
-const mapStateToProps = (state,ownProps) => ({
-  });
-
-const mapDispatchToProps = dispatch => ({
-
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(app);
+export default drawPath

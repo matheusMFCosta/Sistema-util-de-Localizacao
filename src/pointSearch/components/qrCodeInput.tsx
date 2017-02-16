@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import  QrCodeInputheader  from './qrCodeInputHeader'
 import { View, StyleSheet, Picker, Text } from 'react-native'
 import React, { PropTypes } from 'react'
-import { changeAccountName, changeAccountCodeInput, changeAccountOwnerInput } from './../actions'
+import { changeAccountName, changeAccountCodeInput, changeAccountOwnerInput, getDestinationPointDetails } from './../actions'
 import { pointSearch } from './../../main/actions'
 var { Actions } = require('react-native-router-flux')
 var { Container, Content, Form, Item, Label, Input,Button, Footer, FooterTab } = require('native-base');

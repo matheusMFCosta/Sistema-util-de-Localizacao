@@ -10,11 +10,6 @@ var image = require('./../../images/base/graph2.png')
  const Graph = require('node-dijkstra')
 
 
-
-
-
-
-
 interface Appprops {
   pathPoints: pathPoints,
   destinationPoint: destinationPoint,
@@ -60,9 +55,7 @@ class app extends React.Component<Appprops,{}> {
         return(
           <View>
             <RenderMap 
-              getPathMap={this.getPathMap}
-              originPoint={this.props.originPoint}
-              destinationPoint={this.props.destinationPoint}
+              getPathMap={() =>this.getPathMap(this.props.pathPoints,this.props.originPoint,this.props.destinationPoint)}
               getPointCordenates={this.getPointCordenates} 
               pathPoints={this.props.pathPoints} 
               map={image} 

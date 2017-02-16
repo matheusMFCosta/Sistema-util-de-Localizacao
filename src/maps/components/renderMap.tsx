@@ -10,8 +10,6 @@ interface Appprops {
     getPointCordenates: Function
     pathPoints: pathPoints
     map: any,
-    destinationPoint: destinationPoint,
-    originPoint: destinationPoint,
     getPathMap: Function
 }
 
@@ -34,8 +32,6 @@ interface Appprops {
                     <View style={{position:'absolute'}}>
                         <DrawPath
                             getPathMap={this.props.getPathMap}
-                            destinationPoint={this.props.destinationPoint}
-                            originPoint={this.props.originPoint}
                             getPointCordenates={this.props.getPointCordenates} 
                             pathPoints={this.props.pathPoints}/>
                     </View >

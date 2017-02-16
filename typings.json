@@ -6,9 +6,9 @@
     "redux-actions": "registry:dt/redux-actions#1.2.0+20170101233612"
   },
   "globalDependencies": {
+    "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20170120045107",
+    "native-base": "egistry:dt/native-base#0.9.1+20160703120921",
     "redux-saga": "registry:dt/redux-saga#0.9.1+20160703120921",
     "remote-redux-devtools": "registry:dt/remote-redux-devtools#0.3.2+20161005184000"
-    ,
-    "native-base":"egistry:dt/native-base#0.9.1+20160703120921"
   }
 }

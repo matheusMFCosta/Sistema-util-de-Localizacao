@@ -1,31 +1,50 @@
 import { handleActions, Action } from 'redux-actions';
 import { AddAccount } from './pointSearch'
-import { pathPoints, destinationPoint } from './../maps/maps'
+import { pathPoints, destinationPoint, mapsData, pointsOfInterest } from './../maps/maps'
 
 import {
   SET_CAMERA_BE_OPEN_STATUS,
   CHANGE_ACCONT_NAME_INPUT,
   CHANGE_ACCOUNT_CODE_INPUNT,
   CHANGE_ACCOUNT_OWNER_INPUT,
-  SET_MAP_PATH_POINT,
+  SET_MAPS_DATA_FROM_SERVER,
   SET_DESTINATION_POINT,
-  SET_ORIGIN_POINT
+  SET_ORIGIN_POINT,
+  SET_MAPS_IMAGE_FROM_SERVER
 } from './actions'
 
-const destinationPointInitialState:destinationPoint ={
+const destinationPointInitialState:destinationPoint = {
     id: "",
     adjacentes: {},
     description: "",
+    mapReference:"",
     x: 0,
     y: 0
 }
 
-const pointSearchInitialState: AddAccount ={
+const mapsinitialState: mapsData = {
+    "id": "",
+    "path": ""
+}
+
+const pointsOfInterestInitialState: pointsOfInterest = {
+    id: "",
+    adjacentes: {},
+    description: "",
+    mapReference:"",
+    x: 0,
+    y: 0
+}
+
+const pointSearchInitialState: AddAccount = {
     accountName: "",
     accountOwner: "",
     accountSecret: "",
     shouldCameraBeOpen: false,
     pathPoints: [],
+    mapsData: mapsinitialState,
+    mapsImage: [],
+    pointsOfInterest: pointsOfInterestInitialState,
     destinationPoint: destinationPointInitialState,
     originPoint: destinationPointInitialState
 } 
@@ -53,8 +72,11 @@ export const pointSearchReducer  = handleActions<AddAccount>({
     [CHANGE_ACCOUNT_OWNER_INPUT]: (state : AddAccount , action : Action<string>): AddAccount => {
         return assign(state, { accountOwner: action.payload } );
     },
-    [SET_MAP_PATH_POINT]: (state : AddAccount , action : Action<pathPoints>): AddAccount => {
-        return assign(state, { pathPoints: [...state.pathPoints, ...action.payload] } );
+    [SET_MAPS_DATA_FROM_SERVER]: (state : AddAccount , action : Action<any>): AddAccount => {
+        return assign(state, { pathPoints: [...state.pathPoints, ...action.payload.pathPoints],mapsData: action.payload.maps, pointsOfInterest: action.payload.pointsOfInterest } );
+    },
+    [SET_MAPS_DATA_FROM_SERVER]: (state : AddAccount , action : Action<any>): AddAccount => {
+        return assign(state, { mapsImage:  action.payload } );
     },
     [SET_DESTINATION_POINT]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
         return assign(state, { pathPoints: addNewNodePathPointMap(state.pathPoints,action.payload),destinationPoint: action.payload } );
