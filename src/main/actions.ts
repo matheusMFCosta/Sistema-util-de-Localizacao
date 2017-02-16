@@ -5,7 +5,7 @@ export const UPDATE_ACCOUNTS_CODE = "UPDATE_ACCOUNTS_CODE";
 
 export const updateAccountsCode: () => Action<void> = createAction<void>(UPDATE_ACCOUNTS_CODE);
 
-export const addAccount: (name: string, accessCode: string, issuer: string, epoch: number, algorithm: string) => Action<Account> = 
+export const pointSearch: (name: string, accessCode: string, issuer: string, epoch: number, algorithm: string) => Action<Account> = 
     createAction<Account>(
         ADD_ACCOUNT, (name: string,accessCode: string,issuer: string,epoch: number,algorithm: string) => { 
             return(
@@ -21,7 +21,7 @@ export const addAccount: (name: string, accessCode: string, issuer: string, epoc
 );
 
 
-export const addAccountQrCode: (qstr: string) => Action<Account> = 
+export const pointSearchQrCode: (qstr: string) => Action<Account> = 
     createAction<Account>(
         ADD_ACCOUNT, (qstr: string) => { 
             const AccountName = qstr.split("otpauth://totp/")[1].split("?")[0]

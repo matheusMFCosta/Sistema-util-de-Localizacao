@@ -5,7 +5,7 @@ import  QrCodeInputheader  from './qrCodeInputHeader'
 import { View, StyleSheet, Picker, Text } from 'react-native'
 import React, { PropTypes } from 'react'
 import { changeAccountName, changeAccountCodeInput, changeAccountOwnerInput } from './../actions'
-import { addAccount } from './../../main/actions'
+import { pointSearch } from './../../main/actions'
 var { Actions } = require('react-native-router-flux')
 var { Container, Content, Form, Item, Label, Input,Button, Footer, FooterTab } = require('native-base');
 
@@ -19,14 +19,14 @@ interface QrCodeReaderProps {
     changeAccountName: Function,
     changeAccountCodeInput: Function,
     changeAccountOwnerInput: Function,
-    addAccount: Function
+    pointSearch: Function
 }
 
 
 class QrCodeInput extends React.Component<QrCodeReaderProps,{}> {
 
-    onSaveAccount(addAccount:Function,changeScreen): void {
-        addAccount();
+    onSaveAccount(pointSearch:Function,changeScreen): void {
+        pointSearch();
         changeScreen();
     }
 
@@ -72,7 +72,7 @@ class QrCodeInput extends React.Component<QrCodeReaderProps,{}> {
                                 <FooterTab>
                                     <Button 
                                         onPress={() => this.onSaveAccount(
-                                            () => this.props.addAccount(
+                                            () => this.props.pointSearch(
                                                 this.props.accountName,
                                                 this.props.accountSecret,
                                                 this.props.accountOwner,
@@ -80,7 +80,7 @@ class QrCodeInput extends React.Component<QrCodeReaderProps,{}> {
                                                 "SHA-1"
 
                                             ),
-                                            () => Actions.ListMethods()
+                                            () => Actions.App()
                                         )}
                                     >
                                         <Text>Save</Text>
@@ -117,14 +117,14 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state,ownProps) => ({
-    accountName: state.addAccount.accountName,
-    accountSecret: state.addAccount.accountSecret,
-    accountOwner: state.addAccount.accountOwner,
+    accountName: state.pointSearch.accountName,
+    accountSecret: state.pointSearch.accountSecret,
+    accountOwner: state.pointSearch.accountOwner,
   });
 
 const mapDispatchToProps = dispatch => ({
-  addAccount: (name: string,accessCode: string,issuer: string,epoch: number,algorithm: string) =>
-    dispatch(addAccount(name,accessCode,issuer,epoch,algorithm)),
+  pointSearch: (name: string,accessCode: string,issuer: string,epoch: number,algorithm: string) =>
+    dispatch(pointSearch(name,accessCode,issuer,epoch,algorithm)),
   changeAccountName: (AccountName: any) =>
     dispatch(changeAccountName(AccountName)),
   changeAccountCodeInput: (accessCode: string) =>

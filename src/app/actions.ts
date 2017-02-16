@@ -1,5 +1,5 @@
 import { Action, createAction } from 'redux-actions';
-import { ListMethods } from './listMethods'
+import { App } from './app'
 
 export const TESTE = "TESTE";
 export const CHANGE_ADD_CODE_FOOTER_STATUS = "CHANGE_ADD_CODE_FOOTER_STATUS";

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 var { Actions } = require('react-native-router-flux')
 import React, { PropTypes } from 'react'
 import { setCameraBeOpenStatus, changeAccountCodeInput } from './../actions'
-import { addAccountQrCode } from './../../main/actions'
+import { pointSearchQrCode } from './../actions'
 import {AppRegistry,
     StyleSheet,
     Text,
@@ -19,7 +19,7 @@ interface QrCodeReaderProps {
     shouldCameraBeOpen: boolean,
     setCameraBeOpenStatus: Function,
     changeAccountCodeInput: Function,
-    addAccountQrCode: Function
+    pointSearchQrCode: Function
 }
 
 
@@ -31,14 +31,14 @@ class QrCodeReader extends React.Component<QrCodeReaderProps,{}> {
 
     onBarCodeRead(barcode:string): void {
         this.props.setCameraBeOpenStatus(false);
-        this.props.addAccountQrCode(barcode);
-        Actions.ListMethods();
+        this.props.pointSearchQrCode(barcode);
+        Actions.ShowMap();
     }
 
     capture(): void {
         this.props.setCameraBeOpenStatus(false);
-        this.props.addAccountQrCode("otpauth://totp/vtex.com?secret=JBSWY3DPEHPK3PXZ&issuer=Vtex")    
-        Actions.ListMethods();
+        this.props.pointSearchQrCode("otpauth://totp/vtex.com?secret=JBSWY3DPEHPK3PXZ&issuer=Vtex")    
+        Actions.ShowMap();
     }
 
     render(): JSX.Element {
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state,ownProps) => ({
-    shouldCameraBeOpen: state.addAccount.shouldCameraBeOpen,
+    shouldCameraBeOpen: state.pointSearch.shouldCameraBeOpen,
   });
 
 const mapDispatchToProps = dispatch => ({
@@ -89,8 +89,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setCameraBeOpenStatus(status)),
   changeQrCode: (qrCode:string) =>
     dispatch(changeAccountCodeInput(qrCode)),
-  addAccountQrCode: (qrCode:string) =>
-    dispatch(addAccountQrCode(qrCode))
+  pointSearchQrCode: (qrCode:string) =>
+    dispatch(pointSearchQrCode(qrCode))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QrCodeReader);

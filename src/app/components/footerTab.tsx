@@ -37,7 +37,7 @@ export default class footerTab extends React.Component<Appprops,{}> {
                                 <Text>Read Code</Text>
                             </Button>
                             <Button onPress={()=> this.onReadCode(Actions.QrCodeInput,this.props.changeAddCodeFooterStatus)} >
-                                <Text>Insert Code</Text>
+                                <Text>Insert location</Text>
                             </Button>
                         </FooterTab>
                     </Footer>
@@ -53,12 +53,11 @@ const flexDirection:flexDirectionType = "column";
 
 const styles = StyleSheet.create({
   overlay:{
-    position: 'absolute',
-    top: 0,
+    flex:1,
+    flexDirection: flexDirection,
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0,0,0,0.2)'
   }
 }); 
 

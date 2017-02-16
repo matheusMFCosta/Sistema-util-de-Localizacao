@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import { listMethodsReducer } from './../listMethods/reducers'
-import { addAccountReducer } from './../addAccount/reducers'
+import { appReducer } from './../app/reducers'
+import { pointSearchReducer } from './../pointSearch/reducers'
 import { mainReducer } from './../main/reducers'
 
 export default  combineReducers({
-  listMethods: listMethodsReducer,
-  addAccount: addAccountReducer,
+  app: appReducer,
+  pointSearch: pointSearchReducer,
   main: mainReducer
 });
