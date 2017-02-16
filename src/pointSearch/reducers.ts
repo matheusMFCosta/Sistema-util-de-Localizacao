@@ -9,8 +9,7 @@ import {
   CHANGE_ACCOUNT_OWNER_INPUT,
   SET_MAPS_DATA_FROM_SERVER,
   SET_DESTINATION_POINT,
-  SET_ORIGIN_POINT,
-  SET_MAPS_IMAGE_FROM_SERVER
+  SET_ORIGIN_POINT
 } from './actions'
 
 const destinationPointInitialState:destinationPoint = {
@@ -74,9 +73,6 @@ export const pointSearchReducer  = handleActions<AddAccount>({
     },
     [SET_MAPS_DATA_FROM_SERVER]: (state : AddAccount , action : Action<any>): AddAccount => {
         return assign(state, { pathPoints: [...state.pathPoints, ...action.payload.pathPoints],mapsData: action.payload.maps, pointsOfInterest: action.payload.pointsOfInterest } );
-    },
-    [SET_MAPS_DATA_FROM_SERVER]: (state : AddAccount , action : Action<any>): AddAccount => {
-        return assign(state, { mapsImage:  action.payload } );
     },
     [SET_DESTINATION_POINT]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
         return assign(state, { pathPoints: addNewNodePathPointMap(state.pathPoints,action.payload),destinationPoint: action.payload } );

@@ -7,7 +7,7 @@ export const CHANGE_ACCOUNT_CODE_INPUNT = "CHANGE_ACCOUNT_CODE_INPUNT";
 export const CHANGE_ACCOUNT_OWNER_INPUT = "CHANGE_ACCOUNT_OWNER_INPUT"
 export const POINT_SEARCH_QR_CODE = "POINT_SEARCH_QR_CODE"
 export const SET_MAPS_DATA_FROM_SERVER = "SET_MAPS_DATA_FROM_SERVER"
-export const SET_MAPS_IMAGE_FROM_SERVER = "SET_MAPS_IMAGE_FROM_SERVER"
+
 
 export const GET_DESTINATION_POINT_DETAILS = "GET_DESTINATION_POINT_DETAILS"
 export const SET_DESTINATION_POINT = "SET_DESTINATION_POINT"
@@ -32,8 +32,6 @@ export const changeAccountOwnerInput: (issuer:string) =>
 export const pointSearchQrCode: (qstr: string) => Action<string> = createAction<string>(POINT_SEARCH_QR_CODE);
 
 export const setMapsDataFromServer: (route:pathPoints) => Action<pathPoints> = createAction<pathPoints>(SET_MAPS_DATA_FROM_SERVER);
-
-export const setMapsImageFromServer: (route:pathPoints) => Action<pathPoints> = createAction<pathPoints>(SET_MAPS_IMAGE_FROM_SERVER);
 
 export const getOriginPointDetails: (id:string) => Action<string> = createAction<string>(GET_ORIGIN_POINT_DETAILS);
 

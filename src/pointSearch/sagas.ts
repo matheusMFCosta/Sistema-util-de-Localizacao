@@ -34,32 +34,6 @@ function* getMapPathPoints(action): IterableIterator<any> {
 }   
 
 
-function getMapImage() {
-  return fetch(`https://miex-food.herokuapp.com/teste/images/graph2`, {
-      method: 'GET',
-    })
-      .then(response => {
-       if(response.ok){
-         return response.blob()
-       } else {
-         return Promise.reject(response);
-       }
-    })
-    .then(
-      response => ({response}),
-      error => ({error: {message:'Something bad happened'}})
-    )
-} 
-
-
-
-function* setMapsImageFromServer(action): IterableIterator<any> {
-        
-      const { response , error}  = yield call(getMapImage);
-      console.log(response , error)
-      //yield put(actions.setMapsDataFromServer(response));
-}   
-
 
 function* getDestinationPointDetails(action): IterableIterator<any> {
     
@@ -104,5 +78,5 @@ export function* watchGetOriginPointDetails(action): IterableIterator<any> {
 }
 
 export function* watchSetMapsDataFromServer(action): IterableIterator<any> {
-  yield* takeLatest( actions.SET_MAPS_DATA_FROM_SERVER, setMapsImageFromServer);
+  yield* takeLatest( actions.SET_MAPS_DATA_FROM_SERVER, watchSetMapsDataFromServer);
 }

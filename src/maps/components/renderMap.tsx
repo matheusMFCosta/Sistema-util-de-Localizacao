@@ -28,7 +28,7 @@ interface Appprops {
                 imageHeight={600}>
                 <View>
                     <Image style={{width:800, height:600,position:'absolute'}}
-                        source={this.props.map}/>
+                        source={{uri:'https://miex-food.herokuapp.com/teste/images/graph2'}}/>
                     <View style={{position:'absolute'}}>
                         <DrawPath
                             getPathMap={this.props.getPathMap}
