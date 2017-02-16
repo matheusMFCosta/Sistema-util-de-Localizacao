@@ -80,7 +80,7 @@ class QrCodeInput extends React.Component<QrCodeReaderProps,{}> {
                                                 "SHA-1"
 
                                             ),
-                                            () => Actions.App()
+                                            () => Actions.DestinationPoint()
                                         )}
                                     >
                                         <Text>Save</Text>

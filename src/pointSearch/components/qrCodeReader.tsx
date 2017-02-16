@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 var { Actions } = require('react-native-router-flux')
 import React, { PropTypes } from 'react'
 import { setCameraBeOpenStatus, changeAccountCodeInput } from './../actions'
-import { pointSearchQrCode } from './../actions'
+import { pointSearchQrCode, getOriginPointDetails } from './../actions'
 import {AppRegistry,
     StyleSheet,
     Text,
@@ -19,7 +19,8 @@ interface QrCodeReaderProps {
     shouldCameraBeOpen: boolean,
     setCameraBeOpenStatus: Function,
     changeAccountCodeInput: Function,
-    pointSearchQrCode: Function
+    pointSearchQrCode: Function,
+    getOriginPointDetails: Function
 }
 
 
@@ -31,14 +32,17 @@ class QrCodeReader extends React.Component<QrCodeReaderProps,{}> {
 
     onBarCodeRead(barcode:string): void {
         this.props.setCameraBeOpenStatus(false);
+
         this.props.pointSearchQrCode(barcode);
-        Actions.ShowMap();
+        Actions.DestinationPoint();
     }
 
     capture(): void {
+                this.props.pointSearchQrCode("otpauth://totp/vtex.com?secret=JBSWY3DPEHPK3PXZ&issuer=Vtex")    
         this.props.setCameraBeOpenStatus(false);
-        this.props.pointSearchQrCode("otpauth://totp/vtex.com?secret=JBSWY3DPEHPK3PXZ&issuer=Vtex")    
-        Actions.ShowMap();
+        this.props.getOriginPointDetails("orig")
+
+        Actions.DestinationPoint();
     }
 
     render(): JSX.Element {
@@ -90,7 +94,10 @@ const mapDispatchToProps = dispatch => ({
   changeQrCode: (qrCode:string) =>
     dispatch(changeAccountCodeInput(qrCode)),
   pointSearchQrCode: (qrCode:string) =>
-    dispatch(pointSearchQrCode(qrCode))
+    dispatch(pointSearchQrCode(qrCode)),
+  getOriginPointDetails: (id:string) =>
+    dispatch(getOriginPointDetails(id))
+    
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QrCodeReader);

@@ -5,6 +5,14 @@ export interface pathPoint{
     y: number
 }
 
+export interface destinationPoint{
+    id: string,
+    adjacentes: any
+    description: string,
+    x: number,
+    y: number
+}
+
 // export interface pathPoints{
 //     items: Array<pathPoint>
 // }

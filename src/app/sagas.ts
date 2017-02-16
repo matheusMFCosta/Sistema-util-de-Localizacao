@@ -27,7 +27,7 @@ export function* runTimer(): IterableIterator<any> {
 }
 
 function* removePolicyStatement(action): IterableIterator<any> {
-    console.log("WOOOOOW2");
+    
 }
 
 
