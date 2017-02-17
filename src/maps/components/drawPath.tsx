@@ -7,53 +7,58 @@ import { pathPoint, pathPoints, destinationPoint } from './../maps'
 import { connect } from 'react-redux'
 
 const DrawLines = (props) => {
-  const keys: Array<string> = props.getPathMap()
-  return(
-    <G>
-      {keys.map((key,index) =>{
-            const originCordenates = props.getPointCordenates(key,props.pathPoints) 
-            const destinationCordenates = props.getPointCordenates(keys[index+1],props.pathPoints) 
-          if(index < keys.length -1){
-              
-              return(
-                <G key={index}>
-                    <Circle
-                    cx={originCordenates.x}
-                    cy={originCordenates.y}
-                    r="5"
-                    fill="pink"/>
-                    <Line
-                        key={index}
-                        x1={originCordenates.x}
-                        y1={originCordenates.y}
-                        x2={destinationCordenates.x}
-                        y2={destinationCordenates.y}
-                        stroke="red"
-                        strokeWidth="2"/>
-                </G>
-             )
-          } else {
-              return(
-                <G key={index} >
-                    <Circle
+  console.log(props)
+  if(props.pathOriginToDestinationCurrentMap){
+    const keys: Array<string> = props.pathOriginToDestinationCurrentMap;
+    return(
+        <G>
+        {keys.map((key,index) =>{
+                const originCordenates = props.getPointCordenates(key,props.pathPoints) 
+                const destinationCordenates = props.getPointCordenates(keys[index+1],props.pathPoints) 
+            if(index < keys.length -1){
+                
+                return(
+                    <G key={index}>
+                        <Circle
                         cx={originCordenates.x}
                         cy={originCordenates.y}
                         r="5"
                         fill="pink"/>
-                </G>
-              )
-          }
+                        <Line
+                            key={index}
+                            x1={originCordenates.x}
+                            y1={originCordenates.y}
+                            x2={destinationCordenates.x}
+                            y2={destinationCordenates.y}
+                            stroke="red"
+                            strokeWidth="2"/>
+                    </G>
+                )
+            } else {
+                return(
+                    <G key={index} >
+                        <Circle
+                            cx={originCordenates.x}
+                            cy={originCordenates.y}
+                            r="5"
+                            fill="pink"/>
+                    </G>
+                )
+            }
 
-      })}
-    </G>
-  )
+        })}
+        </G>
+    )
+  } else {
+      return( <G></G>)
+  }
 
 }
 
 interface Appprops {
     getPointCordenates: Function
     pathPoints: pathPoints,
-    getPathMap: Function
+    pathOriginToDestinationCurrentMap: Array<string>
 }
 
 class drawPath extends React.Component<Appprops,{}> {
@@ -67,7 +72,7 @@ class drawPath extends React.Component<Appprops,{}> {
                 height={800}
                 width={1000}>
                     <DrawLines
-                        getPathMap={this.props.getPathMap}
+                        pathOriginToDestinationCurrentMap={this.props.pathOriginToDestinationCurrentMap}
                         pathPoints={this.props.pathPoints}
                         getPointCordenates={this.props.getPointCordenates} 
                     />

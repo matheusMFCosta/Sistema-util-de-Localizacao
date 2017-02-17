@@ -45,7 +45,8 @@ const pointSearchInitialState: AddAccount = {
     mapsImage: [],
     pointsOfInterest: pointsOfInterestInitialState,
     destinationPoint: destinationPointInitialState,
-    originPoint: destinationPointInitialState
+    originPoint: destinationPointInitialState,
+    pathOriginToDestinationCurrentMap: []
 } 
 
 interface setDestinationPont {

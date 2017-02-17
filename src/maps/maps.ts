@@ -32,6 +32,12 @@ export interface pointsOfInterest{
     y: number
 }
 
+export interface Maps{
+    pathOriginToDestinationCurrentMap: Array<string>
+    pathOriginToDestinationHoleMap: Array<string>
+    currentMapData: mapsData
+}
+
 export type mapsImage = Array<any>
 
 export type pathPoints = Array<pathPoint>
