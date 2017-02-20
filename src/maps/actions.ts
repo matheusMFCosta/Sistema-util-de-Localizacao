@@ -1,14 +1,10 @@
 import { Action, createAction }from 'redux-actions';
 
-
-export const CHANGE_PATH_ORIGIN_TO_DESTINATION_CURRENT_MAP = "CHANGE_PATH_ORIGIN_TO_DESTINATION_CURRENT_MAP"
-export const CHANGE_PATH_ORIGIN_TO_DESTINATION_HOLE_MAP = "CHANGE_PATH_ORIGIN_TO_DESTINATION_HOLE_MAP"
 export const SWAP_NEXT_MAP_BUTTON_PRESS = "SWAP_NEXT_MAP_BUTTON_PRESS"
 export const SWAP_PREVIOUS_MAP_BUTTON_PRESS = "SWAP_PREVIOUS_MAP_BUTTON_PRESS"
+export const BUILD_PATH_STEPS = "BUILD_PATH_STEPS"
 
-export const changePathOriginToDestinationCurrentMap: (path: Array<string>) => Action<Array<string>> = createAction<Array<string>>(CHANGE_PATH_ORIGIN_TO_DESTINATION_CURRENT_MAP);
-
-export const changePathOriginToDestinationHoleMap: (path: Array<string>) => Action<Array<string>> = createAction<Array<string>>(CHANGE_PATH_ORIGIN_TO_DESTINATION_HOLE_MAP);
+export const buildPathSteps: (path: Array<any>) => Action<Array<any>> = createAction<Array<any>>(BUILD_PATH_STEPS);
 
 export const swapNextMapButtonPress: () => Action<Array<void>> = createAction<void>(SWAP_NEXT_MAP_BUTTON_PRESS);
 

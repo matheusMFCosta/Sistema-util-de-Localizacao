@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { mapsData } from './../maps'
-var { Actions } = require('react-native-router-flux')
 var { Container, Content, Footer, FooterTab, Button } = require('native-base');
 
 interface FooterSwapMapsprops {

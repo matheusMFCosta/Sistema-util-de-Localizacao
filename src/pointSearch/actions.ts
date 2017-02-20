@@ -2,29 +2,21 @@ import { Action, createAction }from 'redux-actions';
 import { pathPoint, pathPoints, destinationPoint } from './../maps/maps'
 
 export const SET_CAMERA_BE_OPEN_STATUS = "SET_CAMERA_BE_OPEN_STATUS";
-export const CHANGE_ACCONT_NAME_INPUT = "CHANGE_ACCONT_NAME_INPUT";
-export const CHANGE_ACCOUNT_CODE_INPUNT = "CHANGE_ACCOUNT_CODE_INPUNT";
-export const CHANGE_ACCOUNT_OWNER_INPUT = "CHANGE_ACCOUNT_OWNER_INPUT"
 export const POINT_SEARCH_QR_CODE = "POINT_SEARCH_QR_CODE"
 export const SET_MAPS_DATA_FROM_SERVER = "SET_MAPS_DATA_FROM_SERVER"
 export const GET_DESTINATION_POINT_DETAILS = "GET_DESTINATION_POINT_DETAILS"
 export const SET_DESTINATION_POINT = "SET_DESTINATION_POINT"
 export const GET_ORIGIN_POINT_DETAILS = "GET_ORIGIN_POINT_DETAILS"
 export const SET_ORIGIN_POINT = "SET_ORIGIN_POINT"
-
+export const CHANGE_POINT_FIND_FILTER = "CHANGE_POINT_FIND_FILTER"
 //export const teste: () => Action = createAction<null>(TESTE)
 
 export const setCameraBeOpenStatus: (status:boolean) => 
     Action<boolean> = createAction<boolean>(SET_CAMERA_BE_OPEN_STATUS);
 
-export const changeAccountName: (accountName:string) => 
-    Action<string> = createAction<string>(CHANGE_ACCONT_NAME_INPUT);
 
-export const changeAccountCodeInput: (accessCode:string) => 
-    Action<string> = createAction<string>(CHANGE_ACCOUNT_CODE_INPUNT);
-
-export const changeAccountOwnerInput: (issuer:string) => 
-    Action<string> = createAction<string>(CHANGE_ACCOUNT_OWNER_INPUT);
+export const changePointFindFilter: (issuer:string) => 
+    Action<string> = createAction<string>(CHANGE_POINT_FIND_FILTER);
 
 
 export const pointSearchQrCode: (qstr: string) => Action<string> = createAction<string>(POINT_SEARCH_QR_CODE);

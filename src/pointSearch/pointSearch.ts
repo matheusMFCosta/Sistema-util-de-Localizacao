@@ -1,9 +1,7 @@
 import { pathPoints, destinationPoint, mapsData, pointsOfInterest, mapsImage } from './../maps/maps'
 
 export interface AddAccount {
-    accountName: string,
-    accountOwner: string,
-    accountSecret: string,
+    pointFindFilter: string,
     shouldCameraBeOpen: boolean,
     pathPoints: pathPoints,
     mapsData: mapsData,

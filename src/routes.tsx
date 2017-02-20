@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import App from './app/index'
 import QrCodeReader from './pointSearch/components/qrCodeReader'
 import FooterTab from './app/components/footerTab'
-import QrcodeInput from './pointSearch/components/qrCodeInput'
+import OriginPoint from './pointSearch/components/originPoint'
 import ShowMap from './maps/index'
 import DestinationPoint from './pointSearch/components/destinationPoint'
 
@@ -18,7 +18,7 @@ export default class Routes extends React.Component <{},{}> {
               <Scene key="App" component={App}   initial={true} />      
               <Scene key="footer" component={FooterTab}/>      
               <Scene key="QrCodeReader" component={QrCodeReader}/>
-              <Scene key="QrCodeInput" component={QrcodeInput}/>
+              <Scene key="OriginPoint" component={OriginPoint}/>
               <Scene key="ShowMap" component={ShowMap} />
               <Scene key="DestinationPoint" component={DestinationPoint} />
               

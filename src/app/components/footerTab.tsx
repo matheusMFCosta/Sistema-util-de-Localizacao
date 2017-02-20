@@ -36,7 +36,7 @@ export default class footerTab extends React.Component<Appprops,{}> {
                             <Button onPress={()=> this.onReadCode(Actions.QrCodeReader,this.props.changeAddCodeFooterStatus)}>
                                 <Text>Read Code</Text>
                             </Button>
-                            <Button onPress={()=> this.onReadCode(Actions.QrCodeInput,this.props.changeAddCodeFooterStatus)} >
+                            <Button onPress={()=> this.onReadCode(Actions.OriginPoint,this.props.changeAddCodeFooterStatus)} >
                                 <Text>Insert location</Text>
                             </Button>
                         </FooterTab>

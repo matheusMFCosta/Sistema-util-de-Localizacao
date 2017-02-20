@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import  QrCodeInputheader  from './qrCodeInputHeader'
 import { View, StyleSheet, Picker, Text } from 'react-native'
 import React, { PropTypes } from 'react'
-import { changePointFindFilter, getDestinationPointDetails, setDestinationPoint } from './../actions'
+import { changePointFindFilter, setOriginPoint } from './../actions'
 import { pointsOfInterest } from './../../maps/maps'
 var { Actions } = require('react-native-router-flux')
 var { Container, Header, Title, Button, Left, Body, Icon, Form, Content, Item, Label, Input, ListItem, Right, List } = require('native-base');
@@ -14,9 +14,8 @@ const PickerItem = Picker.Item;
 interface QrCodeReaderProps {
     pointFindFilter: string,
     changePointFindFilter: Function,
-    getDestinationPointDetails: Function,
     pointsOfInterest: Array<pointsOfInterest>,
-    setDestinationPoint: Function
+    setOriginPoint: Function
 }
 
 
@@ -41,10 +40,7 @@ const DestinationList = (props) => {
 
 class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
 
-    onSaveAccount(changeScreen): void {
-        this.props.getDestinationPointDetails("Dest");
-        changeScreen();
-    }
+
 
     render(): JSX.Element {
             return (
@@ -70,7 +66,7 @@ class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
                         <Content>
                             <Form>
                                 <Item floatingLabel last>
-                                    <Label>Find</Label>
+                                    <Label>Owner Name</Label>
                                     <Input 
                                         value={this.props.pointFindFilter} 
                                         onChange={(e) => this.props.changePointFindFilter(e.nativeEvent.text)}/>
@@ -83,20 +79,14 @@ class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
                         <List dataArray={this.props.pointsOfInterest} renderRow={(key) =>{
                             return(
                                 <DestinationList 
-                                    setDestinationPoint={this.props.setDestinationPoint} 
+                                    setOriginPoint={this.props.setOriginPoint} 
                                     pointData={key} 
                                     pointFilter={this.props.pointFindFilter} />
                             )
-                        }}/>
+                        }
+                        } />
                     </Content>
                 </Container>
-                <Button 
-                    onPress={() => this.onSaveAccount(
-                        () => Actions.ShowMap()
-                    )}
-                >
-                    <Text>Save</Text>
-                </Button>
             </View>
         );
     }
@@ -130,11 +120,8 @@ const mapStateToProps = (state,ownProps) => ({
   });
 
 const mapDispatchToProps = dispatch => ({
-
-  getDestinationPointDetails: (pointId:string) =>
-    dispatch(getDestinationPointDetails(pointId)),
-  setDestinationPoint: (pointData:pointsOfInterest) =>
-    dispatch(setDestinationPoint(pointData)),
+  setOriginPoint: (pointData:pointsOfInterest) =>
+    dispatch(setOriginPoint(pointData)),
   changePointFindFilter: (issuer: string) =>
     dispatch(changePointFindFilter(issuer))
 });

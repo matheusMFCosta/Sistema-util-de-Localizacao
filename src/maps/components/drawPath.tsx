@@ -1,15 +1,12 @@
 import React from 'react'
-import {  View, Image, Dimensions } from 'react-native'
-var { ImageZoom } = require('react-native-image-pan-zoom');
-var { Actions } = require('react-native-router-flux')
+import { Image } from 'react-native'
 var { Line, Svg, G, Circle } = require('react-native-svg');
-import { pathPoint, pathPoints, destinationPoint } from './../maps'
+import { pathPoint, pathPoints } from './../maps'
 import { connect } from 'react-redux'
 
 const DrawLines = (props) => {
-  console.log(props)
   if(props.pathOriginToDestinationCurrentMap){
-    const keys: Array<string> = props.pathOriginToDestinationCurrentMap;
+    const keys: Array<string> = props.pathOriginToDestinationCurrentMap.keys;
     return(
         <G>
         {keys.map((key,index) =>{

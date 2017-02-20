@@ -8,7 +8,7 @@ export interface pathPoint{
 
 export interface destinationPoint{
     id: string,
-    adjacentes: any
+    adjacentes: any,
     description: string,
     mapReference: string,
     x: number,
@@ -33,9 +33,8 @@ export interface pointsOfInterest{
 }
 
 export interface Maps{
-    pathOriginToDestinationCurrentMap: Array<string>
-    pathOriginToDestinationHoleMap: Array<string>
-    currentMapData: mapsData
+    currentMapindex: number,
+    pathSteps: Array<any>
 }
 
 export type mapsImage = Array<any>

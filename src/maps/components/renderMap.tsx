@@ -1,9 +1,7 @@
 import React from 'react'
-import {  View, Image, Dimensions } from 'react-native'
+import { View, Image, Dimensions } from 'react-native'
 var { ImageZoom } = require('react-native-image-pan-zoom');
-var { Line, Svg, G, Circle } = require('react-native-svg');
-import { pathPoint, pathPoints, destinationPoint, mapsData } from './../maps'
-import { connect } from 'react-redux'
+import { pathPoint, pathPoints, mapsData } from './../maps'
 import DrawPath from './drawPath'
 
 interface Appprops {

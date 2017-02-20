@@ -1,32 +1,27 @@
 import React from 'react'
-import {  View, Image, Dimensions, StyleSheet } from 'react-native'
-var { ImageZoom } = require('react-native-image-pan-zoom');
-var { Actions } = require('react-native-router-flux')
-var { Line, Svg, G, Circle } = require('react-native-svg');
+import {  View, StyleSheet } from 'react-native'
 import RenderMap from './components/renderMap'
 import { pathPoints, destinationPoint, mapsData } from './maps'
 import { connect } from 'react-redux'
 import { 
-    changePathOriginToDestinationCurrentMap, 
-    changePathOriginToDestinationHoleMap, 
     swapNextMapButtonPress,
-    swapPreviousMapButtonPress } from './actions'
+    swapPreviousMapButtonPress,
+    buildPathSteps } from './actions'
 import  FooterSwapMaps from './components/footerSwapMaps'
 var image = require('./../../images/base/graph2.png')
- const Graph = require('node-dijkstra')
+const Graph = require('node-dijkstra')
 
 
 interface Appprops {
   pathPoints: pathPoints,
   destinationPoint: destinationPoint,
   originPoint: destinationPoint,
-  getPathMap: Function,
-  changePathOriginToDestinationCurrentMap: Function
-  changePathOriginToDestinationHoleMap: Function
-  pathOriginToDestinationCurrentMap: Array<string>
   swapNextMapButtonPress: Function
   swapPreviousMapButtonPress: Function,
-  currentMapData: mapsData
+  buildPathSteps: Function,
+  currentMapindex: number,
+  mapsData: mapsData,
+  pathSteps: Array<any>
 }
 
 class app extends React.Component<Appprops,{}> {
@@ -35,31 +30,29 @@ class app extends React.Component<Appprops,{}> {
     }
 
     componentDidMount(){
-       }
-
-      getCurrentPathMap(holePath,currentMap,pathPoints): Array<string>{
-        const route = new Graph()
+        const holePath = this.getHolePathMap(this.props.pathPoints,this.props.originPoint,this.props.destinationPoint)
+        this.buildPathSteps(holePath,this.props.pathPoints)
+    }
+    buildPathSteps(holePath,pathPoints){
         let path:any =[]
+        let object:any = {keys:[]}
+        let currentMap = ""
         for(let key in holePath){
-            console.log("key:",holePath[key])
-            console.log(this.getPointMapReference(holePath[key],pathPoints))
-            if(this.getPointMapReference(holePath[key],pathPoints) == currentMap.id){
-              path.push(holePath[key])
+            if(this.getPointMapReference(holePath[key],pathPoints) == currentMap && object.mapReference){
+              object.keys.push(holePath[key])
+            }
+            if(!object.mapReference){
+              object = {mapReference: this.getPointMapReference(holePath[key],pathPoints), keys:[holePath[key]]}
+              currentMap = this.getPointMapReference(holePath[key],pathPoints)
+            }
+            if(this.getPointMapReference(holePath[key],pathPoints) != currentMap){
+              currentMap = this.getPointMapReference(holePath[key],pathPoints)
+              path.push(object)
+              object = {mapReference: this.getPointMapReference(holePath[key],pathPoints), keys:[holePath[key]]}
             }
         }
-
-        return path
-
-        // return adjacentesDistancemap;
-    }
-    componentWillReceiveProps(nextProps){
-      if(this.props.currentMapData != nextProps.currentMapData){
-         const holePath = this.getHolePathMap(nextProps.pathPoints,nextProps.originPoint,nextProps.destinationPoint)
-      console.log(holePath)
-      this.props.changePathOriginToDestinationHoleMap(holePath)
-      this.props.changePathOriginToDestinationCurrentMap(this.getCurrentPathMap(holePath,nextProps.currentMapData,nextProps.pathPoints)) 
-  
-      }
+        path.push(object)
+        this.props.buildPathSteps(path)
     }
 
     getHolePathMap(pathPoints,originPoint,destinationPoint ): Array<string>{
@@ -67,17 +60,12 @@ class app extends React.Component<Appprops,{}> {
         for(let key in pathPoints){
         route.addNode(pathPoints[key].id, pathPoints[key].adjacentes)
         }
-
         return route.path(originPoint.id, destinationPoint.id)
-        
-        
-        // return adjacentesDistancemap;
     }
 
       getPointMapReference(id,pathPoints){
         const items = pathPoints
         for(let key in items){
-          console.log(items[key].id,id)
           if(items[key].id == id){
             return items[key].mapReference
           } 
@@ -102,12 +90,14 @@ class app extends React.Component<Appprops,{}> {
       }
 
     render(): JSX.Element {
+        const currentMapData = this.props.mapsData[this.props.currentMapindex]
+        const pathOriginToDestinationCurrentMap = this.props.pathSteps[this.props.currentMapindex]
         return(
           <View style={styles.footer}>
             <View style={styles.main}>
               <RenderMap 
-                currentMapData={this.props.currentMapData}
-                pathOriginToDestinationCurrentMap={this.props.pathOriginToDestinationCurrentMap}
+                currentMapData={currentMapData}
+                pathOriginToDestinationCurrentMap={pathOriginToDestinationCurrentMap}
                 getPointCordenates={this.getPointCordenates} 
                 pathPoints={this.props.pathPoints} 
                 map={image} 
@@ -115,7 +105,7 @@ class app extends React.Component<Appprops,{}> {
               </View>
             <View style={styles.footer}>
               <FooterSwapMaps 
-                    currentMapData={this.props.currentMapData}
+                    currentMapData={currentMapData}
                     swapNextMapButtonPress={this.props.swapNextMapButtonPress}
                     swapPreviousMapButtonPress={this.props.swapPreviousMapButtonPress}
               />
@@ -144,19 +134,18 @@ const mapStateToProps = (state,ownProps) => ({
    pathPoints: state.pointSearch.pathPoints,
    destinationPoint: state.pointSearch.destinationPoint,
    originPoint: state.pointSearch.originPoint,
-   pathOriginToDestinationCurrentMap: state.maps.pathOriginToDestinationCurrentMap,
-   currentMapData: state.maps.currentMapData
+   currentMapindex: state.maps.currentMapindex,
+   mapsData: state.pointSearch.mapsData,
+   pathSteps: state.maps.pathSteps
   });
 
 const mapDispatchToProps = dispatch => ({
-  changePathOriginToDestinationCurrentMap: (path: Array<string>) =>
-    dispatch(changePathOriginToDestinationCurrentMap(path)),
-  changePathOriginToDestinationHoleMap: (path: Array<string>) =>
-    dispatch(changePathOriginToDestinationHoleMap(path)),
   swapNextMapButtonPress: () =>
     dispatch(swapNextMapButtonPress()),
   swapPreviousMapButtonPress: () =>
-    dispatch(swapPreviousMapButtonPress())
+    dispatch(swapPreviousMapButtonPress()),
+  buildPathSteps: (steps) =>
+    dispatch(buildPathSteps(steps))
   
 
 });
