@@ -2,16 +2,15 @@ import { takeEvery, takeLatest } from 'redux-saga'
 
 import { actionChannel, call, take, put, race } from 'redux-saga/effects'
 import { pathPoints, destinationPoint } from './../maps/maps'
-import fetch from 'isomorphic-fetch';
+// import fetch from 'isomorphic-fetch';
+
 import * as actions from './actions'
  const Graph = require('node-dijkstra')
 
 
 
 function getMapInformation() {
-  return fetch(`https://miex-food.herokuapp.com/teste/json`, {
-      method: 'GET',
-    })
+  return fetch('https://miex-food.herokuapp.com/teste/json')
       .then(response => {
        if(response.ok){
          return response.json()
@@ -29,8 +28,10 @@ function getMapInformation() {
 function* getMapPathPoints(action): IterableIterator<any> {
         
       const { response , error}  = yield call(getMapInformation);
-
+      console.log(action.payload)
+      
       yield put(actions.setMapsDataFromServer(response));
+      yield put(actions.setOriginPoint(action.payload))
 }   
 
 
@@ -50,15 +51,14 @@ function* getDestinationPointDetails(action): IterableIterator<any> {
 }
 
 
-
 function* getOriginPointDetails(action): IterableIterator<any> {
     
-    const destinationPoint: destinationPoint ={  
+    const destinationPoint: destinationPoint = {  
         id: "orig",
-        adjacentes: {E:1, I:1},
+        adjacentes: {M:1, U:1},
         description: "nada ainda",
         mapReference:"graph2",
-        x: 250,
+        x: 525,
         y: 430
     }
     delete destinationPoint.description;
