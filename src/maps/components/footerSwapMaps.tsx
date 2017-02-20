@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { connect } from 'react-redux'
+import { mapsData } from './../maps'
 var { Actions } = require('react-native-router-flux')
 var { Container, Content, Footer, FooterTab, Button } = require('native-base');
 
 interface FooterSwapMapsprops {
     swapNextMapButtonPress: Function
-    swapPreviousMapButtonPress: Function
+    swapPreviousMapButtonPress: Function,
+    currentMapData: mapsData
 }
 
 export default class footerSwapMaps extends React.Component<FooterSwapMapsprops,{}> {
@@ -24,6 +26,9 @@ export default class footerSwapMaps extends React.Component<FooterSwapMapsprops,
                             <Button onPress={()=> this.props.swapPreviousMapButtonPress()}>
                                 <Text>Previous</Text>
                             </Button>
+                            <Text>
+                                {this.props.currentMapData.id}
+                            </Text>
                             <Button onPress={()=> this.props.swapNextMapButtonPress()} >
                                 <Text>Next</Text>
                             </Button>

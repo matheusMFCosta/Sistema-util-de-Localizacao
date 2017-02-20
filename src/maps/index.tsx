@@ -54,13 +54,12 @@ class app extends React.Component<Appprops,{}> {
     }
     componentWillReceiveProps(nextProps){
       if(this.props.currentMapData != nextProps.currentMapData){
-         const holePath = this.getHolePathMap(this.props.pathPoints,this.props.originPoint,this.props.destinationPoint)
+         const holePath = this.getHolePathMap(nextProps.pathPoints,nextProps.originPoint,nextProps.destinationPoint)
       console.log(holePath)
       this.props.changePathOriginToDestinationHoleMap(holePath)
-      this.props.changePathOriginToDestinationCurrentMap(this.getCurrentPathMap(holePath,this.props.currentMapData,this.props.pathPoints)) 
+      this.props.changePathOriginToDestinationCurrentMap(this.getCurrentPathMap(holePath,nextProps.currentMapData,nextProps.pathPoints)) 
   
       }
-
     }
 
     getHolePathMap(pathPoints,originPoint,destinationPoint ): Array<string>{
@@ -105,7 +104,7 @@ class app extends React.Component<Appprops,{}> {
     render(): JSX.Element {
         return(
           <View style={styles.footer}>
-            <View style={styles.footer}>
+            <View style={styles.main}>
               <RenderMap 
                 currentMapData={this.props.currentMapData}
                 pathOriginToDestinationCurrentMap={this.props.pathOriginToDestinationCurrentMap}
@@ -116,6 +115,7 @@ class app extends React.Component<Appprops,{}> {
               </View>
             <View style={styles.footer}>
               <FooterSwapMaps 
+                    currentMapData={this.props.currentMapData}
                     swapNextMapButtonPress={this.props.swapNextMapButtonPress}
                     swapPreviousMapButtonPress={this.props.swapPreviousMapButtonPress}
               />
@@ -131,6 +131,10 @@ const flexDirectionColumn:flexDirectionTColumype = "column";
 const styles = StyleSheet.create({
   footer: {
     flex: 1, 
+    flexDirection: flexDirectionColumn
+  },
+  main: {
+    flex: 5, 
     flexDirection: flexDirectionColumn
   }
 })

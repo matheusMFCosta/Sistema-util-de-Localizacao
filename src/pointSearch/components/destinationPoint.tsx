@@ -4,18 +4,30 @@ import { connect } from 'react-redux'
 import  QrCodeInputheader  from './qrCodeInputHeader'
 import { View, StyleSheet, Picker, Text } from 'react-native'
 import React, { PropTypes } from 'react'
-import { changeAccountOwnerInput, getDestinationPointDetails } from './../actions'
+import { changeAccountOwnerInput, getDestinationPointDetails, setDestinationPoint } from './../actions'
+import { pointsOfInterest } from './../../maps/maps'
 var { Actions } = require('react-native-router-flux')
-var { Container, Header, Title, Button, Left, Body, Icon, Form, Content, Item, Label, Input } = require('native-base');
+var { Container, Header, Title, Button, Left, Body, Icon, Form, Content, Item, Label, Input, ListItem, Right, List } = require('native-base');
 
 const PickerItem = Picker.Item;
 
 interface QrCodeReaderProps {
     accountOwner: string,
     changeAccountOwnerInput: Function,
-    getDestinationPointDetails: Function
+    getDestinationPointDetails: Function,
+    pointsOfInterest: Array<pointsOfInterest>,
+    setDestinationPoint: Function
 }
 
+
+const DestinationList = (props) => {
+    return(
+        <ListItem onPress={()=> (props.setDestinationPoint(props.pointData),Actions.ShowMap())} >
+            <Text>{props.pointData.id}</Text>
+            <Text>{props.pointData.description}</Text>
+        </ListItem>
+    )
+}
 
 class QrCodeInput extends React.Component<QrCodeReaderProps,{}> {
 
@@ -56,14 +68,23 @@ class QrCodeInput extends React.Component<QrCodeReaderProps,{}> {
                             </Form>
                         </Content>
                     </Container>
-
-                                    <Button 
-                                        onPress={() => this.onSaveAccount(
-                                            () => Actions.ShowMap()
-                                        )}
-                                    >
-                                        <Text>Save</Text>
-                                    </Button>
+                                <Container>
+                <Content>
+                    <List dataArray={this.props.pointsOfInterest} renderRow={(key) =>{
+                        return(
+                            <DestinationList setDestinationPoint={this.props.setDestinationPoint} pointData={key} />
+                        )
+                    }
+                    } />
+                </Content>
+            </Container>
+                    <Button 
+                        onPress={() => this.onSaveAccount(
+                            () => Actions.ShowMap()
+                        )}
+                    >
+                        <Text>Save</Text>
+                    </Button>
 
 
                 </View>
@@ -95,11 +116,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state,ownProps) => ({
     accountOwner: state.pointSearch.accountOwner,
+    pointsOfInterest: state.pointSearch.pointsOfInterest
   });
 
 const mapDispatchToProps = dispatch => ({
+
   getDestinationPointDetails: (pointId:string) =>
     dispatch(getDestinationPointDetails(pointId)),
+  setDestinationPoint: (pointData:pointsOfInterest) =>
+    dispatch(setDestinationPoint(pointData)),
   changeAccountOwnerInput: (issuer: string) =>
     dispatch(changeAccountOwnerInput(issuer))
 });

@@ -39,7 +39,7 @@ function* getDestinationPointDetails(action): IterableIterator<any> {
     
     const destinationPoint: destinationPoint ={  
         id: "dest",
-        adjacentes: {P:1},
+        adjacentes: {K:1},
         description: "nada origin",
         mapReference:"graph3",
         x: 50,
