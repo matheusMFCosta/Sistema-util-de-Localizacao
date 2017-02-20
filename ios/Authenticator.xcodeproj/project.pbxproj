@@ -44,7 +44,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* AuthenticatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AuthenticatorTests.m */; };
 		3829D5A794314A18B2552EFB /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56D0A31F1D1945BCB83D5F4C /* Octicons.ttf */; };
 		3CF48BA3EB294BEBA2BA8E5F /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB919AAC358E4001AB4D68CA /* Rubik-Regular.ttf */; };
-		3F118C971E54EC0C00C7E250 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F118C961E54EAA900C7E250 /* libRNSVG.a */; };
+		3F99F4F91E5B8B5500CDE802 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4547B8ADC324DFD8E018E2B /* libRNSVG.a */; };
 		3FC1C2F51E5479C40026CA97 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FC1C2D91E5479260026CA97 /* libART.a */; };
 		5497BFCE16294070BDC06FC4 /* Comic Sans MS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0F65471D7DE458B8B244619 /* Comic Sans MS.ttf */; };
 		55358D6DAC574E24A224CDD5 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A5BEF150ECF4777BE14A8A0 /* MaterialIcons.ttf */; };
@@ -57,7 +57,6 @@
 		8562F82D22844A36AC1BC284 /* SanFrancisco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A8C083D5861943758A124E98 /* SanFrancisco.ttf */; };
 		8E4158671782433CAC632125 /* Georgia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 320B6677B5A7428696DCC268 /* Georgia.ttf */; };
 		9BDD78A51396407784CE21DF /* Arial Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC43E7BE16F6493F994DCD6D /* Arial Black.ttf */; };
-		ACD32D1DB280431D89DDC55D /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4547B8ADC324DFD8E018E2B /* libRNSVG.a */; };
 		BB29DE6707744D7A816B89C6 /* SF-UI-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DEEAB177165B454DAE6AB0A2 /* SF-UI-Text-Regular.otf */; };
 		C289BC5E16CE4A61BA322661 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6971BC483284890A170174B /* libRCTCamera.a */; };
 		C42A33D50AF44317BF9A8FF4 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2704572E1B1B447BA01E8B29 /* rubicon-icon-font.ttf */; };
@@ -314,7 +313,7 @@
 		130529BA8A5846819CB6DC26 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Authenticator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Authenticator.app; path = Authenticator2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Authenticator2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Authenticator2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Authenticator/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Authenticator/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -389,11 +388,10 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
-				3F118C971E54EC0C00C7E250 /* libRNSVG.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				3F99F4F91E5B8B5500CDE802 /* libRNSVG.a in Frameworks */,
 				C289BC5E16CE4A61BA322661 /* libRCTCamera.a in Frameworks */,
 				21B3A56C236A4561B3B36C9A /* libRNFS.a in Frameworks */,
-				ACD32D1DB280431D89DDC55D /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,7 +664,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Authenticator.app */,
+				13B07F961A680F5B00A75B9A /* Authenticator2.app */,
 				00E356EE1AD99517003FC87E /* AuthenticatorTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* Authenticator-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* Authenticator-tvOSTests.xctest */,
@@ -710,7 +708,7 @@
 			);
 			name = Authenticator;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* Authenticator.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Authenticator2.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* Authenticator-tvOS */ = {
@@ -1289,7 +1287,12 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 42P269T466;
 				INFOPLIST_FILE = Authenticator/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1309,7 +1312,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 42P269T466;
 				INFOPLIST_FILE = Authenticator/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1478,7 +1486,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1515,7 +1523,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
