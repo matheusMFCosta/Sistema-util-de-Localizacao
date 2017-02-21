@@ -23,10 +23,14 @@ const constMapsInitialState = {
 }
 export const mapsReducer  = handleActions<Maps>({
     [SWAP_NEXT_MAP_BUTTON_PRESS]: (state : Maps , action : Action<mapsData> ): Maps => {
+    if((state.currentMapindex + 1) < state.pathSteps.length )
         return assign(state, { currentMapindex: state.currentMapindex + 1} );
+    return state
     },
     [SWAP_PREVIOUS_MAP_BUTTON_PRESS]: (state : Maps , action : Action<mapsData> ): Maps => {
+    if((state.currentMapindex - 1) >= 0)
         return assign(state, { currentMapindex: state.currentMapindex - 1} );
+    return state
     },
     [BUILD_PATH_STEPS]: (state : Maps , action : Action<Array<any>> ): Maps => {
         return assign(state, {pathSteps: action.payload} );

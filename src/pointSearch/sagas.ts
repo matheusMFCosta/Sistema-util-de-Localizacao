@@ -10,7 +10,7 @@ import * as actions from './actions'
 
 
 function getMapInformation() {
-  return fetch('https://miex-food.herokuapp.com/teste/json')
+  return fetch('https://miex-food.herokuapp.com/ccet/json')
       .then(response => {
        if(response.ok){
          return response.json()
@@ -57,7 +57,7 @@ function* getOriginPointDetails(action): IterableIterator<any> {
         id: "orig",
         adjacentes: {M:1, U:1},
         description: "nada ainda",
-        mapReference:"graph2",
+        mapReference:"graph3",
         x: 525,
         y: 430
     }

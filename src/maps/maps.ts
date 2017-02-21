@@ -17,7 +17,9 @@ export interface destinationPoint{
 
 export interface mapsData{
     id: string,
-    path: string
+    path: string,
+    height: number,
+    width: number
 }
 // export interface pathPoints{
 //     items: Array<pathPoint>

@@ -21,7 +21,9 @@ const destinationPointInitialState:destinationPoint = {
 
 const mapsinitialState: mapsData = {
     "id": "",
-    "path": ""
+    "path": "",
+    height: 0,
+    width: 0
 }
 
 const pointsOfInterestInitialState: pointsOfInterest = {
@@ -67,6 +69,9 @@ export const pointSearchReducer  = handleActions<AddAccount>({
     },
     [SET_ORIGIN_POINT]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
         return assign(state, { pathPoints: addNewNodePathPointMap(state.pathPoints,action.payload),originPoint: action.payload } );
+    },
+    [CHANGE_POINT_FIND_FILTER]: (state : AddAccount , action : Action<string>): AddAccount => {
+        return assign(state, { pointFindFilter: action.payload } );
     },
 }, pointSearchInitialState)
 

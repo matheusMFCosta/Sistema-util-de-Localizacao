@@ -23,13 +23,14 @@ interface Appprops {
           <View>
             <ImageZoom cropWidth={Dimensions.get('window').width}
                 cropHeight={Dimensions.get('window').height}
-                imageWidth={800}
-                imageHeight={600}>
+                imageWidth={this.props.currentMapData.width}
+                imageHeight={this.props.currentMapData.height}>
                 <View>
-                    <Image style={{width:800, height:600,position:'absolute'}}
+                    <Image style={{width:this.props.currentMapData.width, height:this.props.currentMapData.height,position:'absolute'}}
                         source={{uri: this.props.currentMapData.path}}/>
                     <View style={{position:'absolute'}}>
                         <DrawPath
+                            currentMapData={this.props.currentMapData}
                             pathOriginToDestinationCurrentMap={this.props.pathOriginToDestinationCurrentMap}
                             getPointCordenates={this.props.getPointCordenates} 
                             pathPoints={this.props.pathPoints}/>

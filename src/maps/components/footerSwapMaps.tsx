@@ -7,7 +7,9 @@ var { Container, Content, Footer, FooterTab, Button } = require('native-base');
 interface FooterSwapMapsprops {
     swapNextMapButtonPress: Function
     swapPreviousMapButtonPress: Function,
-    currentMapData: mapsData
+    currentMapData: mapsData,
+    currentMapindex: number,
+    totalMapIndex: number
 }
 
 export default class footerSwapMaps extends React.Component<FooterSwapMapsprops,{}> {
@@ -26,7 +28,10 @@ export default class footerSwapMaps extends React.Component<FooterSwapMapsprops,
                                 <Text>Previous</Text>
                             </Button>
                             <Text>
-                                {this.props.currentMapData.id}
+                                {this.props.currentMapData.id}'\n'
+                            </Text>
+                            <Text>
+                                Step {this.props.currentMapindex +1 }of{this.props.totalMapIndex}
                             </Text>
                             <Button onPress={()=> this.props.swapNextMapButtonPress()} >
                                 <Text>Next</Text>

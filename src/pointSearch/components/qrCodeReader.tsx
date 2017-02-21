@@ -36,7 +36,14 @@ class QrCodeReader extends React.Component<QrCodeReaderProps,{}> {
 
     capture(): void {   
         this.props.setCameraBeOpenStatus(false);
-        this.props.pointSearchQrCode("orig")
+        this.props.pointSearchQrCode({  
+        id: "orig",
+        adjacentes: {"E-CCET1":1},
+        description: "nada ainda",
+        mapReference:"ccet1",
+        x: 307,
+        y: 90
+    })
         Actions.DestinationPoint();
     }
 

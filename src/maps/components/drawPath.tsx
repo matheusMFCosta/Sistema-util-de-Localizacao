@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image } from 'react-native'
 var { Line, Svg, G, Circle } = require('react-native-svg');
-import { pathPoint, pathPoints } from './../maps'
+import { pathPoint, pathPoints, mapsData } from './../maps'
 import { connect } from 'react-redux'
 
 const DrawLines = (props) => {
@@ -56,6 +56,7 @@ interface Appprops {
     getPointCordenates: Function
     pathPoints: pathPoints,
     pathOriginToDestinationCurrentMap: Array<string>
+    currentMapData: mapsData
 }
 
 class drawPath extends React.Component<Appprops,{}> {
@@ -66,8 +67,8 @@ class drawPath extends React.Component<Appprops,{}> {
     render(): JSX.Element {  
                return(      
             <Svg 
-                height={800}
-                width={1000}>
+                height={this.props.currentMapData.width}
+                width={this.props.currentMapData.width}>
                     <DrawLines
                         pathOriginToDestinationCurrentMap={this.props.pathOriginToDestinationCurrentMap}
                         pathPoints={this.props.pathPoints}
