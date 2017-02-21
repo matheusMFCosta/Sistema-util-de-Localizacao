@@ -6,8 +6,8 @@ import {
   SET_CAMERA_BE_OPEN_STATUS,
   CHANGE_POINT_FIND_FILTER,
   SET_MAPS_DATA_FROM_SERVER,
-  SET_DESTINATION_POINT,
-  SET_ORIGIN_POINT
+  SET_DESTINATION_POINT_SUCCESS,
+  SET_ORIGIN_POINT_SUCCESS
 } from './actions'
 
 const destinationPointInitialState:destinationPoint = {
@@ -64,10 +64,10 @@ export const pointSearchReducer  = handleActions<AddAccount>({
     [SET_MAPS_DATA_FROM_SERVER]: (state : AddAccount , action : Action<any>): AddAccount => {
         return assign(state, { pathPoints: [...state.pathPoints, ...action.payload.pathPoints],mapsData: action.payload.maps, pointsOfInterest: action.payload.pointsOfInterest } );
     },
-    [SET_DESTINATION_POINT]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
+    [SET_DESTINATION_POINT_SUCCESS]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
         return assign(state, { pathPoints: addNewNodePathPointMap(state.pathPoints,action.payload),destinationPoint: action.payload } );
     },
-    [SET_ORIGIN_POINT]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
+    [SET_ORIGIN_POINT_SUCCESS]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
         return assign(state, { pathPoints: addNewNodePathPointMap(state.pathPoints,action.payload),originPoint: action.payload } );
     },
     [CHANGE_POINT_FIND_FILTER]: (state : AddAccount , action : Action<string>): AddAccount => {

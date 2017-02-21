@@ -1,5 +1,5 @@
 import { takeEvery, takeLatest } from 'redux-saga'
-
+import closestPoint from './../utils/closestPolyLinePoint'
 import { actionChannel, call, take, put, race } from 'redux-saga/effects'
 import { pathPoints, destinationPoint } from './../maps/maps'
 // import fetch from 'isomorphic-fetch';
@@ -24,6 +24,21 @@ function getMapInformation() {
     )
 } 
 
+const  getPointCordenates = (id,pathPoints) => {
+        const items = pathPoints
+        for(let key in items){
+          if(items[key].id ==id){
+            return{
+              x: items[key].x,
+              y: items[key].y,
+            }
+          } 
+        }
+        return{
+              x: 0,
+              y: 0,
+            }
+      }
 
 function* getMapPathPoints(action): IterableIterator<any> {
         
@@ -31,12 +46,47 @@ function* getMapPathPoints(action): IterableIterator<any> {
       console.log(action.payload)
       
       yield put(actions.setMapsDataFromServer(response));
-      yield put(actions.setOriginPoint(action.payload))
+
+      var keys:any = [];
+      for(let k in action.payload.adjacentes) keys.push(k);
+      if(keys.length <= 1){ 
+          yield put(actions.setOriginPointSuccess(action.payload))
+      } else {
+        const firtPoint = getPointCordenates(keys[0],response.pathPoints)
+        const secondPoint = getPointCordenates(keys[1],response.pathPoints)
+        const currentPoint = {x:action.payload.x , y:action.payload.y}
+
+        const closestPointsData = closestPoint(
+            currentPoint.x,currentPoint.y,
+            firtPoint.x,firtPoint.y,
+            secondPoint.x,secondPoint.y
+          )
+        let adjacentes = action.payload.adjacentes
+        adjacentes[action.payload.id]=1;
+
+        const closestPointDefiner ={  
+          id: action.payload.id+"-Temp",
+          adjacentes: adjacentes,
+          description: "parcial",
+          mapReference:action.payload.mapReference,
+          x: closestPointsData.x,
+          y: closestPointsData.y
+      }
+
+      let json = {}
+      json[action.payload.id+'-Temp'] = 1
+      action.payload.adjacentes = json
+
+      yield put(actions.setOriginPointSuccess(closestPointDefiner))
+      yield put(actions.setOriginPointSuccess(action.payload))
+      }
 }   
 
 
 
-function* getDestinationPointDetails(action): IterableIterator<any> {
+function* getOriginPointDetails(action): IterableIterator<any> {
+
+    
     
     const destinationPoint: destinationPoint ={  
         id: "dest",
@@ -46,35 +96,69 @@ function* getDestinationPointDetails(action): IterableIterator<any> {
         x: 50,
         y: 220
     }
+
     delete destinationPoint.description;
-    yield put(actions.setDestinationPoint(destinationPoint))
+    yield put(actions.setDestinationPointSuccess(destinationPoint))
 }
 
 
-function* getOriginPointDetails(action): IterableIterator<any> {
+function* getDestinationPointDetails(action): IterableIterator<any> {
+
+
+  let destinationPoint = action.payload.destinationPoint;
+  const pathPoints = action.payload.pathPoints
+  var keys:any = [];
+      for(let k in destinationPoint.adjacentes) keys.push(k);
+      console.log("KEYS",keys.length)
+  if(keys.length <= 1){
+    yield put(actions.setDestinationPointSuccess(destinationPoint))
     
-    const destinationPoint: destinationPoint = {  
-        id: "orig",
-        adjacentes: {M:1, U:1},
-        description: "nada ainda",
-        mapReference:"graph3",
-        x: 525,
-        y: 430
+  } else {
+      console.log(action.payload)
+      const firtPoint = getPointCordenates(keys[0],pathPoints)
+      const secondPoint = getPointCordenates(keys[1],pathPoints)
+      const currentPoint = {x:destinationPoint.x , y:destinationPoint.y}
+      console.log(firtPoint,secondPoint,currentPoint)
+      const closestPointsData = closestPoint(
+          currentPoint.x,currentPoint.y,
+          firtPoint.x,firtPoint.y,
+          secondPoint.x,secondPoint.y
+        )
+      
+      let adjacentes = destinationPoint.adjacentes
+      console.log(adjacentes)
+      adjacentes[destinationPoint.id]=1;
+      console.log(adjacentes,"adjacentes")
+      const closestPointDefiner ={  
+        id: destinationPoint.id+"-Temp",
+        adjacentes: adjacentes,
+        description: "parcial",
+        mapReference:destinationPoint.mapReference,
+        x: closestPointsData.x,
+        y: closestPointsData.y
     }
-    delete destinationPoint.description;
-    yield put(actions.setOriginPoint(destinationPoint))
+    console.log(closestPointDefiner,"closestPointDefiner")
+    let json = {}
+    json[destinationPoint.id+'-Temp'] = 1
+    destinationPoint.adjacentes = json
+
+
+    
+    yield put(actions.setDestinationPointSuccess(closestPointDefiner))
+    yield put(actions.setDestinationPointSuccess(destinationPoint))
+  }
 }
 
 export function* watchPointSearchQrCode(action): IterableIterator<any> {
   yield* takeLatest( actions.POINT_SEARCH_QR_CODE, getMapPathPoints);
 }
 
-export function* watchGetDestinationPointDetails(action): IterableIterator<any> {
-  yield* takeLatest( actions.GET_DESTINATION_POINT_DETAILS, getDestinationPointDetails);
+export function* watchSetDestinationPoint(action): IterableIterator<any> {
+  yield* takeLatest( actions.SET_DESTINATION_POINT, getDestinationPointDetails);
 }
 
-export function* watchGetOriginPointDetails(action): IterableIterator<any> {
-  yield* takeLatest( actions.GET_ORIGIN_POINT_DETAILS, getOriginPointDetails);
+export function* watchSetOriginPoint(action): IterableIterator<any> {
+  yield* takeLatest( actions.SET_ORIGIN_POINT, getOriginPointDetails);
 }
 
 export function* watchSetMapsDataFromServer(action): IterableIterator<any> {
