@@ -116,23 +116,45 @@ class app extends React.Component<Appprops,{}> {
     componentWillReceiveProps(nextProps){
       const originPoint = this.props.originPoint;
       const destinationpoint = this.props.destinationPoint;
+      //se foi calculado as rotas absolutas ( andares )
       if(this.props.buildConfigurationsSteps != nextProps.buildConfigurationsSteps){
         const buildConfigurationsSteps = nextProps.buildConfigurationsSteps
         console.log(originPoint.mapReference.indexOf(destinationpoint.mapReference) != -1)
+        //se o mapa do destino e igual a origem calcula o caminho
         if(originPoint.mapReference.indexOf(destinationpoint.mapReference) != -1){
 
           const mapsData = this.getmapsData(this.props.destinationPoint.mapReference)
           let originDestinationMap = this.addNewNodePathPointMap(this.props.originPoint,mapsData)
           originDestinationMap = this.addNewNodePathPointMap(this.props.destinationPoint,originDestinationMap)
           const path = this.getHolePathMap(originDestinationMap,originPoint,destinationpoint)
-          console.log(path)
+          //se nao for igual percorre cada mapa dentro do path absoluto e calcula a rota relativa desse andar
+          // depois de calculado deve ser dar appendo a rota ateh ter uma rota final 
         } else {
-          
-          for(let key in buildConfigurationsSteps){
             let currentOriginPoint = this.props.originPoint
-            const mapsData = this.getmapsData(this.props.destinationPoint.mapReference)
+          //corre o path geral
+          for(let  currentMapIndex in buildConfigurationsSteps){
+            //pega a informacao do andar em questao 
+            const mapsData = this.getmapsData(buildConfigurationsSteps[currentMapIndex])
+            let currentMapData = this.addNewNodePathPointMap(currentOriginPoint,mapsData)
+            //por cada no desse mapa verifica se ele eh uma escada
             for(let key in mapsData){
-              
+              const objectkey = Object.keys(mapsData[key])[0]
+              const currentNodeData = mapsData[key]
+              let transitionsPointsArray: any = []
+              //se for igual appenda na lista de 
+              if(currentNodeData.type.indexOf("transition") != -1 && currentNodeData.transitionAccess.indexOf(buildConfigurationsSteps[parseInt(currentMapIndex)+1]) != -1){
+                transitionsPointsArray.push(currentNodeData)
+                let currentMinPathToTransition = {path:[],cost:9000}
+                for(let transitionPointIndex in transitionsPointsArray){
+
+                  const path = this.getHolePathMapWithCost(currentMapData,currentOriginPoint,transitionsPointsArray[transitionPointIndex])
+                  console.log(path)
+                  if(currentMinPathToTransition.cost > path.cost)
+                    currentMinPathToTransition = path;
+                  
+                }
+                console.log(currentMinPathToTransition)
+              }
             }
             
           }
@@ -189,6 +211,14 @@ class app extends React.Component<Appprops,{}> {
         route.addNode(pathPoints[key].id, pathPoints[key].adjacentes)
         }
         return route.path(originPoint.id, destinationPoint.id)
+    }
+    getHolePathMapWithCost(pathPoints,originPoint,destinationPoint ){
+        const route = new Graph()
+        for(let key in pathPoints){
+        console.log(pathPoints[key].id, pathPoints[key].adjacentes)
+        route.addNode(pathPoints[key].id, pathPoints[key].adjacentes)
+        }
+        return route.path(originPoint.id, destinationPoint.id, { cost: true })
     }
 
       getPointMapReference(id,pathPoints){
