@@ -23,7 +23,7 @@ interface QrCodeReaderProps {
 
 const DestinationList = (props) => {
 
-    if(props.pointData.id && props.pointData.description){
+    if(props.pointData.id || props.pointData.description){
         const upperPointId = props.pointData.id.toUpperCase();
         const upperPointDescruiption = props.pointData.description.toUpperCase();
         const upperPointFilter = props.pointFilter.toUpperCase();

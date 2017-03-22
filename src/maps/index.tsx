@@ -124,13 +124,18 @@ class app extends React.Component<Appprops,{}> {
           const mapsData = this.getmapsData(this.props.destinationPoint.mapReference)
           let originDestinationMap = this.addNewNodePathPointMap(this.props.originPoint,mapsData)
           originDestinationMap = this.addNewNodePathPointMap(this.props.destinationPoint,originDestinationMap)
-
-
           const path = this.getHolePathMap(originDestinationMap,originPoint,destinationpoint)
           console.log(path)
-        }
-        for(let key in buildConfigurationsSteps){
-
+        } else {
+          
+          for(let key in buildConfigurationsSteps){
+            let currentOriginPoint = this.props.originPoint
+            const mapsData = this.getmapsData(this.props.destinationPoint.mapReference)
+            for(let key in mapsData){
+              
+            }
+            
+          }
         }
       }
     }
