@@ -9,6 +9,8 @@ export const SET_DESTINATION_POINT_SUCCESS = "SET_DESTINATION_POINT_SUCCESS"
 export const SET_ORIGIN_POINT = "SET_ORIGIN_POINT"
 export const SET_ORIGIN_POINT_SUCCESS = "SET_ORIGIN_POINT_SUCCESS"
 export const CHANGE_POINT_FIND_FILTER = "CHANGE_POINT_FIND_FILTER"
+export const SET_MAP_CONFIGURATION_FROM_SERVER = "SET_MAP_CONFIGURATION_FROM_SERVER"
+export const GET_ALL_MAPS_DATA_SUCCEESS = "GET_ALL_MAPS_DATA_SUCCEESS"
 //export const teste: () => Action = createAction<null>(TESTE)
 
 export const setCameraBeOpenStatus: (status:boolean) => 
@@ -18,11 +20,20 @@ export const setCameraBeOpenStatus: (status:boolean) =>
 export const changePointFindFilter: (issuer:string) => 
     Action<string> = createAction<string>(CHANGE_POINT_FIND_FILTER);
 
+export const getAllmapsDataSuccess: (data:any,name:string) => Action<{pathPoints:any,name:string}> = createAction<{data:any,name:string}>(GET_ALL_MAPS_DATA_SUCCEESS,
+(data:any,name:string) => {
+    return{
+            data:data.pathPoints,
+            name:name
+        }
+    }
+);
 
 export const pointSearchQrCode: (qstr: string) => Action<string> = createAction<string>(POINT_SEARCH_QR_CODE);
 
 export const setMapsDataFromServer: (route:pathPoints) => Action<pathPoints> = createAction<pathPoints>(SET_MAPS_DATA_FROM_SERVER);
 
+export const setMapConfigurantionFromserver: (route:any) => Action<any> = createAction<any>(SET_MAP_CONFIGURATION_FROM_SERVER);
 
 export const setOriginPoint: (destinationPoint:pathPoint) => Action<pathPoint> = createAction<pathPoint>(SET_ORIGIN_POINT);
 

@@ -9,6 +9,8 @@ export interface AddAccount {
     pointsOfInterest: pointsOfInterest,
     destinationPoint: destinationPoint,
     originPoint: destinationPoint,
-    pathOriginToDestinationCurrentMap: Array<string>
+    pathOriginToDestinationCurrentMap: Array<string>,
+    buildPointsPath:any,
+    mapsAllData:Array<any>
 }
 

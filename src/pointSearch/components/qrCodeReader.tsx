@@ -18,7 +18,8 @@ var  Camera  = require("react-native-camera").default;
 interface QrCodeReaderProps {
     shouldCameraBeOpen: boolean,
     setCameraBeOpenStatus: Function,
-    pointSearchQrCode: Function
+    pointSearchQrCode: Function,
+    
 }
 
 
@@ -41,6 +42,7 @@ class QrCodeReader extends React.Component<QrCodeReaderProps,{}> {
         adjacentes: {"C-CCET1":1,"B-CCET1":1},
         description: "nada ainda",
         mapReference:"ccet1",
+        globalReference:"ccet",
         x: 309,
         y: 177
     })

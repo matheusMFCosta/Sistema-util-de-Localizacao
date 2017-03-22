@@ -6,7 +6,8 @@ import { connect } from 'react-redux'
 import { 
     swapNextMapButtonPress,
     swapPreviousMapButtonPress,
-    buildPathSteps } from './actions'
+    buildPathSteps,
+    buildBuildConfigurationsSteps } from './actions'
 import  FooterSwapMaps from './components/footerSwapMaps'
 var image = require('./../../images/base/graph2.png')
 const Graph = require('node-dijkstra')
@@ -21,7 +22,10 @@ interface Appprops {
   buildPathSteps: Function,
   currentMapindex: number,
   mapsData: mapsData,
-  pathSteps: Array<any>
+  pathSteps: Array<any>,
+  buildPointsPath: any,
+  buildBuildConfigurationsSteps: Function,
+  buildConfigurationsSteps: Array<string>
 }
 
 const closestPolyLinePoint = function(px, py, x0, y0, x1, y1){
@@ -59,21 +63,39 @@ const closestPolyLinePoint = function(px, py, x0, y0, x1, y1){
         : py = (px * (o.y0 - o.y1) - o.y0 * o.x1 + o.x0 * o.y1) / (o.x0 - o.x1);
     return {x: px, y: py};
 };
+
+
+
+const buildFloorPath = () =>{
+
+}
+
+
+
+
+
 class app extends React.Component<Appprops,{}> {
     constructor(props, context) {
         super(props, context);
     }
 
-    componentDidMount(){
-        console.log(closestPolyLinePoint(1,3,2,2,2,4),"mais proxima")
-        const holePath = this.getHolePathMap(this.props.pathPoints,this.props.originPoint,this.props.destinationPoint)
-        this.buildPathSteps(holePath,this.props.pathPoints)
+    componentWillMount(){
+      this.props.buildBuildConfigurationsSteps(this.props.buildPointsPath,this.props.originPoint.mapReference,this.props.destinationPoint.mapReference)
+
     }
+    componentDidMount(){
+      console.log("steps",this.props.buildConfigurationsSteps)
+      //this.props.buildPathbyStep()
+        // const holePath = this.getHolePathMap(this.props.pathPoints,this.props.originPoint,this.props.destinationPoint)
+        // console.log(holePath)
+        // this.buildPathSteps(holePath,this.props.pathPoints)
+    }
+
+    
     buildPathSteps(holePath,pathPoints){
         let path:any =[]
         let object:any = {keys:[]}
         let currentMap = ""
-        console.log(holePath)
         for(let key in holePath){
 
             if(this.getPointMapReference(holePath[key],pathPoints) == currentMap && object.mapReference){
@@ -128,31 +150,32 @@ class app extends React.Component<Appprops,{}> {
       }
 
     render(): JSX.Element {
-        const currentMapData = this.props.mapsData[this.props.currentMapindex]
-        const pathOriginToDestinationCurrentMap = this.props.pathSteps[this.props.currentMapindex]
-        const totalMapIndex = this.props.pathSteps.length
-        return(
-          <View style={styles.footer}>
-            <View style={styles.main}>
-              <RenderMap 
-                currentMapData={currentMapData}
-                pathOriginToDestinationCurrentMap={pathOriginToDestinationCurrentMap}
-                getPointCordenates={this.getPointCordenates} 
-                pathPoints={this.props.pathPoints} 
-                map={image} 
-                />
-              </View>
-            <View style={styles.footer}>
-              <FooterSwapMaps 
-                    currentMapindex={this.props.currentMapindex}
-                    totalMapIndex={totalMapIndex}
-                    currentMapData={currentMapData}
-                    swapNextMapButtonPress={this.props.swapNextMapButtonPress}
-                    swapPreviousMapButtonPress={this.props.swapPreviousMapButtonPress}
-              />
-            </View>
-         </View>
-        )
+      return(<View/>)
+        // const currentMapData = this.props.mapsData[this.props.currentMapindex]
+        // const pathOriginToDestinationCurrentMap = this.props.pathSteps[this.props.currentMapindex]
+        // const totalMapIndex = this.props.pathSteps.length
+        // return(
+        //   <View style={styles.footer}>
+        //     <View style={styles.main}>
+        //       <RenderMap 
+        //         currentMapData={currentMapData}
+        //         pathOriginToDestinationCurrentMap={pathOriginToDestinationCurrentMap}
+        //         getPointCordenates={this.getPointCordenates} 
+        //         pathPoints={this.props.pathPoints} 
+        //         map={image} 
+        //         />
+        //       </View>
+        //     <View style={styles.footer}>
+        //       <FooterSwapMaps 
+        //             currentMapindex={this.props.currentMapindex}
+        //             totalMapIndex={totalMapIndex}
+        //             currentMapData={currentMapData}
+        //             swapNextMapButtonPress={this.props.swapNextMapButtonPress}
+        //             swapPreviousMapButtonPress={this.props.swapPreviousMapButtonPress}
+        //       />
+        //     </View>
+        //  </View>
+        // )
     }
 }
 
@@ -178,6 +201,8 @@ const mapStateToProps = (state,ownProps) => ({
    currentMapindex: state.maps.currentMapindex,
    mapsData: state.pointSearch.mapsData,
    pathSteps: state.maps.pathSteps,
+   buildPointsPath: state.pointSearch.buildPointsPath,
+   buildConfigurationsSteps: state.maps.buildConfigurationsSteps
    
   });
 
@@ -187,8 +212,9 @@ const mapDispatchToProps = dispatch => ({
   swapPreviousMapButtonPress: () =>
     dispatch(swapPreviousMapButtonPress()),
   buildPathSteps: (steps) =>
-    dispatch(buildPathSteps(steps))
-  
+    dispatch(buildPathSteps(steps)),
+  buildBuildConfigurationsSteps: (buildPointsPath,originPointMapReference,destinationPointMapreference) =>
+    dispatch(buildBuildConfigurationsSteps(buildPointsPath,originPointMapReference,destinationPointMapreference))
 
 });
 

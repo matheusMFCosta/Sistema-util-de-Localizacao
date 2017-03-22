@@ -36,7 +36,10 @@ export interface pointsOfInterest{
 
 export interface Maps{
     currentMapindex: number,
-    pathSteps: Array<any>
+    pathSteps: Array<any>,
+    buildConfigurationsSteps: Array<string>,
+    pathOriginToDestinationCurrentMap: Array<any>,
+    pathOriginToDestinationHoleMap: Array<any>,
 }
 
 export type mapsImage = Array<any>

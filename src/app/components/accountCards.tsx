@@ -33,7 +33,6 @@ export default class AccountCards extends Component<AccountCardsProps,{}> {
     componentWillReceiveProps(nextProp): void {
         
         const currentTime = 30 - (Math.round(new Date().getTime() / 1000.0))%30;
-        console.log(nextProp.accountList.length , this.props.accountList.length)
         if(currentTime === 1 || (nextProp.accountList.length > this.props.accountList.length)){
             this.props.updateAccountsCode();
         }
