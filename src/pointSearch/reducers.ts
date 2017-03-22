@@ -75,10 +75,10 @@ export const pointSearchReducer  = handleActions<AddAccount>({
         return assign(state, { pathPoints: [...state.pathPoints, ...action.payload.pathPoints],mapsData: action.payload.maps, pointsOfInterest: action.payload.pointsOfInterest } );
     },
     [SET_DESTINATION_POINT_SUCCESS]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
-        return assign(state, { destinationPoint: action.payload } );
+        return assign(state, { pathPoints: addNewNodePathPointMap(state.mapsAllData,action.payload),destinationPoint: action.payload } );
     },
     [SET_ORIGIN_POINT_SUCCESS]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
-        return assign(state, { originPoint: action.payload } );
+        return assign(state, { pathPoints: addNewNodePathPointMap(state.mapsAllData,action.payload),originPoint: action.payload } );
     },
     [CHANGE_POINT_FIND_FILTER]: (state : AddAccount , action : Action<string>): AddAccount => {
         return assign(state, { pointFindFilter: action.payload } );
@@ -86,7 +86,20 @@ export const pointSearchReducer  = handleActions<AddAccount>({
 }, pointSearchInitialState)
 
 
-const addNewNodePathPointMap = (pathMap:pathPoints,newNode:destinationPoint) => {
+    const getmapsData = (mapsAllData,mapsName) =>{
+
+      for(let key in mapsAllData){
+          for(let mapId in mapsAllData[key]){
+            if(mapId.indexOf(mapsName) != -1)
+              return mapsAllData[key][mapId]
+          }
+      }
+    }
+
+
+const addNewNodePathPointMap = (mapsAllData:pathPoints,newNode:destinationPoint) => {
+    const pathMap = getmapsData(mapsAllData,newNode.mapReference)
+    console.log("pathMap")
     for(let keyNode in newNode.adjacentes){
         for(let keyMap in pathMap){
             let adjacentetarget = pathMap[keyMap]
@@ -95,7 +108,9 @@ const addNewNodePathPointMap = (pathMap:pathPoints,newNode:destinationPoint) => 
             }
         }
     }
+
     let final = [...pathMap, ...[newNode]]
+    console.log(final)
     return final
 }
 

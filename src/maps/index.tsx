@@ -26,6 +26,7 @@ interface Appprops {
   buildPointsPath: any,
   buildBuildConfigurationsSteps: Function,
   buildConfigurationsSteps: Array<string>
+  mapsAllData: Array<any>
 }
 
 const closestPolyLinePoint = function(px, py, x0, y0, x1, y1){
@@ -91,6 +92,67 @@ class app extends React.Component<Appprops,{}> {
         // this.buildPathSteps(holePath,this.props.pathPoints)
     }
 
+
+ addNewNodePathPointMap(newNode:destinationPoint,pathMap:pathPoints){
+    console.log("pathMap")
+    for(let keyNode in newNode.adjacentes){
+        for(let keyMap in pathMap){
+            let adjacentetarget = pathMap[keyMap]
+            if(keyNode == adjacentetarget.id){
+                adjacentetarget.adjacentes[newNode.id] = newNode.adjacentes[keyNode]
+            }
+        }
+    }
+
+    let final = [...pathMap, ...[newNode]]
+    console.log(final)
+    return final
+}
+
+
+
+
+
+    componentWillReceiveProps(nextProps){
+      const originPoint = this.props.originPoint;
+      const destinationpoint = this.props.destinationPoint;
+      if(this.props.buildConfigurationsSteps != nextProps.buildConfigurationsSteps){
+        const buildConfigurationsSteps = nextProps.buildConfigurationsSteps
+        console.log(originPoint.mapReference.indexOf(destinationpoint.mapReference) != -1)
+        if(originPoint.mapReference.indexOf(destinationpoint.mapReference) != -1){
+
+          const mapsData = this.getmapsData(this.props.destinationPoint.mapReference)
+          let originDestinationMap = this.addNewNodePathPointMap(this.props.originPoint,mapsData)
+          originDestinationMap = this.addNewNodePathPointMap(this.props.destinationPoint,originDestinationMap)
+
+
+          const path = this.getHolePathMap(originDestinationMap,originPoint,destinationpoint)
+          console.log(path)
+        }
+        for(let key in buildConfigurationsSteps){
+
+        }
+      }
+    }
+
+    getmapsData(mapsName){
+
+      for(let key in this.props.mapsAllData){
+          for(let mapId in this.props.mapsAllData[key]){
+            if(mapId.indexOf(mapsName) != -1)
+              return this.props.mapsAllData[key][mapId]
+          }
+      }
+    }
+
+    // calculatePath(mapsData,originPoint:destinationPoint,destinationPoint:destinationPoint){
+    //   if(originPoint.mapReference.indexOf(destinationPoint.mapReference) != -1){
+    //     //calculaRota
+    //   }
+    //   else
+
+    // }
+
     
     buildPathSteps(holePath,pathPoints){
         let path:any =[]
@@ -118,6 +180,7 @@ class app extends React.Component<Appprops,{}> {
     getHolePathMap(pathPoints,originPoint,destinationPoint ): Array<string>{
         const route = new Graph()
         for(let key in pathPoints){
+        console.log(pathPoints[key].id, pathPoints[key].adjacentes)
         route.addNode(pathPoints[key].id, pathPoints[key].adjacentes)
         }
         return route.path(originPoint.id, destinationPoint.id)
@@ -202,8 +265,8 @@ const mapStateToProps = (state,ownProps) => ({
    mapsData: state.pointSearch.mapsData,
    pathSteps: state.maps.pathSteps,
    buildPointsPath: state.pointSearch.buildPointsPath,
-   buildConfigurationsSteps: state.maps.buildConfigurationsSteps
-   
+   buildConfigurationsSteps: state.maps.buildConfigurationsSteps,
+   mapsAllData: state.pointSearch.mapsAllData
   });
 
 const mapDispatchToProps = dispatch => ({
