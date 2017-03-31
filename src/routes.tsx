@@ -16,13 +16,13 @@ export default class Routes extends React.Component <{},{}> {
     return( 
       <Router >
         <Scene key="root"  hideNavBar={true}>
-              <Scene key="App" component={App}  initial={true} />      
+              <Scene key="App" component={App}   />      
               <Scene key="footer" component={FooterTab}/>      
               <Scene key="QrCodeReader" component={QrCodeReader}/>
               <Scene key="OriginPoint" component={OriginPoint}/>
               <Scene key="ShowMap" component={ShowMap} />
               <Scene key="DestinationPoint" component={DestinationPoint} />
-              <Scene key="dev" component={dev}   />
+              <Scene key="dev" component={dev}  initial={true} />
               
         </Scene>
       </Router>

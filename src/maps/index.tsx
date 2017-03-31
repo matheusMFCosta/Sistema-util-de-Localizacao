@@ -7,7 +7,8 @@ import {
     swapNextMapButtonPress,
     swapPreviousMapButtonPress,
     buildPathSteps,
-    buildBuildConfigurationsSteps } from './actions'
+    buildBuildConfigurationsSteps,
+    setWholePath } from './actions'
 import  FooterSwapMaps from './components/footerSwapMaps'
 var image = require('./../../images/base/graph2.png')
 const Graph = require('node-dijkstra')
@@ -26,7 +27,10 @@ interface Appprops {
   buildPointsPath: any,
   buildBuildConfigurationsSteps: Function,
   buildConfigurationsSteps: Array<string>
-  mapsAllData: Array<any>
+  mapsAllData: Array<any>,
+  setWholePath: Function,
+  wholePath:any,
+  mapsMetadata:any
 }
 
 const closestPolyLinePoint = function(px, py, x0, y0, x1, y1){
@@ -66,15 +70,6 @@ const closestPolyLinePoint = function(px, py, x0, y0, x1, y1){
 };
 
 
-
-const buildFloorPath = () =>{
-
-}
-
-
-
-
-
 class app extends React.Component<Appprops,{}> {
     constructor(props, context) {
         super(props, context);
@@ -82,19 +77,10 @@ class app extends React.Component<Appprops,{}> {
 
     componentWillMount(){
       this.props.buildBuildConfigurationsSteps(this.props.buildPointsPath,this.props.originPoint.mapReference,this.props.destinationPoint.mapReference)
-
-    }
-    componentDidMount(){
-      console.log("steps",this.props.buildConfigurationsSteps)
-      //this.props.buildPathbyStep()
-        // const holePath = this.getHolePathMap(this.props.pathPoints,this.props.originPoint,this.props.destinationPoint)
-        // console.log(holePath)
-        // this.buildPathSteps(holePath,this.props.pathPoints)
     }
 
 
  addNewNodePathPointMap(newNode:destinationPoint,pathMap:pathPoints){
-    console.log("pathMap")
     for(let keyNode in newNode.adjacentes){
         for(let keyMap in pathMap){
             let adjacentetarget = pathMap[keyMap]
@@ -105,7 +91,6 @@ class app extends React.Component<Appprops,{}> {
     }
 
     let final = [...pathMap, ...[newNode]]
-    console.log(final)
     return final
 }
 
@@ -115,7 +100,10 @@ class app extends React.Component<Appprops,{}> {
           let originDestinationMap = this.addNewNodePathPointMap(this.props.originPoint,mapsData)
           originDestinationMap = this.addNewNodePathPointMap(this.props.destinationPoint,originDestinationMap)
           const path = this.getHolePathMap(originDestinationMap,originPoint,destinationpoint)
-          return path;
+          return [{
+              mapReference:[this.props.destinationPoint.mapReference],
+              path:path
+          }]
     }
 
     getMapsPossibleTransitions(mapsData,destinationPoint,buildConfigurationsSteps,currentMapIndex) {
@@ -168,13 +156,18 @@ class app extends React.Component<Appprops,{}> {
             const currentMinPathToTransition = closestTransitionPath.currentMinPathToTransition
             const transitionElement = closestTransitionPath.transitionElement
               //por cada escada de um andar acha qual eh a com menor distancia
-
-              finalPath = finalPath.concat(currentMinPathToTransition.path)
-              const nextMapsData = this.getmapsData(buildConfigurationsSteps[parseInt(currentMapIndex)+1])
-              if(nextMapsData == null ){
-                return finalPath;
-              }
-                currentOriginPoint = this.getPointData(transitionElement.transitionAccess[buildConfigurationsSteps[parseInt(currentMapIndex)+1]], nextMapsData)
+            console.log("----")
+            console.log(currentMinPathToTransition.path)
+            finalPath = finalPath.concat({
+              mapReference:buildConfigurationsSteps[currentMapIndex],
+              path:currentMinPathToTransition.path,
+              
+            })
+            const nextMapsData = this.getmapsData(buildConfigurationsSteps[parseInt(currentMapIndex)+1])
+            if(nextMapsData == null ){
+              return finalPath;
+            }
+              currentOriginPoint = this.getPointData(transitionElement.transitionAccess[buildConfigurationsSteps[parseInt(currentMapIndex)+1]], nextMapsData)
           }
 
     }
@@ -183,16 +176,19 @@ class app extends React.Component<Appprops,{}> {
     componentWillReceiveProps(nextProps){
       const originPoint = this.props.originPoint;
       const destinationpoint = this.props.destinationPoint;
-      let finalPath: any = []
-      if(this.props.buildConfigurationsSteps != nextProps.buildConfigurationsSteps){
+      
+      console.log(this.props.buildConfigurationsSteps.length, nextProps.buildConfigurationsSteps.length)
+      if(this.props.buildConfigurationsSteps.length != nextProps.buildConfigurationsSteps.length){
+        let finalPath: any = []
         const buildConfigurationsSteps = nextProps.buildConfigurationsSteps
         if(originPoint.mapReference.indexOf(destinationpoint.mapReference) != -1){
           finalPath = this.buildCompletePathSameMap(originPoint,destinationpoint)
         } else {
           finalPath = this.buildCompletePathDiferentMap(originPoint,destinationpoint,buildConfigurationsSteps)
         }
+        this.props.setWholePath(finalPath)
       }
-      console.log(finalPath)
+      
     }
 
     getmapsData(mapsName){
@@ -232,17 +228,17 @@ class app extends React.Component<Appprops,{}> {
     getHolePathMap(pathPoints,originPoint,destinationPoint ): Array<string>{
         const route = new Graph()
         for(let key in pathPoints){
-        //console.log(pathPoints[key].id, pathPoints[key].adjacentes)
         route.addNode(pathPoints[key].id, pathPoints[key].adjacentes)
         }
+        console.log("PPPPPPP")
         return route.path(originPoint.id, destinationPoint.id)
     }
     getHolePathMapWithCost(pathPoints,originPoint,destinationPoint ){
         const route = new Graph()
         for(let key in pathPoints){
-        //console.log(pathPoints[key].id, pathPoints[key].adjacentes)
         route.addNode(pathPoints[key].id, pathPoints[key].adjacentes)
         }
+        console.log("DDDDDDD")
         return route.path(originPoint.id, destinationPoint.id, { cost: true })
     }
 
@@ -282,33 +278,42 @@ class app extends React.Component<Appprops,{}> {
         return pathPoints[0]
       }
 
+
     render(): JSX.Element {
-      return(<View/>)
-        // const currentMapData = this.props.mapsData[this.props.currentMapindex]
-        // const pathOriginToDestinationCurrentMap = this.props.pathSteps[this.props.currentMapindex]
-        // const totalMapIndex = this.props.pathSteps.length
-        // return(
-        //   <View style={styles.footer}>
-        //     <View style={styles.main}>
-        //       <RenderMap 
-        //         currentMapData={currentMapData}
-        //         pathOriginToDestinationCurrentMap={pathOriginToDestinationCurrentMap}
-        //         getPointCordenates={this.getPointCordenates} 
-        //         pathPoints={this.props.pathPoints} 
-        //         map={image} 
-        //         />
-        //       </View>
-        //     <View style={styles.footer}>
-        //       <FooterSwapMaps 
-        //             currentMapindex={this.props.currentMapindex}
-        //             totalMapIndex={totalMapIndex}
-        //             currentMapData={currentMapData}
-        //             swapNextMapButtonPress={this.props.swapNextMapButtonPress}
-        //             swapPreviousMapButtonPress={this.props.swapPreviousMapButtonPress}
-        //       />
-        //     </View>
-        //  </View>
-        // )
+        if(this.props.buildConfigurationsSteps.length === 0)
+          return(<View/>)
+        console.log(this.props.buildConfigurationsSteps,this.props.currentMapindex)
+        const currentMapData = this.getmapsData(this.props.buildConfigurationsSteps[this.props.currentMapindex] )
+        console.log("1",currentMapData)
+        const pathOriginToDestinationCurrentMap = this.props.wholePath[this.props.currentMapindex]
+        const totalMapIndex = this.props.buildConfigurationsSteps.length -1
+        const mapMetadata = this.props.mapsMetadata[this.props.currentMapindex]
+        console.log(mapMetadata)
+        console.log("2",pathOriginToDestinationCurrentMap)
+        console.log("3",totalMapIndex)
+        return(
+          <View style={styles.footer}>
+            <View style={styles.main}>
+              <RenderMap 
+                mapMetadata={mapMetadata}
+                currentMapData={currentMapData}
+                pathOriginToDestinationCurrentMap={pathOriginToDestinationCurrentMap}
+                getPointCordenates={this.getPointCordenates} 
+                pathPoints={currentMapData} 
+                map={image} 
+                />
+              </View>
+            <View style={styles.footer}>
+              <FooterSwapMaps 
+                    currentMapindex={this.props.currentMapindex}
+                    totalMapIndex={totalMapIndex}
+                    mapMetadata={mapMetadata}
+                    swapNextMapButtonPress={this.props.swapNextMapButtonPress}
+                    swapPreviousMapButtonPress={this.props.swapPreviousMapButtonPress}
+              />
+            </View>
+         </View>
+        )
     }
 }
 
@@ -336,7 +341,9 @@ const mapStateToProps = (state,ownProps) => ({
    pathSteps: state.maps.pathSteps,
    buildPointsPath: state.pointSearch.buildPointsPath,
    buildConfigurationsSteps: state.maps.buildConfigurationsSteps,
-   mapsAllData: state.pointSearch.mapsAllData
+   mapsAllData: state.pointSearch.mapsAllData,
+   wholePath: state.maps.wholePath,
+   mapsMetadata: state.pointSearch.mapsMetadata
   });
 
 const mapDispatchToProps = dispatch => ({
@@ -347,7 +354,9 @@ const mapDispatchToProps = dispatch => ({
   buildPathSteps: (steps) =>
     dispatch(buildPathSteps(steps)),
   buildBuildConfigurationsSteps: (buildPointsPath,originPointMapReference,destinationPointMapreference) =>
-    dispatch(buildBuildConfigurationsSteps(buildPointsPath,originPointMapReference,destinationPointMapreference))
+    dispatch(buildBuildConfigurationsSteps(buildPointsPath,originPointMapReference,destinationPointMapreference)),
+  setWholePath: (path) =>
+    dispatch(setWholePath(path))
 
 });
 

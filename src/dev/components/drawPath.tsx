@@ -108,3 +108,5 @@ const DrawLines = (item) => {
   )
 
 }
+
+export default DrawLines

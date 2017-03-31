@@ -23,6 +23,7 @@ export const buildBuildConfigurationsSteps: (buildPointsPath: any,originPointMap
         }
         route.addNode(key, adjacentkeys)
     }
+    console.log("########")
     const finalroute = route.path(originPointMapReference, destinationPointMapreference)  
     return finalroute
 }

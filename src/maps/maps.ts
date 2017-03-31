@@ -40,6 +40,7 @@ export interface Maps{
     buildConfigurationsSteps: Array<string>,
     pathOriginToDestinationCurrentMap: Array<any>,
     pathOriginToDestinationHoleMap: Array<any>,
+    wholePath: any
 }
 
 export type mapsImage = Array<any>

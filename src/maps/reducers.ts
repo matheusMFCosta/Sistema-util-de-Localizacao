@@ -8,21 +8,27 @@ import {
 import {
     SWAP_NEXT_MAP_BUTTON_PRESS,
     SWAP_PREVIOUS_MAP_BUTTON_PRESS,
-    BUILD_PATH_STEPS
+    BUILD_PATH_STEPS,
+    SET_WHOLE_PATH
 } from './actions'
 
 function assign<T> (state : T, patch : Partial<T>) : T {
   return Object.assign({}, state, patch);
 }
 
-const constMapsInitialState: Maps = {
+const constMapsInitialState = {
     buildConfigurationsSteps: [],
     pathOriginToDestinationCurrentMap: [],
     pathOriginToDestinationHoleMap: [],
     currentMapindex: 0,
-    pathSteps: []
+    pathSteps: [],
+    wholePath: []
+    
 }
 export const mapsReducer  = handleActions<Maps>({
+    [SET_WHOLE_PATH]: (state : Maps , action : Action<any> ): Maps => {
+        return assign(state, {wholePath: action.payload} );
+    },
     BUILD_BUILD_CONFIGURANTION_STEPS: (state : Maps , action : Action<Array<string>> ): Maps => {
         return assign(state, {buildConfigurationsSteps: action.payload} );
     },

@@ -11,6 +11,7 @@ export interface AddAccount {
     originPoint: destinationPoint,
     pathOriginToDestinationCurrentMap: Array<string>,
     buildPointsPath:any,
-    mapsAllData:Array<any>
+    mapsAllData:Array<any>,
+    mapsMetadata: Array<any>
 }
 

@@ -6,14 +6,17 @@ import { connect } from 'react-redux'
 
 const DrawLines = (props) => {
   if(props.pathOriginToDestinationCurrentMap){
-    const keys: Array<string> = props.pathOriginToDestinationCurrentMap.keys;
+    console.log(props.pathOriginToDestinationCurrentMap)
+    const keys: Array<string> = props.pathOriginToDestinationCurrentMap.path;
+    console.log(keys)
     return(
         <G>
         {keys.map((key,index) =>{
+                console.log(key)
                 const originCordenates = props.getPointCordenates(key,props.pathPoints) 
                 const destinationCordenates = props.getPointCordenates(keys[index+1],props.pathPoints) 
             if(index < keys.length -1){
-                
+                console.log("----",originCordenates,destinationCordenates)
                 return(
                     <G key={index}>
                         <Circle
@@ -56,19 +59,21 @@ interface Appprops {
     getPointCordenates: Function
     pathPoints: pathPoints,
     pathOriginToDestinationCurrentMap: Array<string>
-    currentMapData: mapsData
+    currentMapData: mapsData,
+    mapMetadata:any
 }
 
-class drawPath extends React.Component<Appprops,{}> {
+class DrawPath extends React.Component<Appprops,{}> {
     constructor(props, context) {
         super(props, context);
     }
 
-    render(): JSX.Element {  
+    render(): JSX.Element { 
+        console.log("aqqui") 
                return(      
             <Svg 
-                height={this.props.currentMapData.width}
-                width={this.props.currentMapData.width}>
+                height={this.props.mapMetadata.width}
+                width={this.props.mapMetadata.width}>
                     <DrawLines
                         pathOriginToDestinationCurrentMap={this.props.pathOriginToDestinationCurrentMap}
                         pathPoints={this.props.pathPoints}
@@ -79,4 +84,4 @@ class drawPath extends React.Component<Appprops,{}> {
     }
 }
 
-export default drawPath
+export default DrawPath
