@@ -20,14 +20,15 @@ export const setCameraBeOpenStatus: (status:boolean) =>
 export const changePointFindFilter: (issuer:string) => 
     Action<string> = createAction<string>(CHANGE_POINT_FIND_FILTER);
 
-export const getAllmapsDataSuccess: (data:any,name:string,path:string,height:number,width:number) => Action<{data:any,name:string,path:string,height:number,width:number}> = createAction<{data:any,name:string,path:string,height:number,width:number}>(GET_ALL_MAPS_DATA_SUCCEESS,
-(data:any,name:string,path:string,height:number,width:number) => {
+export const getAllmapsDataSuccess: (data:any,name:string,path:string,height:number,width:number,buildingReference:string) => Action<{data:any,name:string,path:string,height:number,width:number,buildingReference:string}> = createAction<{data:any,name:string,path:string,height:number,width:number}>(GET_ALL_MAPS_DATA_SUCCEESS,
+(data:any,name:string,path:string,height:number,width:number,buildingReference:string) => {
     return{
             data:data.pathPoints,
             name:name,
             path: path,
             height: height,
-            width: width
+            width: width,
+            buildingReference: buildingReference
         }
     }
 );

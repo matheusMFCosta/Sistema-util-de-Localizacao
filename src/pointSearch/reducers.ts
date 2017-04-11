@@ -68,7 +68,7 @@ export const pointSearchReducer  = handleActions<AddAccount>({
     [GET_ALL_MAPS_DATA_SUCCEESS]: (state : AddAccount , action : Action<any> ): AddAccount => {
         console.log("DDDDDDD")
         return assign(state, { mapsAllData: state.mapsAllData.concat( {[action.payload.name]: action.payload.data}),
-            mapsMetadata: state.mapsMetadata.concat({name:action.payload.name,path:action.payload.path,height:action.payload.height,width:action.payload.width})
+            mapsMetadata: state.mapsMetadata.concat({name:action.payload.name,path:action.payload.path,height:action.payload.height,width:action.payload.width,buildingReference:action.payload.buildingReference})
          } );
     }, 
     [SET_MAP_CONFIGURATION_FROM_SERVER]: (state : AddAccount , action : Action<any> ): AddAccount => {

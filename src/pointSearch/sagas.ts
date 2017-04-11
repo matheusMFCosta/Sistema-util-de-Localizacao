@@ -202,7 +202,7 @@ function* getAllmapsData(globalReference): IterableIterator<any> {
     console.log("Keey",maps[key].id)
     const { response , error}  = yield call(getMapsData,globalReference,maps[key].id);
     
-    yield put(actions.getAllmapsDataSuccess(response,maps[key].id,maps[key].path,maps[key].height,maps[key].width))
+    yield put(actions.getAllmapsDataSuccess(response,maps[key].id,maps[key].path,maps[key].height,maps[key].width,maps[key].buildingReference))
   }
 
 }

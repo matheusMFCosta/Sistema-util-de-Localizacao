@@ -93,11 +93,8 @@ class app extends React.Component<Appprops,{}> {
           const route = new Graph()
           for(let mapindex in mapsAllData){
               
-
-
               const mapJsonName = Object.keys(mapsAllData[mapindex])[0]
-              let currentMapPathPoints = mapsAllData[mapindex][mapJsonName]
-             
+              let currentMapPathPoints = mapsAllData[mapindex][mapJsonName]           
 
               if(mapJsonName.indexOf(destinationPoint.mapReference) != -1){
                 currentMapPathPoints = this.addNewNodePathPointMap(destinationPoint,currentMapPathPoints);
@@ -106,23 +103,63 @@ class app extends React.Component<Appprops,{}> {
               if(mapJsonName.indexOf(originPoint.mapReference) != -1){
                 currentMapPathPoints = this.addNewNodePathPointMap(originPoint,currentMapPathPoints);
               }
-              console.log(currentMapPathPoints)
-              if(mapJsonName.indexOf(destinationPoint.buildingReference) != -1){
 
+              if(mapJsonName.indexOf(destinationPoint.buildingReference) != -1){
+                let adjacentes; 
                 for(let nodeIndex in currentMapPathPoints){
-                  console.log(currentMapPathPoints[nodeIndex].id, currentMapPathPoints[nodeIndex].adjacentes)
-                  route.addNode(currentMapPathPoints[nodeIndex].id, currentMapPathPoints[nodeIndex].adjacentes)
+                  adjacentes = currentMapPathPoints[nodeIndex].adjacentes;
+                  const currentTransitionAccess = currentMapPathPoints[nodeIndex].transitionAccess
+                  if(currentTransitionAccess){
+                    console.log(currentTransitionAccess)
+                    const transitionAccessKeys = Object.keys(currentTransitionAccess)
+                    for(let index in transitionAccessKeys){
+                      const transitionAccessKey = transitionAccessKeys[index]
+                      //se for o para o mesmo predio 
+                      console.log(transitionAccessKeys)
+                      console.log(transitionAccessKey)
+                      console.log(this.getMapMetaData(transitionAccessKey))
+                      console.log(this.getMapMetaData(transitionAccessKey).buildingReference)
+                      console.log(this.getMapMetaData(transitionAccessKey).buildingReference.indexOf(destinationPoint.buildingReference) != -1)
+                      if(this.getMapMetaData(transitionAccessKey).buildingReference.indexOf(destinationPoint.buildingReference) != -1 ){
+                        console.log(currentTransitionAccess)
+                        console.log(transitionAccessKey)
+                        console.log(currentTransitionAccess[transitionAccessKey])
+                        console.log(currentTransitionAccess[transitionAccessKey][transitionAccessKey])
+                        const transitionAdjacenteKeys = Object.keys(currentTransitionAccess[transitionAccessKey])
+                        for(let transitionAdjacenteIndex in currentTransitionAccess[transitionAccessKey]){
+                          console.log(transitionAdjacenteKeys)
+                          console.log(currentTransitionAccess[transitionAccessKey])
+                          console.log(currentTransitionAccess[transitionAccessKey][transitionAdjacenteIndex])
+                          const transitionAdjacente = currentTransitionAccess[transitionAccessKey][transitionAdjacenteIndex]
+                          console.log(transitionAdjacente)
+                          console.log(transitionAdjacenteKeys)
+                          console.log(transitionAdjacenteIndex)
+                          adjacentes[transitionAdjacenteIndex] = transitionAdjacente
+                        }
+                        
+                      }
+
+                    }
+                  }
+                  console.log(adjacentes)
+                  route.addNode(currentMapPathPoints[nodeIndex].id, adjacentes)
                 }
+                console.log(route.path(originPoint.id, destinationPoint.id))
               }
           }
-          console.log("secondPath")
-          console.log(route.path(originPoint.id, destinationPoint.id))
         }
-
       }
     }
 
-    
+    getMapMetaData(mapsName){
+      for(let key in this.props.mapsMetadata){
+            const currnteMapsMetadata = this.props.mapsMetadata[key]
+            if(currnteMapsMetadata.name.indexOf(mapsName) != -1)
+              return currnteMapsMetadata
+      }
+      return null
+    }
+
     //  getHolePathMap(pathPoints,originPoint,destinationPoint ): Array<string>{
     //     const route = new Graph()
     //     for(let key in pathPoints){
@@ -303,6 +340,7 @@ class app extends React.Component<Appprops,{}> {
         }
         return("none")
       }
+
 
       getPointCordenates(id,pathPoints){
         const items = pathPoints
