@@ -101,6 +101,7 @@ function* getOriginPointDetails(action): IterableIterator<any> {
         adjacentes: {K:1},
         description: "nada origin",
         mapReference:"ccet1",
+        buildingReference: "ccet",
         x: 50,
         y: 220
     }

@@ -76,10 +76,62 @@ class app extends React.Component<Appprops,{}> {
     }
 
     componentWillMount(){
-      this.props.buildBuildConfigurationsSteps(this.props.buildPointsPath,this.props.originPoint.mapReference,this.props.destinationPoint.mapReference)
+      //this.props.buildBuildConfigurationsSteps(this.props.buildPointsPath,this.props.originPoint.mapReference,this.props.destinationPoint.mapReference)
+      this.calculateHolePath()
     }
 
+    calculateHolePath(){
+      const { originPoint, destinationPoint, mapsAllData} = this.props
+      if(originPoint.mapReference.indexOf(destinationPoint.mapReference) != -1){
+          console.log("eeeee111")
+          const sameFloorMap = this.addNewNodePathPointMap(destinationPoint,
+          this.addNewNodePathPointMap(originPoint,this.getmapsData(originPoint.mapReference)))
+          console.log(this.getHolePathMap(sameFloorMap, originPoint,destinationPoint))   
+      } else {
+        console.log()
+        if(originPoint.buildingReference.indexOf(destinationPoint.buildingReference) != -1){
+          const route = new Graph()
+          for(let mapindex in mapsAllData){
+              
 
+
+              const mapJsonName = Object.keys(mapsAllData[mapindex])[0]
+              let currentMapPathPoints = mapsAllData[mapindex][mapJsonName]
+             
+
+              if(mapJsonName.indexOf(destinationPoint.mapReference) != -1){
+                currentMapPathPoints = this.addNewNodePathPointMap(destinationPoint,currentMapPathPoints);
+              }
+
+              if(mapJsonName.indexOf(originPoint.mapReference) != -1){
+                currentMapPathPoints = this.addNewNodePathPointMap(originPoint,currentMapPathPoints);
+              }
+              console.log(currentMapPathPoints)
+              if(mapJsonName.indexOf(destinationPoint.buildingReference) != -1){
+
+                for(let nodeIndex in currentMapPathPoints){
+                  console.log(currentMapPathPoints[nodeIndex].id, currentMapPathPoints[nodeIndex].adjacentes)
+                  route.addNode(currentMapPathPoints[nodeIndex].id, currentMapPathPoints[nodeIndex].adjacentes)
+                }
+              }
+          }
+          console.log("secondPath")
+          console.log(route.path(originPoint.id, destinationPoint.id))
+        }
+
+      }
+    }
+
+    
+    //  getHolePathMap(pathPoints,originPoint,destinationPoint ): Array<string>{
+    //     const route = new Graph()
+    //     for(let key in pathPoints){
+    //     route.addNode(pathPoints[key].id, pathPoints[key].adjacentes)
+    //     }
+    //     console.log("PPPPPPP")
+    //     return route.path(originPoint.id, destinationPoint.id)
+    // }
+  
  addNewNodePathPointMap(newNode:destinationPoint,pathMap:pathPoints){
     for(let keyNode in newNode.adjacentes){
         for(let keyMap in pathMap){
@@ -282,15 +334,10 @@ class app extends React.Component<Appprops,{}> {
     render(): JSX.Element {
         if(this.props.buildConfigurationsSteps.length === 0)
           return(<View/>)
-        console.log(this.props.buildConfigurationsSteps,this.props.currentMapindex)
         const currentMapData = this.getmapsData(this.props.buildConfigurationsSteps[this.props.currentMapindex] )
-        console.log("1",currentMapData)
         const pathOriginToDestinationCurrentMap = this.props.wholePath[this.props.currentMapindex]
         const totalMapIndex = this.props.buildConfigurationsSteps.length -1
         const mapMetadata = this.props.mapsMetadata[this.props.currentMapindex]
-        console.log(mapMetadata)
-        console.log("2",pathOriginToDestinationCurrentMap)
-        console.log("3",totalMapIndex)
         return(
           <View style={styles.footer}>
             <View style={styles.main}>

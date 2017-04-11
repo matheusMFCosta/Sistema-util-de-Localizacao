@@ -2,6 +2,7 @@ export interface pathPoint{
     id: string,
     adjacentes: any,
     mapReference:string,
+    buildingReference: string,
     x: number,
     y: number
 }
@@ -11,6 +12,7 @@ export interface destinationPoint{
     adjacentes: any,
     description: string,
     mapReference: string,
+    buildingReference: string,
     x: number,
     y: number
 }
@@ -30,6 +32,7 @@ export interface pointsOfInterest{
     adjacentes: any
     description: string,
     mapReference: string,
+    buildingReference: string,
     x: number,
     y: number
 }

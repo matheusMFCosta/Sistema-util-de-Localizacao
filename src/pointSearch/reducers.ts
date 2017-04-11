@@ -17,6 +17,7 @@ const destinationPointInitialState:destinationPoint = {
     adjacentes: {},
     description: "",
     mapReference:"",
+    buildingReference: "",
     x: 0,
     y: 0
 }
@@ -33,6 +34,7 @@ const pointsOfInterestInitialState: pointsOfInterest = {
     adjacentes: {},
     description: "",
     mapReference:"",
+    buildingReference: "",
     x: 0,
     y: 0
 }

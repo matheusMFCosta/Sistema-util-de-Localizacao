@@ -43,6 +43,7 @@ class QrCodeReader extends React.Component<QrCodeReaderProps,{}> {
         description: "nada ainda",
         mapReference:"ccet1",
         globalReference:"ccet",
+        buildingReference:"ccet",
         x: 309,
         y: 177
     })
