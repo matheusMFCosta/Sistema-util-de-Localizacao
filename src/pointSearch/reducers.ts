@@ -45,7 +45,7 @@ const pointSearchInitialState: AddAccount = {
     pathPoints: [],
     mapsData: mapsinitialState,
     mapsImage: [],
-    pointsOfInterest: pointsOfInterestInitialState,
+    pointsOfInterest: [],
     destinationPoint: destinationPointInitialState,
     originPoint: destinationPointInitialState,
     pathOriginToDestinationCurrentMap: [],
@@ -72,7 +72,7 @@ export const pointSearchReducer  = handleActions<AddAccount>({
          } );
     }, 
     [SET_MAP_CONFIGURATION_FROM_SERVER]: (state : AddAccount , action : Action<any> ): AddAccount => {
-        return assign(state, { pointsOfInterest: action.payload.pointsOfInterest, buildPointsPath: action.payload.buildPointsPath} );
+        return assign(state, { pointsOfInterest: state.pointsOfInterest.concat(action.payload.pointsOfInterest), buildPointsPath: action.payload.buildPointsPath} );
     },
     [SET_CAMERA_BE_OPEN_STATUS]: (state : AddAccount , action : Action<boolean> ): AddAccount => {
         return assign(state, { shouldCameraBeOpen: action.payload } );

@@ -6,7 +6,7 @@ export interface AddAccount {
     pathPoints: pathPoints,
     mapsData: mapsData,
     mapsImage: mapsImage, 
-    pointsOfInterest: pointsOfInterest,
+    pointsOfInterest: Array<pointsOfInterest>,
     destinationPoint: destinationPoint,
     originPoint: destinationPoint,
     pathOriginToDestinationCurrentMap: Array<string>,

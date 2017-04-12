@@ -91,9 +91,19 @@ function* getMapConfiguration(action): IterableIterator<any> {
       // const { response , error}  = yield call(getMapConfigurationData);
       // yield put(actions.setMapConfigurantionFromserver(response));
       console.log("GlobalReference",action.payload.globalReference)
-      yield getAllmapsData(action.payload.globalReference)
+      const { response , error}  = yield call(getEnviromentMaps);
+      console.log("Response",response)
+      for(let key in response.structureNames){
+        const currentGlobalReference = response.structureNames[key]
+        console.log(currentGlobalReference)
+        yield getAllmapsData(currentGlobalReference)
+      }
       yield put(actions.setOriginPointSuccess(action.payload))
 }  
+
+
+
+
 
 function* getOriginPointDetails(action): IterableIterator<any> {
     const destinationPoint: destinationPoint ={  
@@ -157,7 +167,24 @@ function* getDestinationPointDetails(action): IterableIterator<any> {
 }
 
 
+function getEnviromentMaps() {
+  return fetch('https://miex-food.herokuapp.com/configuration')
+      .then(response => {
+       if(response.ok){
+         return response.json()
+       } else {
+         return Promise.reject(response);
+       }
+    })
+    .then(
+      response => ({response}),
+      error => ({error: {message:'Something bad happened'}})
+    )
+} 
+
 function getMapConfigurationData(globalReference) {
+
+  
   return fetch('https://miex-food.herokuapp.com/'+globalReference+'/configuration')
       .then(response => {
        if(response.ok){
