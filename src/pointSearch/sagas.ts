@@ -93,6 +93,7 @@ function* getMapConfiguration(action): IterableIterator<any> {
       console.log("GlobalReference",action.payload.globalReference)
       const { response , error}  = yield call(getEnviromentMaps);
       console.log("Response",response)
+      yield put(actions.getStructureName(response.structureNames))
       for(let key in response.structureNames){
         const currentGlobalReference = response.structureNames[key]
         console.log(currentGlobalReference)

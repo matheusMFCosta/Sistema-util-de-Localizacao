@@ -3,6 +3,7 @@ import { pathPoints, destinationPoint, mapsData, pointsOfInterest, mapsImage } f
 export interface AddAccount {
     pointFindFilter: string,
     shouldCameraBeOpen: boolean,
+    structureNames: Array<string>,
     pathPoints: pathPoints,
     mapsData: mapsData,
     mapsImage: mapsImage, 

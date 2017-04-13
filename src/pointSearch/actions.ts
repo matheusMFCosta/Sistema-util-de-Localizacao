@@ -11,7 +11,11 @@ export const SET_ORIGIN_POINT_SUCCESS = "SET_ORIGIN_POINT_SUCCESS"
 export const CHANGE_POINT_FIND_FILTER = "CHANGE_POINT_FIND_FILTER"
 export const SET_MAP_CONFIGURATION_FROM_SERVER = "SET_MAP_CONFIGURATION_FROM_SERVER"
 export const GET_ALL_MAPS_DATA_SUCCEESS = "GET_ALL_MAPS_DATA_SUCCEESS"
+export const GET_STRUCTURE_NAMES = "GET_STRUCTURE_NAMES"
 //export const teste: () => Action = createAction<null>(TESTE)
+
+export const getStructureName: (configuration: Array<string>) => 
+    Action<Array<string>> = createAction<Array<string>>(GET_STRUCTURE_NAMES);
 
 export const setCameraBeOpenStatus: (status:boolean) => 
     Action<boolean> = createAction<boolean>(SET_CAMERA_BE_OPEN_STATUS);

@@ -1,7 +1,7 @@
 import React from 'react'
 import {  View, StyleSheet } from 'react-native'
 import RenderMap from './components/renderMap'
-import { pathPoints, destinationPoint, mapsData } from './maps'
+import { pathPoints, destinationPoint, mapsData, pathPoint } from './maps'
 import { connect } from 'react-redux'
 import { 
     swapNextMapButtonPress,
@@ -30,7 +30,20 @@ interface Appprops {
   mapsAllData: Array<any>,
   setWholePath: Function,
   wholePath:any,
-  mapsMetadata:any
+  mapsMetadata:any,
+  structureNames: Array<string>
+}
+
+function arrayUnique(array) {
+    var a = array.concat();
+    for(var i=0; i<a.length; ++i) {
+        for(var j=i+1; j<a.length; ++j) {
+            if(a[i] === a[j])
+                a.splice(j--, 1);
+        }
+    }
+
+    return a;
 }
 
 const closestPolyLinePoint = function(px, py, x0, y0, x1, y1){
@@ -97,9 +110,171 @@ class app extends React.Component<Appprops,{}> {
 
         } else {
           /* -------------------------------- aqui * ------------------------------*/
+          let minimizedGraph = [];
+          for(let key in this.props.structureNames){
+            
+            const currentStructureName = this.props.structureNames[key]
+            console.log(this.props.structureNames, key)
+            console.log(currentStructureName)
+                      
+            if(currentStructureName.indexOf(originPoint.buildingReference) != -1){
+              const route = this.buildBuildingGraph(mapsAllData,currentStructureName,[originPoint])
+
+              for(let mapindex in mapsAllData){
+              
+              const mapJsonName = Object.keys(mapsAllData[mapindex])[0]
+              let currentMapPathPoints = mapsAllData[mapindex][mapJsonName]           
 
 
+              if(mapJsonName.indexOf(currentStructureName) != -1){
 
+                //para todos os pontos do mapa atual
+
+                for(let nodeIndex in currentMapPathPoints){
+                  const currentTransitionAccess = currentMapPathPoints[nodeIndex].transitionAccess
+                  // se tiver um transitionAccess para algum outro andar ou para fora do predio deve se levar em consideracao
+                  // para o casa da contrucao do mesmo predio queremos inserir na arvore somente unioes para o mesmo predio
+                  if(currentTransitionAccess){
+                    const transitionAccessKeys = Object.keys(currentTransitionAccess)
+                    //para todas as possiveis transitionAccess
+                    for(let index in transitionAccessKeys){
+                      const transitionAccessKey = transitionAccessKeys[index]
+                      //verifica se o transitionAccess eh para o mesmo predio se sim faz um enlace entre os nos dos andares
+                      if(this.getMapMetaData(transitionAccessKey).buildingReference.indexOf(currentStructureName) == -1 ){
+                        console.log(route)
+                        console.log(currentMapPathPoints[nodeIndex].id)
+                        console.log("!!!!!1",route.path(originPoint.id, currentMapPathPoints[nodeIndex].id))     
+                        const path = route.path(originPoint.id, currentMapPathPoints[nodeIndex].id)           
+                        if(path != null)
+                          minimizedGraph = minimizedGraph.concat(path)
+                      }
+
+                    }
+                  }
+
+                }
+              } 
+              
+            } 
+            continue; 
+            //route = this.buildBuildingGraph(mapsAllData,currentStructureName,[originPoint])
+            } 
+
+            if(currentStructureName.indexOf(destinationPoint.buildingReference) != -1){
+              const route = this.buildBuildingGraph(mapsAllData,currentStructureName,[destinationPoint])
+
+              for(let mapindex in mapsAllData){
+              
+              const mapJsonName = Object.keys(mapsAllData[mapindex])[0]
+              let currentMapPathPoints = mapsAllData[mapindex][mapJsonName]           
+
+
+              if(mapJsonName.indexOf(currentStructureName) != -1){
+
+                //para todos os pontos do mapa atual
+
+                for(let nodeIndex in currentMapPathPoints){
+                  const currentTransitionAccess = currentMapPathPoints[nodeIndex].transitionAccess
+                  // se tiver um transitionAccess para algum outro andar ou para fora do predio deve se levar em consideracao
+                  // para o casa da contrucao do mesmo predio queremos inserir na arvore somente unioes para o mesmo predio
+                  if(currentTransitionAccess){
+                    const transitionAccessKeys = Object.keys(currentTransitionAccess)
+                    //para todas as possiveis transitionAccess
+                    for(let index in transitionAccessKeys){
+                      const transitionAccessKey = transitionAccessKeys[index]
+                      //verifica se o transitionAccess eh para o mesmo predio se sim faz um enlace entre os nos dos andares
+                      if(this.getMapMetaData(transitionAccessKey).buildingReference.indexOf(currentStructureName) == -1 ){
+                        console.log(route)
+                        console.log(currentMapPathPoints[nodeIndex].id,destinationPoint.id)
+                        console.log("!!!!!1",route.path(currentMapPathPoints[nodeIndex].id, destinationPoint.id))     
+                        const path = route.path(currentMapPathPoints[nodeIndex].id, destinationPoint.id)           
+                        if(path != null)
+                          minimizedGraph = minimizedGraph.concat(path)
+                      }
+
+                    }
+                  }
+
+                }
+              } 
+              
+            } 
+            continue; 
+            //route = this.buildBuildingGraph(mapsAllData,currentStructureName,[originPoint])
+            } 
+
+
+              const route = this.buildBuildingGraph(mapsAllData,currentStructureName,[])
+
+              for(let mapindex in mapsAllData){
+              
+              const mapJsonName = Object.keys(mapsAllData[mapindex])[0]
+              let currentMapPathPoints = mapsAllData[mapindex][mapJsonName]           
+
+
+              if(mapJsonName.indexOf(currentStructureName) != -1){
+
+                //para todos os pontos do mapa atual
+
+                for(let nodeIndex in currentMapPathPoints){
+                  const currentNodeOrigin = currentMapPathPoints[nodeIndex]
+                  const currentTransitionAccess = currentMapPathPoints[nodeIndex].transitionAccess
+                  // se tiver um transitionAccess para algum outro andar ou para fora do predio deve se levar em consideracao
+                  // para o casa da contrucao do mesmo predio queremos inserir na arvore somente unioes para o mesmo predio
+                  if(currentTransitionAccess){
+                    const transitionAccessKeys = Object.keys(currentTransitionAccess)
+                    //para todas as possiveis transitionAccess
+                    for(let index in transitionAccessKeys){
+                      const transitionAccessKeyOrigin = transitionAccessKeys[index]
+                      //verifica se o transitionAccess eh para o mesmo predio se sim faz um enlace entre os nos dos andares
+                      if(this.getMapMetaData(transitionAccessKeyOrigin).buildingReference.indexOf(currentStructureName) == -1 ){
+                        /*--------------------*/
+                        for(let nodeIndex in currentMapPathPoints){
+                          const currentTransitionAccess = currentMapPathPoints[nodeIndex].transitionAccess
+                          // se tiver um transitionAccess para algum outro andar ou para fora do predio deve se levar em consideracao
+                          // para o casa da contrucao do mesmo predio queremos inserir na arvore somente unioes para o mesmo predio
+                          if(currentTransitionAccess){
+                            const currentNodeDestination = currentMapPathPoints[nodeIndex]
+                            const transitionAccessKeys = Object.keys(currentTransitionAccess)
+                            //para todas as possiveis transitionAccess
+                            for(let index in transitionAccessKeys){
+                              const transitionAccessKeyOrigin = transitionAccessKeys[index]
+                              //verifica se o transitionAccess eh para o mesmo predio se sim faz um enlace entre os nos dos andares
+                              if(this.getMapMetaData(transitionAccessKeyOrigin).buildingReference.indexOf(currentStructureName) == -1 ){
+                                console.log(route)
+                                
+                                console.log(currentNodeOrigin.id, currentNodeDestination.id) 
+                                console.log("!!!!!222",route.path(currentNodeOrigin.id, currentNodeDestination.id))  
+                                
+                                const path = route.path(currentNodeOrigin.id, currentNodeDestination.id)           
+                                if(path != null)
+                                  minimizedGraph = minimizedGraph.concat(path)
+                              }
+
+                            }
+                          }
+                         }
+                        // console.log(route)
+                        // console.log(currentMapPathPoints[nodeIndex].id)
+                        // console.log("!!!!!",route.path(originPoint.id, currentMapPathPoints[nodeIndex].id))     
+                        // const path = route.path(originPoint.id, currentMapPathPoints[nodeIndex].id)           
+                        // minimizedGraph.concat(path)
+                      }
+
+                    }
+                  }
+
+                }
+              } 
+            }  
+     
+            
+            //const route = this.buildBuildingGraph(mapsAllData,currentStructureName,[])
+            
+            console.log("WOOOW",key)
+          }
+            
+          console.log(arrayUnique(minimizedGraph))
 
         }
       }
@@ -429,7 +604,8 @@ const mapStateToProps = (state,ownProps) => ({
    buildConfigurationsSteps: state.maps.buildConfigurationsSteps,
    mapsAllData: state.pointSearch.mapsAllData,
    wholePath: state.maps.wholePath,
-   mapsMetadata: state.pointSearch.mapsMetadata
+   mapsMetadata: state.pointSearch.mapsMetadata,
+   structureNames: state.pointSearch.structureNames
   });
 
 const mapDispatchToProps = dispatch => ({

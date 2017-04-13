@@ -9,7 +9,8 @@ import {
   SET_DESTINATION_POINT_SUCCESS,
   SET_ORIGIN_POINT_SUCCESS,
   SET_MAP_CONFIGURATION_FROM_SERVER,
-  GET_ALL_MAPS_DATA_SUCCEESS
+  GET_ALL_MAPS_DATA_SUCCEESS,
+  GET_STRUCTURE_NAMES
 } from './actions'
 
 const destinationPointInitialState:destinationPoint = {
@@ -42,6 +43,7 @@ const pointsOfInterestInitialState: pointsOfInterest = {
 const pointSearchInitialState: AddAccount = {
     pointFindFilter: "",
     shouldCameraBeOpen: false,
+    structureNames: [],
     pathPoints: [],
     mapsData: mapsinitialState,
     mapsImage: [],
@@ -70,8 +72,12 @@ export const pointSearchReducer  = handleActions<AddAccount>({
         return assign(state, { mapsAllData: state.mapsAllData.concat( {[action.payload.name]: action.payload.data}),
             mapsMetadata: state.mapsMetadata.concat({name:action.payload.name,path:action.payload.path,height:action.payload.height,width:action.payload.width,buildingReference:action.payload.buildingReference})
          } );
-    }, 
+    },
+    [GET_STRUCTURE_NAMES]: (state : AddAccount , action : Action<Array<string>> ): AddAccount => {
+        return assign(state, {structureNames: action.payload});
+    },
     [SET_MAP_CONFIGURATION_FROM_SERVER]: (state : AddAccount , action : Action<any> ): AddAccount => {
+        console.log("ponitofInds",action.payload.pointsOfInterest)
         return assign(state, { pointsOfInterest: state.pointsOfInterest.concat(action.payload.pointsOfInterest), buildPointsPath: action.payload.buildPointsPath} );
     },
     [SET_CAMERA_BE_OPEN_STATUS]: (state : AddAccount , action : Action<boolean> ): AddAccount => {
@@ -81,10 +87,11 @@ export const pointSearchReducer  = handleActions<AddAccount>({
         return assign(state, { pathPoints: [...state.pathPoints, ...action.payload.pathPoints],mapsData: action.payload.maps, pointsOfInterest: action.payload.pointsOfInterest } );
     },
     [SET_DESTINATION_POINT_SUCCESS]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
-        return assign(state, { pathPoints: addNewNodePathPointMap(state.mapsAllData,action.payload),destinationPoint: action.payload } );
+        console.log("")
+        return assign(state, { destinationPoint: action.payload } );
     },
     [SET_ORIGIN_POINT_SUCCESS]: (state : AddAccount , action : Action<destinationPoint>): AddAccount => {
-        return assign(state, { pathPoints: addNewNodePathPointMap(state.mapsAllData,action.payload),originPoint: action.payload } );
+        return assign(state, {originPoint: action.payload } );
     },
     [CHANGE_POINT_FIND_FILTER]: (state : AddAccount , action : Action<string>): AddAccount => {
         return assign(state, { pointFindFilter: action.payload } );

@@ -3,6 +3,8 @@ export interface pathPoint{
     adjacentes: any,
     mapReference:string,
     buildingReference: string,
+    type?: string,
+    transitionAccess?: any,
     x: number,
     y: number
 }
