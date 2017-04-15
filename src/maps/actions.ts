@@ -8,7 +8,9 @@ export const BUILD_PATH_STEPS = "BUILD_PATH_STEPS"
 export const BUILD_BUILD_CONFIGURANTION_STEPS = "BUILD_BUILD_CONFIGURANTION_STEPS"
 export const BUILD_BUILD_CONFIGURANTION_STEPS_SUCCESS = "BUILD_BUILD_CONFIGURANTION_STEPS_SUCCESS"
 export const SET_WHOLE_PATH = "SET_WHOLE_PATH"
+export const SET_MAP_PATH_ORDER = "SET_MAP_PATH_ORDER"
 
+export const setMapPathOrder: (path: any) => Action<any> = createAction<any>(SET_MAP_PATH_ORDER);
 
 export const buildBuildConfigurationsStepsSuccess: (steps: Array<string>) => Action<Array<string>> = createAction<Array<string>>(BUILD_PATH_STEPS)
 

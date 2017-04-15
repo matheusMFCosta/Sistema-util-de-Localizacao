@@ -8,7 +8,8 @@ import {
     swapPreviousMapButtonPress,
     buildPathSteps,
     buildBuildConfigurationsSteps,
-    setWholePath } from './actions'
+    setWholePath,
+    setMapPathOrder } from './actions'
 import  FooterSwapMaps from './components/footerSwapMaps'
 var image = require('./../../images/base/graph2.png')
 const Graph = require('node-dijkstra')
@@ -31,7 +32,9 @@ interface Appprops {
   setWholePath: Function,
   wholePath:any,
   mapsMetadata:any,
-  structureNames: Array<string>
+  structureNames: Array<string>,
+  setMapPathOrder: Function,
+  mapsPathOrder: Array<string>
 }
 
 function arrayUnique(array) {
@@ -96,27 +99,18 @@ class app extends React.Component<Appprops,{}> {
     calculateHolePath(){
       const { originPoint, destinationPoint, mapsAllData} = this.props
       if(originPoint.mapReference.indexOf(destinationPoint.mapReference) != -1){
-          console.log("eeeee111")
           const sameFloorMap = this.addNewNodePathPointMap(destinationPoint,
           this.addNewNodePathPointMap(originPoint,this.getmapsData(originPoint.mapReference)))
-          console.log(this.getHolePathMap(sameFloorMap, originPoint,destinationPoint))   
       } else {
-        console.log()
         if(originPoint.buildingReference.indexOf(destinationPoint.buildingReference) != -1){
 
             const route = this.buildBuildingGraph(mapsAllData,destinationPoint.buildingReference,[originPoint,destinationPoint])
-            console.log(route)
-            console.log(route.path(originPoint.id, destinationPoint.id))
-
         } else {
           /* -------------------------------- aqui * ------------------------------*/
           let minimizedGraph = [];
           for(let key in this.props.structureNames){
             
             const currentStructureName = this.props.structureNames[key]
-            console.log(this.props.structureNames, key)
-            console.log(currentStructureName)
-                      
             if(currentStructureName.indexOf(originPoint.buildingReference) != -1){
               const route = this.buildBuildingGraph(mapsAllData,currentStructureName,[originPoint])
 
@@ -140,10 +134,7 @@ class app extends React.Component<Appprops,{}> {
                     for(let index in transitionAccessKeys){
                       const transitionAccessKey = transitionAccessKeys[index]
                       //verifica se o transitionAccess eh para o mesmo predio se sim faz um enlace entre os nos dos andares
-                      if(this.getMapMetaData(transitionAccessKey).buildingReference.indexOf(currentStructureName) == -1 ){
-                        console.log(route)
-                        console.log(currentMapPathPoints[nodeIndex].id)
-                        console.log("!!!!!1",route.path(originPoint.id, currentMapPathPoints[nodeIndex].id))     
+                      if(this.getMapMetaData(transitionAccessKey).buildingReference.indexOf(currentStructureName) == -1 ){    
                         const path = route.path(originPoint.id, currentMapPathPoints[nodeIndex].id)           
                         if(path != null)
                           minimizedGraph = minimizedGraph.concat(path)
@@ -183,10 +174,7 @@ class app extends React.Component<Appprops,{}> {
                     for(let index in transitionAccessKeys){
                       const transitionAccessKey = transitionAccessKeys[index]
                       //verifica se o transitionAccess eh para o mesmo predio se sim faz um enlace entre os nos dos andares
-                      if(this.getMapMetaData(transitionAccessKey).buildingReference.indexOf(currentStructureName) == -1 ){
-                        console.log(route)
-                        console.log(currentMapPathPoints[nodeIndex].id,destinationPoint.id)
-                        console.log("!!!!!1",route.path(currentMapPathPoints[nodeIndex].id, destinationPoint.id))     
+                      if(this.getMapMetaData(transitionAccessKey).buildingReference.indexOf(currentStructureName) == -1 ){    
                         const path = route.path(currentMapPathPoints[nodeIndex].id, destinationPoint.id)           
                         if(path != null)
                           minimizedGraph = minimizedGraph.concat(path)
@@ -239,13 +227,8 @@ class app extends React.Component<Appprops,{}> {
                             //para todas as possiveis transitionAccess
                             for(let index in transitionAccessKeys){
                               const transitionAccessKeyOrigin = transitionAccessKeys[index]
-                              //verifica se o transitionAccess eh para o mesmo predio se sim faz um enlace entre os nos dos andares
+                              //verifica se o transitionAccess eh para o mesmo predio se nao faz um enlace entre os nos dos andares
                               if(this.getMapMetaData(transitionAccessKeyOrigin).buildingReference.indexOf(currentStructureName) == -1 ){
-                                console.log(route)
-                                
-                                console.log(currentNodeOrigin.id, currentNodeDestination.id) 
-                                console.log("!!!!!222",route.path(currentNodeOrigin.id, currentNodeDestination.id))  
-                                
                                 const path = route.path(currentNodeOrigin.id, currentNodeDestination.id)           
                                 if(path != null)
                                   minimizedGraph = minimizedGraph.concat(path)
@@ -271,13 +254,15 @@ class app extends React.Component<Appprops,{}> {
             
             //const route = this.buildBuildingGraph(mapsAllData,currentStructureName,[])
             
-            console.log("WOOOW",key)
           }
           const nameArray = arrayUnique(minimizedGraph)
-          console.log(nameArray)
-          const objectArray = this.convertNodeNameArrayToObjectArray(nameArray)
-          console.log(objectArray)
-          this.convertArrayObjectToDictionary(objectArray)
+          const pathArray = this.getWholePath(nameArray)
+
+
+          const objectArray = this.convertNodeNameArrayToObjectArray(pathArray.finalPath)
+          const objectDictionary = this.convertArrayObjectToDictionary(objectArray)
+          this.props.setWholePath(objectDictionary)
+          this.props.setMapPathOrder(pathArray.mapOrtder)
 
         }
       }
@@ -286,19 +271,72 @@ class app extends React.Component<Appprops,{}> {
     convertArrayObjectToDictionary(objectArray){
       let currentMapName = ""
       let finalDictionary = {}
+
       for(let key in objectArray){
         const currentObject = objectArray[key]
-        console.log()
         if(currentMapName.indexOf(currentObject.mapReference) == -1){
           finalDictionary[currentObject.mapReference] = [currentObject]
           currentMapName = currentObject.mapReference
-          //console.log(finalDictionary)
         } else {
           finalDictionary[currentObject.mapReference] = finalDictionary[currentObject.mapReference].concat(currentObject)
-          console.log("---",finalDictionary)
         }
-        console.log(finalDictionary)
       }
+      return finalDictionary
+    }
+
+
+    getWholePath(NameArray){
+      let objectArray = []
+      let allNodesArray: any = []
+      let AllNodeDictonary = {}
+      const route = new Graph()
+      AllNodeDictonary[this.props.originPoint.id] = this.props.originPoint
+      for(let key in this.props.mapsAllData){
+            const mapsAllData = this.props.mapsAllData[key]
+            const currentNodeArray = mapsAllData[Object.keys(mapsAllData)[0]]
+            allNodesArray = allNodesArray.concat(currentNodeArray)
+            for(let currentNode in allNodesArray){
+              AllNodeDictonary[allNodesArray[currentNode].id] = allNodesArray[currentNode]
+            }
+      }
+      AllNodeDictonary[this.props.destinationPoint.id] = this.props.destinationPoint
+      for(let key in AllNodeDictonary){
+          let adjacentes = AllNodeDictonary[key].adjacentes
+          const currentTransitionAccess = AllNodeDictonary[key].transitionAccess;
+          
+          if(currentTransitionAccess){
+            const transitionAccessKeys = Object.keys(currentTransitionAccess)
+            //para todas as possiveis transitionAccess
+            for(let index in transitionAccessKeys){
+              const transitionAccessKey = transitionAccessKeys[index]
+              //verifica se o transitionAccess eh para o mesmo predio se sim faz um enlace entre os nos dos andares
+                const transitionAdjacenteKeys = Object.keys(currentTransitionAccess[transitionAccessKey])
+                for(let transitionAdjacenteIndex in currentTransitionAccess[transitionAccessKey]){
+                  const transitionAdjacente = currentTransitionAccess[transitionAccessKey][transitionAdjacenteIndex]
+                  adjacentes[transitionAdjacenteIndex] = transitionAdjacente
+                }
+            }
+          }
+
+
+          route.addNode(AllNodeDictonary[key].id, adjacentes)
+      }
+      
+      const finalPath = route.path(this.props.originPoint.id, this.props.destinationPoint.id)
+      let currentMap = ""
+      const mapOrtder: any =[]
+      for(let key in finalPath){
+        const currentNodeName = finalPath[key]
+        if(currentMap.indexOf(AllNodeDictonary[currentNodeName].mapReference) == -1){
+          currentMap = AllNodeDictonary[currentNodeName].mapReference;
+          mapOrtder.push(currentMap)
+        }
+      }  
+      return {
+      finalPath: finalPath,
+      mapOrtder: mapOrtder
+      }
+
     }
 
     convertNodeNameArrayToObjectArray(NameArray){
@@ -313,14 +351,11 @@ class app extends React.Component<Appprops,{}> {
             for(let currentNode in allNodesArray){
               AllNodeDictonary[allNodesArray[currentNode].id] = allNodesArray[currentNode]
             }
-            console.log(AllNodeDictonary)
       }
       AllNodeDictonary[this.props.destinationPoint.id] = this.props.destinationPoint
       for(let key in NameArray){
           const currentNodeName = NameArray[key]
-          console.log(currentNodeName)
           objectArray = objectArray.concat(AllNodeDictonary[currentNodeName])
-          console.log(objectArray)
       }
       return objectArray
 
@@ -467,8 +502,6 @@ class app extends React.Component<Appprops,{}> {
             const currentMinPathToTransition = closestTransitionPath.currentMinPathToTransition
             const transitionElement = closestTransitionPath.transitionElement
               //por cada escada de um andar acha qual eh a com menor distancia
-            console.log("----")
-            console.log(currentMinPathToTransition.path)
             finalPath = finalPath.concat({
               mapReference:buildConfigurationsSteps[currentMapIndex],
               path:currentMinPathToTransition.path,
@@ -487,8 +520,7 @@ class app extends React.Component<Appprops,{}> {
     componentWillReceiveProps(nextProps){
       const originPoint = this.props.originPoint;
       const destinationpoint = this.props.destinationPoint;
-      
-      console.log(this.props.buildConfigurationsSteps.length, nextProps.buildConfigurationsSteps.length)
+
       if(this.props.buildConfigurationsSteps.length != nextProps.buildConfigurationsSteps.length){
         let finalPath: any = []
         const buildConfigurationsSteps = nextProps.buildConfigurationsSteps
@@ -541,7 +573,6 @@ class app extends React.Component<Appprops,{}> {
         for(let key in pathPoints){
         route.addNode(pathPoints[key].id, pathPoints[key].adjacentes)
         }
-        console.log("PPPPPPP")
         return route.path(originPoint.id, destinationPoint.id)
     }
     getHolePathMapWithCost(pathPoints,originPoint,destinationPoint ){
@@ -549,7 +580,6 @@ class app extends React.Component<Appprops,{}> {
         for(let key in pathPoints){
         route.addNode(pathPoints[key].id, pathPoints[key].adjacentes)
         }
-        console.log("DDDDDDD")
         return route.path(originPoint.id, destinationPoint.id, { cost: true })
     }
 
@@ -592,21 +622,34 @@ class app extends React.Component<Appprops,{}> {
 
 
     render(): JSX.Element {
-        if(this.props.buildConfigurationsSteps.length === 0)
+        if(this.props.mapsPathOrder.length === 0)
           return(<View/>)
-        const currentMapData = this.getmapsData(this.props.buildConfigurationsSteps[this.props.currentMapindex] )
-        const pathOriginToDestinationCurrentMap = this.props.wholePath[this.props.currentMapindex]
-        const totalMapIndex = this.props.buildConfigurationsSteps.length -1
-        const mapMetadata = this.props.mapsMetadata[this.props.currentMapindex]
+        const mapsPathOrder = this.props.mapsPathOrder
+        const mapNameIndex = this.props.currentMapindex
+        const mapName = mapsPathOrder[mapNameIndex]
+        const totalMapIndex = mapsPathOrder.length
+        const mapMetadata = this.getMapMetaData(mapName)
+        // const currentMapData = this.getmapsData(mapsPathOrder[mapNameIndex] )
+        const pathOriginToDestinationCurrentMap = this.props.wholePath[mapName]
+        
+        
+        // console.log("-----222222---",mapsPathOrder)
+        // console.log(mapName)
+        // console.log(this.props.wholePath)
+        // console.log(mapMetadata)
+        // console.log(currentMapData)
+        // console.log(pathOriginToDestinationCurrentMap)
+        // console.log(totalMapIndex)
+        // console.log(mapMetadata)
         return(
           <View style={styles.footer}>
             <View style={styles.main}>
               <RenderMap 
                 mapMetadata={mapMetadata}
-                currentMapData={currentMapData}
                 pathOriginToDestinationCurrentMap={pathOriginToDestinationCurrentMap}
                 getPointCordenates={this.getPointCordenates} 
-                pathPoints={currentMapData} 
+                currentMapName={mapName}
+                totalMapIndex={totalMapIndex}
                 map={image} 
                 />
               </View>
@@ -651,7 +694,8 @@ const mapStateToProps = (state,ownProps) => ({
    mapsAllData: state.pointSearch.mapsAllData,
    wholePath: state.maps.wholePath,
    mapsMetadata: state.pointSearch.mapsMetadata,
-   structureNames: state.pointSearch.structureNames
+   structureNames: state.pointSearch.structureNames,
+   mapsPathOrder: state.maps.mapsPathOrder
   });
 
 const mapDispatchToProps = dispatch => ({
@@ -664,7 +708,9 @@ const mapDispatchToProps = dispatch => ({
   buildBuildConfigurationsSteps: (buildPointsPath,originPointMapReference,destinationPointMapreference) =>
     dispatch(buildBuildConfigurationsSteps(buildPointsPath,originPointMapReference,destinationPointMapreference)),
   setWholePath: (path) =>
-    dispatch(setWholePath(path))
+    dispatch(setWholePath(path)),
+  setMapPathOrder: (pathOrder) => 
+    dispatch(setMapPathOrder(pathOrder))
 
 });
 

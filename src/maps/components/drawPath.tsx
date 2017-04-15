@@ -6,17 +6,20 @@ import { connect } from 'react-redux'
 
 const DrawLines = (props) => {
   if(props.pathOriginToDestinationCurrentMap){
-    console.log(props.pathOriginToDestinationCurrentMap)
-    const keys: Array<string> = props.pathOriginToDestinationCurrentMap.path;
+    const keys = props.pathOriginToDestinationCurrentMap;
     console.log(keys)
     return(
         <G>
         {keys.map((key,index) =>{
-                console.log(key)
-                const originCordenates = props.getPointCordenates(key,props.pathPoints) 
-                const destinationCordenates = props.getPointCordenates(keys[index+1],props.pathPoints) 
+            if(index === keys.length -1)
+                return(
+                    <G key={index} />
+                )
+                const originCordenates = { x: keys[index].x, y: keys[index].y }
+
+                const destinationCordenates = { x: keys[index+1].x, y: keys[index+1].y } 
+                console.log(originCordenates,destinationCordenates)
             if(index < keys.length -1){
-                console.log("----",originCordenates,destinationCordenates)
                 return(
                     <G key={index}>
                         <Circle
@@ -57,10 +60,12 @@ const DrawLines = (props) => {
 
 interface Appprops {
     getPointCordenates: Function
-    pathPoints: pathPoints,
+    //pathPoints: pathPoints,
     pathOriginToDestinationCurrentMap: Array<string>
-    currentMapData: mapsData,
-    mapMetadata:any
+    //currentMapData: mapsData,
+    mapMetadata:any,
+    currentMapName: string,
+    totalMapIndex: number
 }
 
 class DrawPath extends React.Component<Appprops,{}> {
@@ -69,15 +74,16 @@ class DrawPath extends React.Component<Appprops,{}> {
     }
 
     render(): JSX.Element { 
-        console.log("aqqui") 
                return(      
             <Svg 
                 height={this.props.mapMetadata.width}
                 width={this.props.mapMetadata.width}>
                     <DrawLines
+                        currentMapName={this.props.currentMapName}
                         pathOriginToDestinationCurrentMap={this.props.pathOriginToDestinationCurrentMap}
-                        pathPoints={this.props.pathPoints}
+                        //pathPoints={this.props.pathPoints}
                         getPointCordenates={this.props.getPointCordenates} 
+                        totalMapIndex={this.props.totalMapIndex}
                     />
             </Svg>
         )

@@ -46,6 +46,7 @@ export interface Maps{
     pathOriginToDestinationCurrentMap: Array<any>,
     pathOriginToDestinationHoleMap: Array<any>,
     wholePath: any
+    mapsPathOrder: Array<string>
 }
 
 export type mapsImage = Array<any>

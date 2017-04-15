@@ -13,233 +13,142 @@ import { updateAccountsCode } from './../main/actions'
       const route = new Graph()
       
         const itemsList=[
+                  {
+        "id":"A-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "B-GROUND1":4 },
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 55,
+        "y": 510
+      },
       {
-        "id": "A-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "B-CCET2": 1,
-          "F-CCET2": 2,
-          "S-CCET2":1
-        },
-        "mapReference": "ccet2",
+        "id":"B-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "C-GROUND1":6 },
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 55,
+        "y": 363
+      },
+      {
+        "id":"C-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "B-GROUND1":6,"D-GROUND1": 2 },
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 378,
+        "y": 363
+      },
+      {
+        "id":"D-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "C-GROUND1":2,"E-GROUND1": 1, "L-GROUND1": 2 },
+        "mapReference":"ground1",
         "type":"transition",
-        "transitionAccess":["ccet2"],
-        "x": 290,
-        "y": 380
+        "transitionAccess":{"ccet1":{"A-CCET1":3}},
+        "x": 378,
+        "y": 550
       },
       {
-        "id": "B-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "A-CCET2": 1,
-          "C-CCET2": 2
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 170,
-        "y": 380
+        "id":"E-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "D-GROUND1":1,"F-GROUND1": 2, "I-GROUND1": 2 },
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 378,
+        "y": 220
       },
       {
-        "id": "C-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "B-CCET2": 2,
-          "D-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 88,
-        "y": 380
+        "id":"F-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "E-GROUND1":2,"G-GROUND1": 2 },
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 475,
+        "y": 190
       },
       {
-        "id": "D-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "C-CCET2": 1,
-          "E-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 88,
-        "y": 282
+        "id":"G-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "F-GROUND1":2,"H-GROUND1": 3 },
+        "mapReference":"ground1",
+        "type":"transition",
+        "transitionAccess":{"cch1":{"A-CCH1":2}},
+        "x": 565,
+        "y": 190
       },
       {
-        "id": "E-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "D-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 88,
-        "y": 180
+        "id":"H-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "G-GROUND1":3,"K-GROUND1": 1, "O-GROUND1":2 },
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 820,
+        "y": 190
       },
       {
-        "id": "F-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "A-CCET2": 2,
-          "G-CCET2": 2
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 365,
-        "y": 380
+        "id":"I-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "E-GROUND1":2,"J-GROUND1": 2 },
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 475,
+        "y": 220
       },
       {
-        "id": "G-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "H-CCET2": 2,
-          "P-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 470,
-        "y": 380
+        "id":"J-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "I-GROUND1":2,"G-GROUND1": 1,"M-GROUND1": 1,"K-GROUND1": 3 },
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 565,
+        "y": 220
       },
       {
-        "id": "H-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "I-CCET2": 2,
-          "G-CCET2": 2
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 470,
-        "y": 225
+        "id":"K-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "H-GROUND1": 1,"J-GROUND1":3,"N-GROUND1": 1 },
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 820,
+        "y": 220
+      },      
+      {
+        "id":"L-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "D-GROUND1": 2,"M-GROUND1":2},
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 475,
+        "y": 260
       },
       {
-        "id": "I-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "J-CCET2": 1,
-          "H-CCET2": 2
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 470,
-        "y": 107
-      },
-      {
-        "id": "J-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "K-CCET2": 1,
-          "I-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 470,
-        "y": 48
-      },
-      {
-        "id": "K-CCET2",
-        "adjacentes": {
-          "J-CCET2": 1,
-          "L-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 570,
-        "y": 48
-      },
-      {
-        "id": "L-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "K-CCET2": 1,
-          "M-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 570,
-        "y": 125
-      },
-      {
-        "id": "M-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "L-CCET2": 1,
-          "N-CCET2": 2
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 570,
-        "y": 200
-      },
-      {
-        "id": "N-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "M-CCET2": 2,
-          "O-CCET2": 2
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 570,
-        "y": 290
-      },
-      {
-        "id": "O-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "N-CCET2": 2,
-          "P-CCET2": 2
-        },
-        "mapReference": "ccet2",
-        "type": "path",
+        "id":"M-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "L-GROUND1": 2,"J-GROUND1":1,"N-GROUND1":3},
+        "mapReference":"ground1",
+        "type":"path",
         "x": 560,
-        "y": 420
+        "y": 260
       },
       {
-        "id": "P-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "G-CCET2": 1,
-          "O-CCET2": 2,
-          "Q-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 480,
-        "y": 430
+        "id":"N-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "M-GROUND1": 3,"K-GROUND1":1},
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 820,
+        "y": 260
       },
       {
-        "id": "Q-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "P-CCET2": 1,
-          "R-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 480,
-        "y": 480
-      },
-      {
-        "id": "R-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "Q-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type":"transition",
-        "transitionAccess":["ccet2"],
-        "x": 547,
-        "y": 472
-      },
-      {
-        "id": "S-CCET2",
-        "floorReference": 2,
-        "adjacentes": {
-          "A-CCET2": 1
-        },
-        "mapReference": "ccet2",
-        "type": "path",
-        "x": 290,
-        "y": 320
+        "id":"O-GROUND1",
+        "buildingReference":"ground",
+        "adjacentes":{ "H-GROUND1": 3},
+        "mapReference":"ground1",
+        "type":"path",
+        "x": 820,
+        "y": 100
       }
     ] 
 
@@ -363,11 +272,11 @@ class listMethods extends React.Component<any,{}> {
 
           <ImageZoom cropWidth={Dimensions.get('window').width}
                        cropHeight={Dimensions.get('window').height}
-                       imageWidth={683}
-                       imageHeight={594}>
+                       imageWidth={864}
+                       imageHeight={540}>
                     <View>
-                    <Image style={{width:683, height:594,position:'absolute'}}
-                          source={{uri: 'https://miex-food.herokuapp.com/ccet/images/ccet2'}}/>
+                    <Image style={{width:864, height:540,position:'absolute'}}
+                          source={{uri: 'https://miex-food.herokuapp.com/ground/images/ground1'}}/>
 
                       <View style={{position:'absolute'}}>
 

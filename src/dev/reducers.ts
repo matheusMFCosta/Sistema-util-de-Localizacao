@@ -27,7 +27,7 @@ export const mapsReducer  = handleActions<Maps>({
         return assign(state, {buildConfigurationsSteps: action.payload} );
     },
     [SWAP_NEXT_MAP_BUTTON_PRESS]: (state : Maps , action : Action<mapsData> ): Maps => {
-    if((state.currentMapindex + 1) < state.pathSteps.length )
+    if((state.currentMapindex + 1))
         return assign(state, { currentMapindex: state.currentMapindex + 1} );
     return state
     },

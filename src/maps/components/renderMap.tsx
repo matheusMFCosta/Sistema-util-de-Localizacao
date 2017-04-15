@@ -6,11 +6,13 @@ import DrawPath from './drawPath'
 
 interface Appprops {
     getPointCordenates: Function
-    pathPoints: pathPoints
+    //pathPoints: pathPoints
     map: any,
     pathOriginToDestinationCurrentMap: Array<string>,
-    currentMapData: mapsData,
-    mapMetadata: any
+    //currentMapData: mapsData,
+    mapMetadata: any,
+    currentMapName: string,
+    totalMapIndex: number
 }
 
  class RenderMap extends React.Component<Appprops,{}> {
@@ -19,7 +21,6 @@ interface Appprops {
     }
 
     render(): JSX.Element {  
-        console.log(this.props.mapMetadata.path)
         return(
           <View>
             <ImageZoom cropWidth={Dimensions.get('window').width}
@@ -31,11 +32,12 @@ interface Appprops {
                         source={{uri: this.props.mapMetadata.path}}/>
                     <View style={{position:'absolute'}}>
                         <DrawPath
-                            currentMapData={this.props.currentMapData}
+                            currentMapName={this.props.currentMapName}
                             mapMetadata={this.props.mapMetadata}
                             pathOriginToDestinationCurrentMap={this.props.pathOriginToDestinationCurrentMap}
                             getPointCordenates={this.props.getPointCordenates} 
-                            pathPoints={this.props.pathPoints}/>
+                            totalMapIndex={this.props.totalMapIndex}
+                            />
                     </View >
                 </View>
             </ImageZoom>
