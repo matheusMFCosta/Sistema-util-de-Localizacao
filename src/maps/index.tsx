@@ -273,11 +273,57 @@ class app extends React.Component<Appprops,{}> {
             
             console.log("WOOOW",key)
           }
-            
-          console.log(arrayUnique(minimizedGraph))
+          const nameArray = arrayUnique(minimizedGraph)
+          console.log(nameArray)
+          const objectArray = this.convertNodeNameArrayToObjectArray(nameArray)
+          console.log(objectArray)
+          this.convertArrayObjectToDictionary(objectArray)
 
         }
       }
+    }
+
+    convertArrayObjectToDictionary(objectArray){
+      let currentMapName = ""
+      let finalDictionary = {}
+      for(let key in objectArray){
+        const currentObject = objectArray[key]
+        console.log()
+        if(currentMapName.indexOf(currentObject.mapReference) == -1){
+          finalDictionary[currentObject.mapReference] = [currentObject]
+          currentMapName = currentObject.mapReference
+          //console.log(finalDictionary)
+        } else {
+          finalDictionary[currentObject.mapReference] = finalDictionary[currentObject.mapReference].concat(currentObject)
+          console.log("---",finalDictionary)
+        }
+        console.log(finalDictionary)
+      }
+    }
+
+    convertNodeNameArrayToObjectArray(NameArray){
+      let objectArray = []
+      let allNodesArray: any = []
+      let AllNodeDictonary = {}
+      AllNodeDictonary[this.props.originPoint.id] = this.props.originPoint
+      for(let key in this.props.mapsAllData){
+            const mapsAllData = this.props.mapsAllData[key]
+            const currentNodeArray = mapsAllData[Object.keys(mapsAllData)[0]]
+            allNodesArray = allNodesArray.concat(currentNodeArray)
+            for(let currentNode in allNodesArray){
+              AllNodeDictonary[allNodesArray[currentNode].id] = allNodesArray[currentNode]
+            }
+            console.log(AllNodeDictonary)
+      }
+      AllNodeDictonary[this.props.destinationPoint.id] = this.props.destinationPoint
+      for(let key in NameArray){
+          const currentNodeName = NameArray[key]
+          console.log(currentNodeName)
+          objectArray = objectArray.concat(AllNodeDictonary[currentNodeName])
+          console.log(objectArray)
+      }
+      return objectArray
+
     }
 
     getMapMetaData(mapsName){
