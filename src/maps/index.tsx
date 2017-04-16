@@ -97,17 +97,30 @@ class app extends React.Component<Appprops,{}> {
     }
 
     calculateHolePath(){
+      let minimizedGraph = [];
       const { originPoint, destinationPoint, mapsAllData} = this.props
       if(originPoint.mapReference.indexOf(destinationPoint.mapReference) != -1){
+          const route = new Graph()
+          console.log("111")
           const sameFloorMap = this.addNewNodePathPointMap(destinationPoint,
           this.addNewNodePathPointMap(originPoint,this.getmapsData(originPoint.mapReference)))
+          console.log(sameFloorMap)
+          for(let key in sameFloorMap){
+            const currentNode = sameFloorMap[key]
+            route.addNode(currentNode.id, currentNode.adjacentes)
+            }
+            console.log(route)
+            minimizedGraph = route.path(originPoint.id, destinationPoint.id)
+            console.log(minimizedGraph)
       } else {
         if(originPoint.buildingReference.indexOf(destinationPoint.buildingReference) != -1){
-
+            console.log("222")
             const route = this.buildBuildingGraph(mapsAllData,destinationPoint.buildingReference,[originPoint,destinationPoint])
+            minimizedGraph = route.path(originPoint.id, destinationPoint.id)
+            console.log(minimizedGraph)
         } else {
           /* -------------------------------- aqui * ------------------------------*/
-          let minimizedGraph = [];
+          minimizedGraph = [];
           for(let key in this.props.structureNames){
             
             const currentStructureName = this.props.structureNames[key]
@@ -255,17 +268,22 @@ class app extends React.Component<Appprops,{}> {
             //const route = this.buildBuildingGraph(mapsAllData,currentStructureName,[])
             
           }
-          const nameArray = arrayUnique(minimizedGraph)
-          const pathArray = this.getWholePath(nameArray)
 
-
-          const objectArray = this.convertNodeNameArrayToObjectArray(pathArray.finalPath)
-          const objectDictionary = this.convertArrayObjectToDictionary(objectArray)
-          this.props.setWholePath(objectDictionary)
-          this.props.setMapPathOrder(pathArray.mapOrtder)
 
         }
       }
+          const nameArray = arrayUnique(minimizedGraph)
+          console.log(nameArray)
+          const pathArray = this.getWholePath(nameArray)
+          console.log(pathArray)
+
+          const objectArray = this.convertNodeNameArrayToObjectArray(pathArray.finalPath)
+          console.log(objectArray)
+          const objectDictionary = this.convertArrayObjectToDictionary(objectArray)
+          console.log(objectDictionary)
+          this.props.setWholePath(objectDictionary)
+
+          this.props.setMapPathOrder(pathArray.mapOrtder)
     }
 
     convertArrayObjectToDictionary(objectArray){

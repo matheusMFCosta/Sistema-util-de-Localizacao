@@ -35,6 +35,20 @@ class QrCodeReader extends React.Component<QrCodeReaderProps,{}> {
         Actions.DestinationPoint();
     }
 
+    // capture(): void {   
+    //     this.props.setCameraBeOpenStatus(false);
+    //     this.props.pointSearchQrCode({  
+    //     id: "Sala204N",
+    //     adjacentes: { "D-CCET2":1 },
+    //     description: "nada ainda",
+    //     mapReference:"ccet2",
+    //     globalReference:"ccet",
+    //     buildingReference:"ccet",
+    //     x: 70,
+    //     y: 200
+    // })
+
+
     capture(): void {   
         this.props.setCameraBeOpenStatus(false);
         this.props.pointSearchQrCode({  
@@ -47,6 +61,8 @@ class QrCodeReader extends React.Component<QrCodeReaderProps,{}> {
         x: 309,
         y: 177
     })
+
+
         Actions.DestinationPoint();
     }
 
