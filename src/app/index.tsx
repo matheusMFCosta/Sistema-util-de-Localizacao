@@ -1,5 +1,5 @@
 import React from 'react'
-import {  View } from 'react-native'
+import {  View, Image, Text } from 'react-native'
 var { Actions } = require('react-native-router-flux')
 import { teste, changeAddCodeFooterStatus } from './actions'
 import { connect } from 'react-redux'
@@ -38,6 +38,13 @@ class app extends React.Component<any,{}> {
           <View style={{flex: 1, flexDirection: 'column'}}>
             <View >
                 <Navbar changeAddCodeFooterStatus={()=> this.props.changeAddCodeFooterStatus(true)} />
+            </View>
+            <View style={{ top:100 , alignItems:"center"}}>
+              <Text style={{fontSize: 20, color:'blue'}} > Sistema Util De Localização </Text>
+              <Image
+                  style={{width: 250, height: 250, top: 50}}
+                  source={require('./../utils/images/bussola.png')}
+                />
             </View>
             <View style={{flex: 1, flexDirection: 'column'}}>
                 <FooterTab 

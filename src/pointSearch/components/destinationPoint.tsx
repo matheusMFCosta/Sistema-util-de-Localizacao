@@ -43,6 +43,7 @@ const DestinationList = (props) => {
 class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
 
     render(): JSX.Element {
+            let currentBuilding = "--";
             return (
                 <View style={styles.screen}>
                     <View>
@@ -62,31 +63,54 @@ class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
                             </Container>
                         </View>
                     </View>
-                    <Container>
-                        <Content>
-                            <Form>
-                                <Item floatingLabel last>
-                                    <Label>Find</Label>
-                                    <Input 
-                                        value={this.props.pointFindFilter} 
-                                        onChange={(e) => this.props.changePointFindFilter(e.nativeEvent.text)}/>
-                                </Item>
-                            </Form>
-                        </Content>
-                    </Container>
-                <Container>
-                    <Content>
-                        <List dataArray={this.props.pointsOfInterest} renderRow={(key) =>{
-                            return(
-                                <DestinationList 
-                                    pathPoints={this.props.pathPoints}
-                                    setDestinationPoint={this.props.setDestinationPoint} 
-                                    pointData={key} 
-                                    pointFilter={this.props.pointFindFilter} />
-                            )
-                        }}/>
-                    </Content>
-                </Container>
+                    <View style={{flex:1}} >
+                        <Container >
+                            <Content>
+                                <Form>
+                                    <Item floatingLabel last>
+                                        <Label>Find</Label>
+                                        <Input 
+                                            value={this.props.pointFindFilter} 
+                                            onChange={(e) => this.props.changePointFindFilter(e.nativeEvent.text)}/>
+                                    </Item>
+                                </Form>
+                            </Content>
+                        </Container>
+                    </View>
+                    <View style={{flex:9}} >
+                        <Container>
+                            <Content>
+                                <List dataArray={this.props.pointsOfInterest} renderRow={(key) =>{
+                                    console.log(key.buildingReference,"-",currentBuilding)
+                                    console.log("currentBuilding22",currentBuilding)
+                                    console.log(key.buildingReference.indexOf(currentBuilding) == -1)
+                                    if(key.buildingReference.indexOf(currentBuilding) == -1){
+                                        currentBuilding = key.buildingReference;
+                                        console.log("currentBuilding",currentBuilding)
+                                        return(
+                                            <View>
+                                                <ListItem itemDivider>
+                                                    <Text>{currentBuilding}</Text>
+                                                </ListItem> 
+                                                <DestinationList 
+                                                    pathPoints={this.props.pathPoints}
+                                                    setDestinationPoint={this.props.setDestinationPoint} 
+                                                    pointData={key} 
+                                                    pointFilter={this.props.pointFindFilter} />
+                                            </View>
+                                        )
+                                    }
+                                    return(
+                                        <DestinationList 
+                                            pathPoints={this.props.pathPoints}
+                                            setDestinationPoint={this.props.setDestinationPoint} 
+                                            pointData={key} 
+                                            pointFilter={this.props.pointFindFilter} />
+                                    )
+                                }}/>
+                            </Content>
+                        </Container>
+                    </View>
             </View>
         );
     }

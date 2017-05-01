@@ -86,10 +86,48 @@ const closestPolyLinePoint = function(px, py, x0, y0, x1, y1){
 };
 
 
+
+
+
+
+
 class app extends React.Component<Appprops,{}> {
     constructor(props, context) {
         super(props, context);
     }
+
+
+      // const pathPoints = action.payload.pathPoints
+  // var keys:any = [];
+  //     for(let k in destinationPoint.adjacentes) keys.push(k);
+  // if(keys.length <= 1){
+  //   yield put(actions.setDestinationPointSuccess(destinationPoint))
+    
+  // } else {
+  //     const firtPoint = getPointCordenates(keys[0],pathPoints)
+  //     const secondPoint = getPointCordenates(keys[1],pathPoints)
+  //     const currentPoint = {x:destinationPoint.x , y:destinationPoint.y}
+  //     const closestPointsData = closestPoint(
+  //         currentPoint.x,currentPoint.y,
+  //         firtPoint.x,firtPoint.y,
+  //         secondPoint.x,secondPoint.y
+  //       )
+      
+  //     let adjacentes = destinationPoint.adjacentes
+  //     adjacentes[destinationPoint.id]=1;
+  //     const closestPointDefiner ={  
+  //       id: destinationPoint.id+"-Temp",
+  //       adjacentes: adjacentes,
+  //       description: "parcial",
+  //       mapReference:destinationPoint.mapReference,
+  //       x: closestPointsData.x,
+  //       y: closestPointsData.y
+  //   }
+  //   let json = {}
+  //   json[destinationPoint.id+'-Temp'] = 1
+  //   destinationPoint.adjacentes = json
+
+
 
     componentWillMount(){
       //this.props.buildBuildConfigurationsSteps(this.props.buildPointsPath,this.props.originPoint.mapReference,this.props.destinationPoint.mapReference)
@@ -99,23 +137,31 @@ class app extends React.Component<Appprops,{}> {
     calculateHolePath(){
       let minimizedGraph = [];
       const { originPoint, destinationPoint, mapsAllData} = this.props
+      let tempNodes:any = [];
       if(originPoint.mapReference.indexOf(destinationPoint.mapReference) != -1){
           const route = new Graph()
           console.log("111")
-          const sameFloorMap = this.addNewNodePathPointMap(destinationPoint,
-          this.addNewNodePathPointMap(originPoint,this.getmapsData(originPoint.mapReference)))
-          console.log(sameFloorMap)
-          for(let key in sameFloorMap){
-            const currentNode = sameFloorMap[key]
+          const sameFlorMapOrigin = this.addNewNodePathPointMap2(originPoint,this.getmapsData(originPoint.mapReference))
+          const sameFlorMapOriginAndDestination = this.addNewNodePathPointMap2(destinationPoint, sameFlorMapOrigin["pathPoints"])
+          tempNodes.push(sameFlorMapOrigin["tempNode"]) 
+          tempNodes.push(sameFlorMapOriginAndDestination["tempNode"]) 
+          //this.addNewNodePathPointMap2(originPoint,this.getmapsData(originPoint.mapReference)))
+          console.log("-----2----", tempNodes)
+          for(let key in sameFlorMapOriginAndDestination["pathPoints"]){
+            const currentNode = sameFlorMapOriginAndDestination["pathPoints"][key]
             route.addNode(currentNode.id, currentNode.adjacentes)
             }
             console.log(route)
             minimizedGraph = route.path(originPoint.id, destinationPoint.id)
-            console.log(minimizedGraph)
+            console.log("---4",minimizedGraph)
       } else {
         if(originPoint.buildingReference.indexOf(destinationPoint.buildingReference) != -1){
             console.log("222")
-            const route = this.buildBuildingGraph(mapsAllData,destinationPoint.buildingReference,[originPoint,destinationPoint])
+            const buildGraphObject = this.buildBuildingGraph(mapsAllData,destinationPoint.buildingReference,[originPoint,destinationPoint])
+            const route:any = buildGraphObject.route
+            tempNodes = buildGraphObject.tempNode
+            console.log(buildGraphObject)
+            console.log(route,tempNodes)
             minimizedGraph = route.path(originPoint.id, destinationPoint.id)
             console.log(minimizedGraph)
         } else {
@@ -125,8 +171,10 @@ class app extends React.Component<Appprops,{}> {
             
             const currentStructureName = this.props.structureNames[key]
             if(currentStructureName.indexOf(originPoint.buildingReference) != -1){
-              const route = this.buildBuildingGraph(mapsAllData,currentStructureName,[originPoint])
-
+              const buildGraphObject = this.buildBuildingGraph(mapsAllData,currentStructureName,[originPoint])
+              const route = buildGraphObject.route
+              if(buildGraphObject.tempNode)tempNodes = tempNodes.concat(buildGraphObject.tempNode)
+              console.log("BUILDOBJECT1",buildGraphObject)
               for(let mapindex in mapsAllData){
               
               const mapJsonName = Object.keys(mapsAllData[mapindex])[0]
@@ -165,8 +213,10 @@ class app extends React.Component<Appprops,{}> {
             } 
 
             if(currentStructureName.indexOf(destinationPoint.buildingReference) != -1){
-              const route = this.buildBuildingGraph(mapsAllData,currentStructureName,[destinationPoint])
-
+              const buildGraphObject = this.buildBuildingGraph(mapsAllData,currentStructureName,[destinationPoint])
+              const route = buildGraphObject.route
+              if(buildGraphObject.tempNode) tempNodes =  tempNodes.concat(buildGraphObject.tempNode)
+              console.log("BUILDOBJECT2",buildGraphObject)
               for(let mapindex in mapsAllData){
               
               const mapJsonName = Object.keys(mapsAllData[mapindex])[0]
@@ -204,9 +254,9 @@ class app extends React.Component<Appprops,{}> {
             //route = this.buildBuildingGraph(mapsAllData,currentStructureName,[originPoint])
             } 
 
-
-              const route = this.buildBuildingGraph(mapsAllData,currentStructureName,[])
-
+              const buildGraphObject = this.buildBuildingGraph(mapsAllData,currentStructureName,[])
+              const route = buildGraphObject.route
+              console.log("BUILDOBJECT3",buildGraphObject)
               for(let mapindex in mapsAllData){
               
               const mapJsonName = Object.keys(mapsAllData[mapindex])[0]
@@ -274,16 +324,19 @@ class app extends React.Component<Appprops,{}> {
       }
           const nameArray = arrayUnique(minimizedGraph)
           console.log(nameArray)
-          const pathArray = this.getWholePath(nameArray)
+          const pathArray = this.getWholePath(nameArray,tempNodes)
+          console.log("TEMNODES",tempNodes)
           console.log(pathArray)
 
-          const objectArray = this.convertNodeNameArrayToObjectArray(pathArray.finalPath)
+          const objectArray = this.convertNodeNameArrayToObjectArray(pathArray.finalPath,tempNodes)
           console.log(objectArray)
           const objectDictionary = this.convertArrayObjectToDictionary(objectArray)
           console.log(objectDictionary)
           this.props.setWholePath(objectDictionary)
+          console.log("setWholePath")
 
           this.props.setMapPathOrder(pathArray.mapOrtder)
+          console.log("setMapPathOrder")
     }
 
     convertArrayObjectToDictionary(objectArray){
@@ -303,7 +356,8 @@ class app extends React.Component<Appprops,{}> {
     }
 
 
-    getWholePath(NameArray){
+    getWholePath(NameArray,tempNodes){
+      console.log("TEMPOOO",tempNodes)
       let objectArray = []
       let allNodesArray: any = []
       let AllNodeDictonary = {}
@@ -317,7 +371,18 @@ class app extends React.Component<Appprops,{}> {
               AllNodeDictonary[allNodesArray[currentNode].id] = allNodesArray[currentNode]
             }
       }
+      
       AllNodeDictonary[this.props.destinationPoint.id] = this.props.destinationPoint
+      for(let key in tempNodes){
+        const currentNode = tempNodes[key]
+        console.log(currentNode)
+        console.log(tempNodes,key)
+        if(currentNode.id.indexOf("-Temp")){
+          const referenceName = currentNode.id.split('-');
+          AllNodeDictonary[currentNode.id] = currentNode
+        }
+      }
+      console.log("Dictionary",AllNodeDictonary)
       for(let key in AllNodeDictonary){
           let adjacentes = AllNodeDictonary[key].adjacentes
           const currentTransitionAccess = AllNodeDictonary[key].transitionAccess;
@@ -357,7 +422,7 @@ class app extends React.Component<Appprops,{}> {
 
     }
 
-    convertNodeNameArrayToObjectArray(NameArray){
+    convertNodeNameArrayToObjectArray(NameArray,tempNodes){
       let objectArray = []
       let allNodesArray: any = []
       let AllNodeDictonary = {}
@@ -369,6 +434,15 @@ class app extends React.Component<Appprops,{}> {
             for(let currentNode in allNodesArray){
               AllNodeDictonary[allNodesArray[currentNode].id] = allNodesArray[currentNode]
             }
+      }
+      for(let key in tempNodes){
+        const currentNode = tempNodes[key]
+        console.log(currentNode)
+        console.log(tempNodes,key)
+        if(currentNode.id.indexOf("-Temp")){
+          const referenceName = currentNode.id.split('-');
+          AllNodeDictonary[currentNode.id] = currentNode
+        }
       }
       AllNodeDictonary[this.props.destinationPoint.id] = this.props.destinationPoint
       for(let key in NameArray){
@@ -389,7 +463,9 @@ class app extends React.Component<Appprops,{}> {
     }
 
     buildBuildingGraph(mapsAllData,buildingName,insertPoints){
+      console.log(insertPoints)
       const route = new Graph()
+      let tempNode:any = [];
       for(let mapindex in mapsAllData){
       
       const mapJsonName = Object.keys(mapsAllData[mapindex])[0]
@@ -397,9 +473,15 @@ class app extends React.Component<Appprops,{}> {
 
       //insere os pontos de destino e origem se estiverem no current map 
       for(let insertpointIndex in insertPoints){
+          console.log(mapJsonName.indexOf(insertPoints[insertpointIndex].mapReference) != -1)
+          console.log(mapJsonName,insertPoints[insertpointIndex].mapReference)
           if(mapJsonName.indexOf(insertPoints[insertpointIndex].mapReference) != -1){
-
-            currentMapPathPoints = this.addNewNodePathPointMap(insertPoints[insertpointIndex],currentMapPathPoints);
+            console.log(insertPoints[insertpointIndex],currentMapPathPoints)
+            const addNodeObject = this.addNewNodePathPointMap2(insertPoints[insertpointIndex],currentMapPathPoints)
+            currentMapPathPoints = addNodeObject["pathPoints"];
+            if(addNodeObject["tempNode"]) tempNode.push(addNodeObject["tempNode"])
+            console.log(currentMapPathPoints,tempNode)
+            console.log(addNodeObject)
           }
       }
 
@@ -428,12 +510,14 @@ class app extends React.Component<Appprops,{}> {
 
             }
           }
+          console.log(currentMapPathPoints[nodeIndex].id, adjacentes)
           route.addNode(currentMapPathPoints[nodeIndex].id, adjacentes)
         }
         
           }
         }
-        return route
+        console.log(route,tempNode)
+        return {route: route, tempNode:tempNode}
     }
     //  getHolePathMap(pathPoints,originPoint,destinationPoint ): Array<string>{
     //     const route = new Graph()
@@ -444,6 +528,81 @@ class app extends React.Component<Appprops,{}> {
     //     return route.path(originPoint.id, destinationPoint.id)
     // }
   
+
+
+
+      // const pathPoints = action.payload.pathPoints
+  // var keys:any = [];
+  //     for(let k in destinationPoint.adjacentes) keys.push(k);
+  // if(keys.length <= 1){
+  //   yield put(actions.setDestinationPointSuccess(destinationPoint))
+    
+  // } else {
+  //     const firtPoint = getPointCordenates(keys[0],pathPoints)
+  //     const secondPoint = getPointCordenates(keys[1],pathPoints)
+  //     const currentPoint = {x:destinationPoint.x , y:destinationPoint.y}
+  //     const closestPointsData = closestPoint(
+  //         currentPoint.x,currentPoint.y,
+  //         firtPoint.x,firtPoint.y,
+  //         secondPoint.x,secondPoint.y
+  //       )
+      
+  //     let adjacentes = destinationPoint.adjacentes
+  //     adjacentes[destinationPoint.id]=1;
+  //     const closestPointDefiner ={  
+  //       id: destinationPoint.id+"-Temp",
+  //       adjacentes: adjacentes,
+  //       description: "parcial",
+  //       mapReference:destinationPoint.mapReference,
+  //       x: closestPointsData.x,
+  //       y: closestPointsData.y
+  //   }
+  //   let json = {}
+  //   json[destinationPoint.id+'-Temp'] = 1
+  //   destinationPoint.adjacentes = json
+
+
+
+
+ addNewNodePathPointMap2(newNode:destinationPoint,pathMap:pathPoints){
+   var keys:any = [];
+   let newNodes: any = [];
+    for(let k in newNode.adjacentes) keys.push(k);
+      if(keys.length <= 1){
+        return { pathPoints: this.addNewNodePathPointMap(newNode,pathMap), tempNode:  null }
+      } else {
+          const firtPoint = this.getPointCordenates(keys[0],pathMap)
+          const secondPoint = this.getPointCordenates(keys[1],pathMap)
+          const currentPoint = {x:newNode.x , y:newNode.y}
+          const closestPointsData = closestPolyLinePoint(
+              currentPoint.x,currentPoint.y,
+              firtPoint.x,firtPoint.y,
+              secondPoint.x,secondPoint.y
+            )    
+          let adjacentes = newNode.adjacentes
+          adjacentes[newNode.id]=1;
+          const closestPointDefiner ={  
+            id: newNode.id+"-Temp",
+            adjacentes: adjacentes,
+            description: "parcial",
+            mapReference:newNode.mapReference,
+            buildingReference: newNode.buildingReference,
+            type:"temp",
+            x: closestPointsData.x,
+            y: closestPointsData.y
+        }
+        let json = {}
+        json[newNode.id+'-Temp'] = 0.5
+        newNode.adjacentes = json
+        newNodes = [newNode,closestPointDefiner]
+        const currentPathMap = this.addNewNodePathPointMap(closestPointDefiner,pathMap)
+        console.log("TEEEMp",closestPointDefiner)
+        return { pathPoints:this.addNewNodePathPointMap(newNode,currentPathMap) , tempNode: closestPointDefiner}
+      }
+
+}
+
+
  addNewNodePathPointMap(newNode:destinationPoint,pathMap:pathPoints){
     for(let keyNode in newNode.adjacentes){
         for(let keyMap in pathMap){

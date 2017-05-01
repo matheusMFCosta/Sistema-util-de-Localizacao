@@ -20,8 +20,10 @@ class Navbar extends React.Component<any,{}> {
                         <Left>
                             <View/>
                         </Left>
-                        <Body>
-                            <Title>Accounts</Title>
+                        <Body >
+                            <View style={{alignItems:"center"}}>
+                                <Title>SUL</Title>
+                            </View>
                         </Body>
                         <Right>
                             <Button transparent onPress={()=>this.props.changeAddCodeFooterStatus()} >
