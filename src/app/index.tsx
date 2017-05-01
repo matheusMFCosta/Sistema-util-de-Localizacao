@@ -36,14 +36,11 @@ class app extends React.Component<any,{}> {
     render(): JSX.Element {
          return (
           <View style={{flex: 1, flexDirection: 'column'}}>
-            <View >
-                <Navbar changeAddCodeFooterStatus={()=> this.props.changeAddCodeFooterStatus(true)} />
-            </View>
+
             <View style={{ top:100 , alignItems:"center"}}>
-              <Text style={{fontSize: 20, color:'blue'}} > Sistema Util De Localização </Text>
               <Image
-                  style={{width: 250, height: 250, top: 50}}
-                  source={require('./../utils/images/bussola.png')}
+                  style={{width: 380, height: 170, top: 50}}
+                  source={require('./../utils/images/SUL.png')}
                 />
             </View>
             <View style={{flex: 1, flexDirection: 'column'}}>

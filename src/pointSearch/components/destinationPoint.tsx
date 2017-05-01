@@ -57,7 +57,7 @@ class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
                                         
                                     </Left>
                                     <Body>
-                                        <Title>Insert Data</Title>
+                                        <Title>Destination Point</Title>
                                     </Body>
                                 </Header>
                             </Container>
@@ -77,16 +77,13 @@ class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
                             </Content>
                         </Container>
                     </View>
-                    <View style={{flex:9}} >
+                    <View style={{flex:8}} >
                         <Container>
                             <Content>
                                 <List dataArray={this.props.pointsOfInterest} renderRow={(key) =>{
-                                    console.log(key.buildingReference,"-",currentBuilding)
-                                    console.log("currentBuilding22",currentBuilding)
-                                    console.log(key.buildingReference.indexOf(currentBuilding) == -1)
+
                                     if(key.buildingReference.indexOf(currentBuilding) == -1){
                                         currentBuilding = key.buildingReference;
-                                        console.log("currentBuilding",currentBuilding)
                                         return(
                                             <View>
                                                 <ListItem itemDivider>

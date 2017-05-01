@@ -9,6 +9,7 @@ import OriginPoint from './pointSearch/components/originPoint'
 import ShowMap from './maps/index'
 import DestinationPoint from './pointSearch/components/destinationPoint'
 import dev from './dev/index'
+import originMap from './pointSearch/components/originMap'
 
 export default class Routes extends React.Component <{},{}> {
 
@@ -22,8 +23,8 @@ export default class Routes extends React.Component <{},{}> {
               <Scene key="OriginPoint" component={OriginPoint}/>
               <Scene key="ShowMap" component={ShowMap} />
               <Scene key="DestinationPoint" component={DestinationPoint} />
+              <Scene key="originMap" component={originMap}   />
               <Scene key="dev" component={dev}   />
-              
         </Scene>
       </Router>
     )

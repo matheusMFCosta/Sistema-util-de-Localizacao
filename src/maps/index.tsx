@@ -822,6 +822,7 @@ class app extends React.Component<Appprops,{}> {
           <View style={styles.footer}>
             <View style={styles.main}>
               <RenderMap 
+                destinationPoint={this.props.destinationPoint}
                 mapMetadata={mapMetadata}
                 pathOriginToDestinationCurrentMap={pathOriginToDestinationCurrentMap}
                 getPointCordenates={this.getPointCordenates} 

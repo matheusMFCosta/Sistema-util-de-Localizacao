@@ -45,7 +45,21 @@ const DestinationList = (props) => {
 
 
 
-class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
+class ChooseOrigin extends React.Component<QrCodeReaderProps,{}> {
+
+    capture(): void {   
+            this.props.pointSearchQrCode({  
+            id: "Da",
+            adjacentes: {"E-CCET1":1,"D-CCET1":1},
+            description: "nada ainda",
+            mapReference:"ccet1",
+            globalReference:"ccet",
+            buildingReference:"ccet",
+            x: 309,
+            y: 177
+        })
+        Actions.OriginPoint()
+    }
     render(): JSX.Element {
             let currentBuilding = "--"
             return (
@@ -61,56 +75,17 @@ class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
                                         
                                     </Left>
                                     <Body>
-                                        <Title>Origin Point</Title>
+                                        <Title>Location</Title>
                                     </Body>
                                 </Header>
                             </Container>
                         </View>
                     </View>
-                <View style={{flex:1}} >
-                        <Container >
-                            <Content>
-                                <Form>
-                                    <Item floatingLabel last>
-                                        <Label>Find</Label>
-                                        <Input 
-                                            value={this.props.pointFindFilter} 
-                                            onChange={(e) => this.props.changePointFindFilter(e.nativeEvent.text)}/>
-                                    </Item>
-                                </Form>
-                            </Content>
-                        </Container>
-                    </View>
-                <View style={{flex:8}} >
-                    <Container>
-                        <Content>
-                            <List dataArray={this.props.pointsOfInterest} renderRow={(key) =>{
-                                if(key.buildingReference.indexOf(currentBuilding) == -1){
-                                    currentBuilding = key.buildingReference;
-                                    return(
-                                        <View>
-                                            <ListItem itemDivider>
-                                                <Text>{currentBuilding}</Text>
-                                            </ListItem> 
-                                            <DestinationList 
-                                                pathPoints={this.props.pathPoints}
-                                                setOriginPoint={this.props.setOriginPoint} 
-                                                pointData={key} 
-                                                pointFilter={this.props.pointFindFilter} />
-                                        </View>
-                                        )
-                                    }
-                                return(
-                                    <DestinationList 
-                                        setOriginPoint={this.props.setOriginPoint} 
-                                        pointData={key} 
-                                        pointFilter={this.props.pointFindFilter} />
-                                )
-                            }
-                            } />
-                        </Content>
-                    </Container>
-                </View>    
+                    <List>
+                        <ListItem onPress={() => this.capture()}>
+                            <Text>UNIRIO - 458</Text>
+                        </ListItem>
+                    </List>
             </View>
         );
     }
@@ -153,4 +128,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(pointSearchQrCode(qrCode)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OriginPoint);
+export default connect(mapStateToProps, mapDispatchToProps)(ChooseOrigin);

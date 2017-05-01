@@ -26,16 +26,16 @@ export default class footerSwapMaps extends React.Component<FooterSwapMapsprops,
                     <Footer >
                         <FooterTab>
                             <Button onPress={()=> this.props.swapPreviousMapButtonPress()}>
-                                <Text>Previous</Text>
+                                <Text style={{color:'#fff'}}> Previous</Text>
                             </Button>
-                            <Text>
-                                {this.props.mapMetadata.any}'\n'
+                            <Text style={{color:'#fff'}}>
+                                {this.props.mapMetadata.any}
                             </Text>
-                            <Text>
+                            <Text style={{color:'#fff'}}>
                                 Step {this.props.currentMapindex +1 }of{this.props.totalMapIndex}
                             </Text>
                             <Button onPress={()=> this.props.swapNextMapButtonPress()} >
-                                <Text>Next</Text>
+                                <Text style={{color:'#fff'}}> Next</Text>
                             </Button>
                         </FooterTab>
                     </Footer>

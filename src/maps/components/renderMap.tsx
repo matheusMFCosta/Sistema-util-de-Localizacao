@@ -12,7 +12,8 @@ interface Appprops {
     //currentMapData: mapsData,
     mapMetadata: any,
     currentMapName: string,
-    totalMapIndex: number
+    totalMapIndex: number,
+    destinationPoint: any
 }
 
  class RenderMap extends React.Component<Appprops,{}> {
@@ -32,6 +33,7 @@ interface Appprops {
                         source={{uri: this.props.mapMetadata.path}}/>
                     <View style={{position:'absolute'}}>
                         <DrawPath
+                            destinationPoint={this.props.destinationPoint}
                             currentMapName={this.props.currentMapName}
                             mapMetadata={this.props.mapMetadata}
                             pathOriginToDestinationCurrentMap={this.props.pathOriginToDestinationCurrentMap}

@@ -9,7 +9,7 @@ import {
 
 const testeInitialState: App ={
     teste: false,
-    showAddCodeFooter: false,
+    showAddCodeFooter: true,
     seconds: 0
 } 
 
