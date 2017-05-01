@@ -107,18 +107,7 @@ function* getMapConfiguration(action): IterableIterator<any> {
 
 
 function* getOriginPointDetails(action): IterableIterator<any> {
-    const destinationPoint: destinationPoint ={  
-        id: "dest",
-        adjacentes: {K:1},
-        description: "nada origin",
-        mapReference:"ccet1",
-        buildingReference: "ccet",
-        x: 50,
-        y: 220
-    }
-
-    delete destinationPoint.description;
-    yield put(actions.setDestinationPointSuccess(destinationPoint))
+  yield put(actions.setOriginPointSuccess(action.payload))
 
 }
 

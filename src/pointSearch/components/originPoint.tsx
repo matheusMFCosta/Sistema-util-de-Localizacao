@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import  QrCodeInputheader  from './qrCodeInputHeader'
 import { View, StyleSheet, Picker, Text } from 'react-native'
 import React, { PropTypes } from 'react'
-import { changePointFindFilter, setOriginPoint } from './../actions'
+import { changePointFindFilter, setOriginPoint, pointSearchQrCode } from './../actions'
 import { pointsOfInterest } from './../../maps/maps'
 var { Actions } = require('react-native-router-flux')
 var { Container, Header, Title, Button, Left, Body, Icon, Form, Content, Item, Label, Input, ListItem, Right, List } = require('native-base');
@@ -15,7 +15,9 @@ interface QrCodeReaderProps {
     pointFindFilter: string,
     changePointFindFilter: Function,
     pointsOfInterest: Array<pointsOfInterest>,
-    setOriginPoint: Function
+    setOriginPoint: Function,
+    pointSearchQrCode: Function,
+    pathPoints: any
 }
 
 
@@ -29,7 +31,7 @@ const DestinationList = (props) => {
             upperPointDescruiption.indexOf(upperPointFilter) != -1 || 
             upperPointFilter === "")
                 return(
-                    <ListItem onPress={()=> (props.setDestinationPoint(props.pointData),Actions.ShowMap())} >
+                    <ListItem onPress={()=> (props.setOriginPoint(props.pointData),Actions.DestinationPoint())} >
                         <Text>{props.pointData.id}</Text>
                         <Text>{props.pointData.description}</Text>
                     </ListItem>
@@ -38,11 +40,27 @@ const DestinationList = (props) => {
     return(<View/>)
 }
 
+
+
+
+
+
 class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
 
-
-
+    capture(): void {   
+            this.props.pointSearchQrCode({  
+            id: "Da",
+            adjacentes: {"E-CCET1":1,"D-CCET1":1},
+            description: "nada ainda",
+            mapReference:"ccet1",
+            globalReference:"ccet",
+            buildingReference:"ccet",
+            x: 309,
+            y: 177
+        })
+    }
     render(): JSX.Element {
+            let currentBuilding = "--"
             return (
                 <View style={styles.screen}>
                     <View>
@@ -62,21 +80,29 @@ class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
                             </Container>
                         </View>
                     </View>
-                    <Container>
-                        <Content>
-                            <Form>
-                                <Item floatingLabel last>
-                                    <Label>Owner Name</Label>
-                                    <Input 
-                                        value={this.props.pointFindFilter} 
-                                        onChange={(e) => this.props.changePointFindFilter(e.nativeEvent.text)}/>
-                                </Item>
-                            </Form>
-                        </Content>
-                    </Container>
+                    <List>
+                        <ListItem onPress={() => this.capture()}>
+                            <Text>UNIRIO - 458</Text>
+                        </ListItem>
+                    </List>
                 <Container>
                     <Content>
                         <List dataArray={this.props.pointsOfInterest} renderRow={(key) =>{
+                            if(key.buildingReference.indexOf(currentBuilding) == -1){
+                                currentBuilding = key.buildingReference;
+                                return(
+                                    <View>
+                                        <ListItem itemDivider>
+                                            <Text>{currentBuilding}</Text>
+                                        </ListItem> 
+                                        <DestinationList 
+                                            pathPoints={this.props.pathPoints}
+                                            setOriginPoint={this.props.setOriginPoint} 
+                                            pointData={key} 
+                                            pointFilter={this.props.pointFindFilter} />
+                                    </View>
+                                    )
+                                }
                             return(
                                 <DestinationList 
                                     setOriginPoint={this.props.setOriginPoint} 
@@ -116,14 +142,17 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state,ownProps) => ({
     pointFindFilter: state.pointSearch.pointFindFilter,
-    pointsOfInterest: state.pointSearch.pointsOfInterest
+    pointsOfInterest: state.pointSearch.pointsOfInterest,
+    pathPoints: state.pointSearch.pathPoints,
   });
 
 const mapDispatchToProps = dispatch => ({
   setOriginPoint: (pointData:pointsOfInterest) =>
     dispatch(setOriginPoint(pointData)),
   changePointFindFilter: (issuer: string) =>
-    dispatch(changePointFindFilter(issuer))
+    dispatch(changePointFindFilter(issuer)),
+  pointSearchQrCode: (qrCode:string) =>
+    dispatch(pointSearchQrCode(qrCode)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OriginPoint);
