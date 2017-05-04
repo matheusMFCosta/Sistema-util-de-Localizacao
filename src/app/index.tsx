@@ -1,7 +1,7 @@
 import React from 'react'
 import {  View, Image, Text } from 'react-native'
 var { Actions } = require('react-native-router-flux')
-import { teste, changeAddCodeFooterStatus } from './actions'
+import { changeAddCodeFooterStatus } from './actions'
 import { connect } from 'react-redux'
 import { Account } from './../main/main'
 import { updateAccountsCode } from './../main/actions'
@@ -11,7 +11,6 @@ import AccountCards from './components/accountCards'
 import FooterTab from './components/footerTab'
 
 interface Appprops {
-    teste: Function,
     showAddCodeFooter: string,
     seconds: number,
     accountList: Array<Account>,
@@ -63,8 +62,6 @@ const mapStateToProps = (state,ownProps) => ({
   });
 
 const mapDispatchToProps = dispatch => ({
-  teste: () =>
-    dispatch(teste(true)),
   changeAddCodeFooterStatus: (status:boolean) =>
     dispatch(changeAddCodeFooterStatus(status)),
   timeStart: () =>

@@ -20,7 +20,7 @@ export const swapNextMapButtonPress: () => Action<Array<void>> = createAction<vo
 
 export const swapPreviousMapButtonPress: () => Action<Array<void>> = createAction<void>(SWAP_PREVIOUS_MAP_BUTTON_PRESS);
 
-export const buildBuildConfigurationsSteps: (buildPointsPath: any,originPointMapReference: string,destinationPointMapreference: string) => Action<any> = createAction<any>(BUILD_BUILD_CONFIGURANTION_STEPS,
+export const buildBuildConfigurationsSteps:any = createAction<any>(BUILD_BUILD_CONFIGURANTION_STEPS,
     (buildPointsPath,originPointMapReference: string,destinationPointMapreference: string) => {
 
         if(originPointMapReference.indexOf(destinationPointMapreference) != -1){

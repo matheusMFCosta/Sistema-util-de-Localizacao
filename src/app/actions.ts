@@ -16,8 +16,4 @@ export const secondCount: () => Action<void> = createAction<void>(TIME_SECOND_CO
 
 export const changeAddCodeFooterStatus: (status:boolean) => Action<boolean> = createAction<boolean>(CHANGE_ADD_CODE_FOOTER_STATUS);
 
-export const teste: (wow:boolean) => Action<string> = createAction<boolean>(
-    TESTE, (wow) => { ; return(wow) }
-);
-
 

@@ -22,7 +22,7 @@ function assign<T> (state : T, patch : Partial<T>) : T {
     
     
 export const mainReducer  = handleActions<Main>({
-    [ADD_ACCOUNT]: (state : Main , action : Action<Account>): Main => {
+    [ADD_ACCOUNT]: (state : Main , action : any): Main => {
         return assign(state, { accountList: [...state.accountList, ...[action.payload]]} );
     },
     [UPDATE_ACCOUNTS_CODE]: (state : Main , action : Action<{accessCode:string,index:number}>): Main => {

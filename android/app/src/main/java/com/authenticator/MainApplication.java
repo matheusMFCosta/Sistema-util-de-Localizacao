@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.RNSvgPackage;
+import com.horcrux.svg.RNSvgPackage;
 import com.horcrux.svg.SvgPackage;
 import com.rnfs.RNFSPackage;
 import com.facebook.react.ReactInstanceManager;
@@ -32,6 +34,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new RCTCameraPackage(),
           new MainReactPackage(),
+            new RNSvgPackage(),
+            new RNSvgPackage(),
             new SvgPackage(),
             new RNFSPackage()
       );

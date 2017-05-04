@@ -1,7 +1,6 @@
 "use strict";
 
 import { connect } from 'react-redux'
-import  QrCodeInputheader  from './qrCodeInputHeader'
 import { View, StyleSheet, Picker, Text } from 'react-native'
 import React, { PropTypes } from 'react'
 import { changePointFindFilter, setOriginPoint, pointSearchQrCode } from './../actions'

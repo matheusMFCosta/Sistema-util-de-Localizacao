@@ -3,10 +3,10 @@
   "dependencies": {
     "react": "registry:dt/react#15.0.0+20170208212821",
     "react-native": "registry:dt/react-native#0.37.0+20170123203653",
-    "redux-actions": "registry:dt/redux-actions#1.2.0+20170101233612"
+    "redux-actions": "registry:dt/redux-actions#1.2.0+20170223151516"
   },
   "globalDependencies": {
-    "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20170120045107",
+    "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20170223183302",
     "native-base": "egistry:dt/native-base#0.9.1+20160703120921",
     "redux-saga": "registry:dt/redux-saga#0.9.1+20160703120921",
     "remote-redux-devtools": "registry:dt/remote-redux-devtools#0.3.2+20161005184000"
