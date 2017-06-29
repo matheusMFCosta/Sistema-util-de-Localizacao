@@ -19,51 +19,15 @@ declare var Headers: {
 }
 
 interface Blob {
-    readonly size: number;
-    readonly type: string;
-    msClose(): void;
-    msDetachStream(): any;
-    slice(start?: number, end?: number, contentType?: string): Blob;
 }
 
 interface Body {
-    readonly bodyUsed: boolean;
-    arrayBuffer(): Promise<ArrayBuffer>;
-    blob(): Promise<Blob>;
-    json(): Promise<any>;
-    text(): Promise<string>;
 }
 
 interface RequestInit {
-    method?: string;
-    headers?: any;
-    body?: any;
-    referrer?: string;
-    referrerPolicy?: string;
-    mode?: string;
-    credentials?: string;
-    cache?: string;
-    redirect?: string;
-    integrity?: string;
-    keepalive?: boolean;
-    window?: any;
 }
 
 interface Request extends Object, Body {
-    readonly cache: string;
-    readonly credentials: string;
-    readonly destination: string;
-    readonly headers: Headers;
-    readonly integrity: string;
-    readonly keepalive: boolean;
-    readonly method: string;
-    readonly mode: string;
-    readonly redirect: string;
-    readonly referrer: string;
-    readonly referrerPolicy: string;
-    readonly type: string;
-    readonly url: string;
-    clone(): Request;
 }
 
 declare var Request: {
@@ -83,29 +47,18 @@ interface ResponseInit {
 }
 
 interface Response extends Object, Body {
-    readonly body: ReadableStream | null;
-    readonly headers: Headers;
-    readonly ok: boolean;
-    readonly status: number;
-    readonly statusText: string;
-    readonly type: string;
-    readonly url: string;
-    clone(): Response;
 }
 
-declare var Response: {
-    prototype: Response;
-    new(body?: any, init?: ResponseInit): Response;
-}
+
 
 interface GlobalFetch {
-    fetch(input: Request | string, init?: RequestInit): Promise<Response>;
+    fetch(input: Request | string, init?: RequestInit): Promise<any>;
 }
 
 interface Window extends GlobalFetch {
 }
 
-declare function fetch(input: Request | string, init?: RequestInit): Promise<Response>;
+declare function fetch(input: Request | string, init?: RequestInit): Promise<any>;
 
 declare module "isomorphic-fetch" {
     namespace _fetch { }

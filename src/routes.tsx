@@ -16,7 +16,7 @@ export default class Routes extends React.Component <{},{}> {
   render() {
     return( 
       <Router >
-        <Scene key="root"  hideNavBar={true} initial={true}>
+        <Scene key="root"  hideNavBar={true} >
               <Scene key="App" component={App}   />      
               <Scene key="footer" component={FooterTab}/>      
               <Scene key="QrCodeReader" component={QrCodeReader}/>
@@ -24,7 +24,7 @@ export default class Routes extends React.Component <{},{}> {
               <Scene key="ShowMap" component={ShowMap} />
               <Scene key="DestinationPoint" component={DestinationPoint} />
               <Scene key="originMap" component={originMap}   />
-              <Scene key="dev" component={dev}   />
+              <Scene key="dev" component={dev}  initial={true} />
         </Scene>
       </Router>
     )

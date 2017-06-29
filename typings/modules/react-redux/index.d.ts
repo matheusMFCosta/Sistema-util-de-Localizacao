@@ -75,7 +75,7 @@ import {IStore, IDispatch} from '~react-redux~redux';
 
 module ReactRedux {
 	
-	export class Provider extends React.Component<{store:IStore<any>},{}>{}	
+	export class Provider extends React.Component<{store:any},{}>{}	
 
 	export interface IMapStateToProps {
 		(state: any, ownProps?: any): Object;

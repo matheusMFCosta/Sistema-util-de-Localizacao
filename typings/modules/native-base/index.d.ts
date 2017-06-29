@@ -401,10 +401,10 @@ declare module 'native-base' {
         /**
          * see Widget Card.js
          */
-        interface Card extends ReactNative.ViewProperties, ReactListViewProperties {
-            dataArray?: Array<any>,
-            style?: React.Ref<ReactNative.ViewProperties | ReactNative.ListViewProperties>
-            ref?: React.Ref<ReactNative.ViewProperties | ReactListViewProperties>,
+        interface Card{
+            dataArray?: any,
+            style?: any
+            ref?: any,
         }
         /**
          * react-native-easy-grid
@@ -786,7 +786,7 @@ declare module 'native-base' {
      * NativeBase Cards support a wide variety of content, including images, text, list groups, links, and more.
      * Mix and match multiple content types to create the card you need.
      */
-    export class Card extends React.Component<NativeBase.Card, any> { }
+    export class Card { }
     /**
      * NativeBase.CardItem
      *
