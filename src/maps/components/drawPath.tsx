@@ -1,5 +1,5 @@
 import React from 'react'
-var { Line, Svg, G, Circle,Image } = require('react-native-svg');
+var { Line, Svg, G, Circle,Image, Rect } = require('react-native-svg');
 import { pathPoint, pathPoints, mapsData } from './../maps'
 import { connect } from 'react-redux'
 
@@ -16,21 +16,15 @@ const DrawLines = (props) => {
         {keys.map((key,index) =>{
             if(index === keys.length -1){
                 console.log(index,keys)
-                const pinImage = (props.destinationPoint.id.indexOf(keys[index].id) == -1)?
-                    require('../../utils/images/next_pin.png') :
-                    require('../../utils/images/sul_pin.png');
+                const pinColor = (props.destinationPoint.id.indexOf(keys[index].id) == -1)?
+                    "red" :
+                    "green"
                 return(
-                    <G key={index} >
-                        <Image
-                            x={keys[index].x -15}
-                            y={keys[index].y -20  }
-                            width="30"
-                            height="40"
-                            preserveAspectRatio="xMidYMid slice"
-                            opacity="1"
-                            href={pinImage}
-                            clipPath="url(#clip)"
-                        />
+                    <G key={index}  x={keys[index].x-50} y={keys[index].y-70}>
+                        <Circle cx="50"  cy="55" r="10" fill={pinColor} />
+                        <Rect x="74" y="4" width="10" height="10"rotate="45"  fill={pinColor} />
+                        <Circle cx="50" cy="55" r="5" fill="white"  />
+                    
                     </G>
                 )
             }
@@ -41,7 +35,7 @@ const DrawLines = (props) => {
             if(index === 0)
                 return(
                     <G key={index} >
-
+                        <G>
                         <Line
                             key={index}
                             x1={originCordenates.x}
@@ -50,15 +44,11 @@ const DrawLines = (props) => {
                             y2={destinationCordenates.y}
                             stroke="red"
                             strokeWidth="2"/>
-                        <Image
-                            x={keys[index].x -7 }
-                            y={keys[index].y -10 }
-                            width="19"
-                            height="20"
-                            opacity="1"
-                            href={require('../../utils/images/dot.png')}
-                            clipPath="url(#clip)"
-                        />
+                        </G>
+                        <G key={index}  x={keys[index].x-50} y={keys[index].y-55}>
+                            <Circle cx="50"  cy="55" r="10" fill="green" />
+                            <Circle cx="50" cy="55" r="5" fill="white"  />
+                        </G>
                     </G>
                 )
             if(index < keys.length -1){

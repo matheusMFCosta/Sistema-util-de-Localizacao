@@ -38,7 +38,7 @@ class app extends React.Component<any,{}> {
 
             <View style={{ top:100 , alignItems:"center"}}>
               <Image
-                  style={{width: 380, height: 170, top: 50}}
+                  style={{width: 320, height: 140, top: 50}}
                   source={require('./../utils/images/SUL.png')}
                 />
             </View>

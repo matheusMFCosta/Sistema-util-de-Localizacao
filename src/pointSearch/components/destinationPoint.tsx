@@ -16,7 +16,8 @@ interface QrCodeReaderProps {
     getDestinationPointDetails: Function,
     pointsOfInterest: Array<pointsOfInterest>,
     setDestinationPoint: Function,
-    pathPoints: any
+    pathPoints: any,
+    isLoadingMaps: boolean
 }
 
 
@@ -76,37 +77,43 @@ class OriginPoint extends React.Component<QrCodeReaderProps,{}> {
                             </Content>
                         </Container>
                     </View>
-                    <View style={{flex:8}} >
-                        <Container>
-                            <Content>
-                                <List dataArray={this.props.pointsOfInterest} renderRow={(key) =>{
+                    { this.props.isLoadingMaps ?
+                        <View style={{flex:8,backgroundColor:'#fff',left:150,top:200,width:200,height:200}} >
+                            <Text > Loading... </Text> 
+                        </View>
+                        :
+                        <View style={{flex:8}} >
+                            <Container>
+                                <Content>
+                                    <List dataArray={this.props.pointsOfInterest} renderRow={(key) =>{
 
-                                    if(key.buildingReference.indexOf(currentBuilding) == -1){
-                                        currentBuilding = key.buildingReference;
+                                        if(key.buildingReference.indexOf(currentBuilding) == -1){
+                                            currentBuilding = key.buildingReference;
+                                            return(
+                                                <View>
+                                                    <ListItem itemDivider>
+                                                        <Text>{currentBuilding}</Text>
+                                                    </ListItem> 
+                                                    <DestinationList 
+                                                        pathPoints={this.props.pathPoints}
+                                                        setDestinationPoint={this.props.setDestinationPoint} 
+                                                        pointData={key} 
+                                                        pointFilter={this.props.pointFindFilter} />
+                                                </View>
+                                            )
+                                        }
                                         return(
-                                            <View>
-                                                <ListItem itemDivider>
-                                                    <Text>{currentBuilding}</Text>
-                                                </ListItem> 
-                                                <DestinationList 
-                                                    pathPoints={this.props.pathPoints}
-                                                    setDestinationPoint={this.props.setDestinationPoint} 
-                                                    pointData={key} 
-                                                    pointFilter={this.props.pointFindFilter} />
-                                            </View>
+                                            <DestinationList 
+                                                pathPoints={this.props.pathPoints}
+                                                setDestinationPoint={this.props.setDestinationPoint} 
+                                                pointData={key} 
+                                                pointFilter={this.props.pointFindFilter} />
                                         )
-                                    }
-                                    return(
-                                        <DestinationList 
-                                            pathPoints={this.props.pathPoints}
-                                            setDestinationPoint={this.props.setDestinationPoint} 
-                                            pointData={key} 
-                                            pointFilter={this.props.pointFindFilter} />
-                                    )
-                                }}/>
-                            </Content>
-                        </Container>
-                    </View>
+                                    }}/>
+                                </Content>
+                            </Container>
+                        </View>
+                    }
             </View>
         );
     }
@@ -137,7 +144,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state,ownProps) => ({
     pointFindFilter: state.pointSearch.pointFindFilter,
     pointsOfInterest: state.pointSearch.pointsOfInterest,
-    pathPoints: state.pointSearch.pathPoints
+    pathPoints: state.pointSearch.pathPoints,
+    isLoadingMaps: state.pointSearch.isLoadingMaps
   });
 
 const mapDispatchToProps = dispatch => ({

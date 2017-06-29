@@ -10,7 +10,8 @@ import {
   SET_ORIGIN_POINT_SUCCESS,
   SET_MAP_CONFIGURATION_FROM_SERVER,
   GET_ALL_MAPS_DATA_SUCCEESS,
-  GET_STRUCTURE_NAMES
+  GET_STRUCTURE_NAMES,
+  SET_IS_LOADING_MAPS
 } from './actions'
 
 const destinationPointInitialState:destinationPoint = {
@@ -41,6 +42,7 @@ const pointsOfInterestInitialState: pointsOfInterest = {
 }
 
 const pointSearchInitialState: AddAccount = {
+    isLoadingMaps: true,
     pointFindFilter: "",
     shouldCameraBeOpen: false,
     structureNames: [],
@@ -67,6 +69,10 @@ function assign<T> (state : T, patch : Partial<T>) : T {
     
  
 export const pointSearchReducer  = handleActions<AddAccount>({
+    
+    [SET_IS_LOADING_MAPS]: (state : AddAccount , action : Action<boolean> ): AddAccount => {
+        return assign(state, {isLoadingMaps: action.payload});
+    },
     [GET_ALL_MAPS_DATA_SUCCEESS]: (state : AddAccount , action : Action<any> ): AddAccount => {
         console.log("DDDDDDD")
         return assign(state, { mapsAllData: state.mapsAllData.concat( {[action.payload.name]: action.payload.data}),

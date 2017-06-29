@@ -93,11 +93,12 @@ function* getMapConfiguration(action): IterableIterator<any> {
       console.log("GlobalReference",action.payload.globalReference)
       const { response , error}  = yield call(getEnviromentMaps);
       console.log("Response",response)
+      const lastMap = response.structureNames[response.structureNames.length -1]
       yield put(actions.getStructureName(response.structureNames))
       for(let key in response.structureNames){
         const currentGlobalReference = response.structureNames[key]
         console.log(currentGlobalReference)
-        yield getAllmapsData(currentGlobalReference)
+        yield getAllmapsData(currentGlobalReference,lastMap)
       }
       yield put(actions.setOriginPointSuccess(action.payload))
 }  
@@ -208,7 +209,7 @@ function getMapsData(globalReference,mapsName){
 
 }
 
-function* getAllmapsData(globalReference): IterableIterator<any> {
+function* getAllmapsData(globalReference,lastMap): IterableIterator<any> {
   console.log(globalReference)
   const { response , error}  = yield call(getMapConfigurationData,globalReference);
   console.log("Res",response,"Error",error)
@@ -216,11 +217,22 @@ function* getAllmapsData(globalReference): IterableIterator<any> {
 
   const maps = response.maps
   for(let key in maps){
-    console.log("Keey",maps[key].id)
+    console.log("Keey",maps[key])
     const { response , error}  = yield call(getMapsData,globalReference,maps[key].id);
     
     yield put(actions.getAllmapsDataSuccess(response,maps[key].id,maps[key].path,maps[key].height,maps[key].width,maps[key].buildingReference))
+      console.log(maps[key].id )
+      console.log(maps[maps.length-1].id )
+      console.log( maps[key].buildingReference)
+      console.log(lastMap)
+
+      console.log(maps[key].id == maps[maps.length-1].id && maps[key].buildingReference == lastMap)
+      if(maps[key].id == maps[maps.length-1].id && maps[key].buildingReference == lastMap){
+        yield put(actions.setIsLoadingMaps(false));
+
+      }
   }
+
 
 }
 
