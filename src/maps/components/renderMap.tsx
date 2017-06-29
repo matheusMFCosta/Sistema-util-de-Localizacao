@@ -23,11 +23,15 @@ interface Appprops {
 
     render(): JSX.Element {  
         return(
-          <View>
+          <View >
             <ImageZoom cropWidth={Dimensions.get('window').width}
-                cropHeight={Dimensions.get('window').height}
+                cropHeight={Dimensions.get('window').height-100}
                 imageWidth={this.props.mapMetadata.width}
-                imageHeight={this.props.mapMetadata.height}>
+                imageHeight={this.props.mapMetadata.height}
+                leaveStayTime={9000}
+                leaveDistance={200}>
+                
+                
                 <View>
                     <Image style={{width:this.props.mapMetadata.width, height:this.props.mapMetadata.height,position:'absolute'}}
                         source={{uri: this.props.mapMetadata.path}}/>
