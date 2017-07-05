@@ -13,144 +13,108 @@ import { updateAccountsCode } from './../main/actions'
       const route = new Graph()
       
         const itemsList=[
-                  {
-        "id":"A-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "B-GROUND1":4 },
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 55,
-        "y": 510
-      },
-      {
-        "id":"B-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "C-GROUND1":6 },
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 55,
-        "y": 363
-      },
-      {
-        "id":"C-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "B-GROUND1":6,"D-GROUND1": 2 },
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 378,
-        "y": 363
-      },
-      {
-        "id":"D-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "C-GROUND1":2,"E-GROUND1": 1, "L-GROUND1": 2 },
-        "mapReference":"ground1",
-        "type":"transition",
-        "transitionAccess":{"ccet1":{"A-CCET1":3}},
-        "x": 378,
-        "y": 550
-      },
-      {
-        "id":"E-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "D-GROUND1":1,"F-GROUND1": 2, "I-GROUND1": 2 },
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 378,
-        "y": 220
-      },
-      {
-        "id":"F-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "E-GROUND1":2,"G-GROUND1": 2 },
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 475,
-        "y": 190
-      },
-      {
-        "id":"G-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "F-GROUND1":2,"H-GROUND1": 3 },
-        "mapReference":"ground1",
-        "type":"transition",
-        "transitionAccess":{"cch1":{"A-CCH1":2}},
-        "x": 565,
-        "y": 190
-      },
-      {
-        "id":"H-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "G-GROUND1":3,"K-GROUND1": 1, "O-GROUND1":2 },
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 820,
-        "y": 190
-      },
-      {
-        "id":"I-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "E-GROUND1":2,"J-GROUND1": 2 },
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 475,
-        "y": 220
-      },
-      {
-        "id":"J-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "I-GROUND1":2,"G-GROUND1": 1,"M-GROUND1": 1,"K-GROUND1": 3 },
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 565,
-        "y": 220
-      },
-      {
-        "id":"K-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "H-GROUND1": 1,"J-GROUND1":3,"N-GROUND1": 1 },
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 820,
-        "y": 220
-      },      
-      {
-        "id":"L-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "D-GROUND1": 2,"M-GROUND1":2},
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 475,
-        "y": 260
-      },
-      {
-        "id":"M-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "L-GROUND1": 2,"J-GROUND1":1,"N-GROUND1":3},
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 560,
-        "y": 260
-      },
-      {
-        "id":"N-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "M-GROUND1": 3,"K-GROUND1":1},
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 820,
-        "y": 260
-      },
-      {
-        "id":"O-GROUND1",
-        "buildingReference":"ground",
-        "adjacentes":{ "H-GROUND1": 3},
-        "mapReference":"ground1",
-        "type":"path",
-        "x": 820,
-        "y": 100
-      }
-    ] 
+        {
+            "id":"A-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "B-CCET5":2, "K-CCET5":1 },
+            "mapReference":"ccet5",
+            "type":"path",
+            "x": 310,
+            "y": 420
+        },
+        {
+            "id":"B-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "A-CCET5":2,"C-CCET5":1,"D-CCET5":2 },
+            "mapReference":"ccet5",
+            "type":"path",
+            "x": 180,
+            "y": 420
+        },
+        {
+            "id":"C-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "B-CCET5":1 },
+            "mapReference":"ccet5",
+            "type":"path",
+            "x": 180,
+            "y": 450
+        },
+        {
+            "id":"D-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "B-CCET5":1,"E-CCET5":5 },
+            "mapReference":"ccet5",
+            "type":"path",
+            "x": 130,
+            "y": 420
+        },
+        {
+            "id":"E-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "D-CCET5":5},
+            "mapReference":"ccet5",
+            "type":"path",
+            "x": 130,
+            "y": 160
+        },
+        {
+            "id":"F-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "A-CCET5":3,"G-CCET5":6,"J-CCET5":2},
+            "mapReference":"ccet5",
+            "type":"path",
+            "x": 520,
+            "y": 420
+        },
+        {
+            "id":"G-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "F-CCET5":6,"H-CCET5":2},
+            "mapReference":"ccet5",
+            "type":"path",
+            "x": 520,
+            "y": 60
+        },
+        {
+            "id":"H-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "G-CCET5":2,"I-CCET5":7},
+            "mapReference":"ccet5",
+            "type":"path",
+            "x": 620,
+            "y": 60
+        },
+        {
+            "id":"I-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "H-CCET5":7,"J-CCET5":2},
+            "mapReference":"ccet5",
+            "type":"path",
+            "x": 620,
+            "y": 480
+        },
+        {
+            "id":"J-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "F-CCET5":1,"I-CCET5":2},
+            "mapReference":"ccet5",
+            "type":"path",
+            "x": 520,
+            "y": 480
+        },
+        {
+            "id":"K-CCET5",
+            "buildingReference":"ccet",
+            "adjacentes":{ "A-CCET5":1},
+            "mapReference":"ccet5",
+            "type":"transition",
+            "transitionAccess":{"ccet4":{"M-CCET4":3}},
+            "x": 310,
+            "y": 345
+        }
+
+    ]
 
 const getPointCordetates = (id) => {
   for(let key in itemsList){
@@ -265,18 +229,17 @@ class listMethods extends React.Component<any,{}> {
     render(): JSX.Element {
 
 
-
         
         return(
           <View>
 
           <ImageZoom cropWidth={Dimensions.get('window').width}
-                       cropHeight={Dimensions.get('window').height}
-                       imageWidth={864}
-                       imageHeight={540}>
+                       cropHeight={Dimensions.get('window').height-30}
+                       imageWidth={724}
+                       imageHeight={501}>
                     <View>
-                    <Image style={{width:864, height:540,position:'absolute'}}
-                          source={{uri: 'https://miex-food.herokuapp.com/ground/images/ground1'}}/>
+                    <Image style={{width:724, height:501,position:'absolute'}}
+                          source={{uri: 'https://miex-food.herokuapp.com/ccet/images/ccet5'}}/>
 
                       <View style={{position:'absolute'}}>
 
