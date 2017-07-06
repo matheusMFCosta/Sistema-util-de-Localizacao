@@ -140,11 +140,14 @@ class app extends React.Component<Appprops,{}> {
       let tempNodes:any = [];
       if(originPoint.mapReference.indexOf(destinationPoint.mapReference) != -1){
           const route = new Graph()
-          console.log("111")
+
           const sameFlorMapOrigin = this.addNewNodePathPointMap2(originPoint,this.getmapsData(originPoint.mapReference))
+                    console.log("@@@@@@",destinationPoint,sameFlorMapOrigin)
           const sameFlorMapOriginAndDestination = this.addNewNodePathPointMap2(destinationPoint, sameFlorMapOrigin["pathPoints"])
-          tempNodes.push(sameFlorMapOrigin["tempNode"]) 
-          tempNodes.push(sameFlorMapOriginAndDestination["tempNode"]) 
+          if(sameFlorMapOrigin["tempNode"] != null) 
+            tempNodes.push(sameFlorMapOrigin["tempNode"]) 
+          if(sameFlorMapOriginAndDestination["tempNode"] != null) 
+            tempNodes.push(sameFlorMapOriginAndDestination["tempNode"]) 
           //this.addNewNodePathPointMap2(originPoint,this.getmapsData(originPoint.mapReference)))
           console.log("-----2----", tempNodes)
           for(let key in sameFlorMapOriginAndDestination["pathPoints"]){
