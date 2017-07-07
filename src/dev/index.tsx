@@ -382,15 +382,15 @@ class listMethods extends React.Component<any,{}> {
     render(): JSX.Element {
 
         return(
-          <View>
 
           <ImageZoom cropWidth={Dimensions.get('window').width}
                        cropHeight={Dimensions.get('window').height-30}
                        imageWidth={683}
-                       imageHeight={594}>
+                       imageHeight={594}
+                       >
                     <View>
                     <Image style={{width:683, height:594,position:'absolute'}}
-                          source={{uri: 'https://miex-food.herokuapp.com/cch/images/cch4'}}/>
+                          source={{uri: 'https://miex-food.herokuapp.com/ccet/images/ccet2'}}/>
 
                       <View style={{position:'absolute'}}>
 
@@ -412,7 +412,6 @@ class listMethods extends React.Component<any,{}> {
                     </View>
               </ImageZoom>
 
-      </View>
         )
     }
 }
