@@ -1,20 +1,20 @@
-import React, { PropTypes } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import { teste } from './../actions'
-import { connect } from 'react-redux'
+import React, { PropTypes } from "react";
+import { StyleSheet, View, Text } from "react-native";
+//import { teste } from './../actions'
+import { connect } from "react-redux";
 interface Appprops {
-    teste: Function
+    teste: Function;
 }
 
-class List extends React.Component<any,{}> {
+class List extends React.Component<any, {}> {
     constructor(props, context) {
         super(props, context);
     }
-    componentDidMount(){
-      this.props.teste()
+    componentDidMount() {
+        this.props.teste();
     }
     render() {
-         return (
+        return (
             <View>
                 <Text>11111</Text>
             </View>
@@ -22,12 +22,11 @@ class List extends React.Component<any,{}> {
     }
 }
 
-const mapStateToProps = (state,ownProps) => ({
-  });
+const mapStateToProps = (state, ownProps) => ({});
 
 const mapDispatchToProps = dispatch => ({
-  teste: (wow:string) =>
-    dispatch(teste(true))
+    //   teste: (wow:string) =>
+    //     dispatch(teste(true))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

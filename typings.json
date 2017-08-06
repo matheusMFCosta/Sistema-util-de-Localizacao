@@ -1,8 +1,8 @@
 {
   "name": "Authenticator",
   "dependencies": {
-    "react": "registry:dt/react#15.0.0+20170208212821",
-    "react-native": "registry:dt/react-native#0.37.0+20170123203653",
+    "react": "registry:dt/react#15.0.0+20170324160437",
+    "react-native": "registry:dt/react-native#0.42.0+20170324170601",
     "redux-actions": "registry:dt/redux-actions#1.2.0+20170101233612"
   },
   "globalDependencies": {

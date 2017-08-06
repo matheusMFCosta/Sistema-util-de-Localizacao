@@ -1507,6 +1507,7 @@ module 'react' {
 
     // @see https://facebook.github.io/react-native/docs/view.html#style
     export interface ViewStyle extends FlexStyle, TransformsStyle {
+        position?: any;
         backfaceVisibility?: "visible" | "hidden"
         backgroundColor?: string;
         borderBottomColor?: string;
@@ -2879,12 +2880,12 @@ module 'react' {
      * __Note:__ `refreshing` is a controlled prop, this is why it needs to be set to true
      * in the `onRefresh` function otherwise the refresh indicator will stop immediately.
      */
-    export interface RefreshControlStatic extends NativeMethodsMixin, React.ClassicComponentClass<RefreshControlProperties> {
-        SIZE: Object // Undocumented
+    export interface RefreshControlStatic {
+        SIZE: any // Undocumented
     }
 
-    export interface RecyclerViewBackedScrollViewProperties extends ScrollViewProperties, React.Props<RecyclerViewBackedScrollViewStatic> {
-        ref?: Ref<RecyclerViewBackedScrollViewProperties & ScrollViewProperties>
+    export interface RecyclerViewBackedScrollViewProperties  {
+        ref?: any
     }
 
     /**
@@ -4118,10 +4119,10 @@ module 'react' {
         };
     }
 
-    export interface JumpSceneConfig extends SceneConfig {
+    export interface JumpSceneConfig {
         gestures: {
-            jumpBack: JumpGesture
-            jumpForward: JumpGesture
+            jumpBack: any
+            jumpForward: any
         }
     }
 

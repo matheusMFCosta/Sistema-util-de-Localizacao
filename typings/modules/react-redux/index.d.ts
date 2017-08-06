@@ -2,6 +2,7 @@
 // Source: https://raw.githubusercontent.com/andrew-w-ross/typings-redux/master/redux.d.ts
 declare module '~react-redux~redux' {
 module redux {
+
 	//This should be extended
 	export interface IAction {
 		type: string | number;
@@ -74,7 +75,7 @@ import {IStore, IDispatch} from '~react-redux~redux';
 
 module ReactRedux {
 	
-	export class Provider extends React.Component<{store:IStore<any>},{}>{}	
+	export class Provider extends React.Component<{store:any},{}>{}	
 
 	export interface IMapStateToProps {
 		(state: any, ownProps?: any): Object;

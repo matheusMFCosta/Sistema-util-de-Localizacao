@@ -1,6 +1,4 @@
-import { combineReducers } from 'redux';
-import { listMethods } from './../listMethods/reducers'
+import { combineReducers } from "redux";
+import { todoApp } from "./../listMethods/reducers";
 
-export default  combineReducers({
-  listMethods: listMethods,
-});
+export default combineReducers({ todoApp: todoApp });

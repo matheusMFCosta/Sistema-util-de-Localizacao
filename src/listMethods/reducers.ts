@@ -1,23 +1,23 @@
-import { handleActions, Action } from 'redux-actions';
-import { Teste } from './listMethods'
+// import { handleActions, Action } from 'redux-actions';
+import { Teste } from "./listMethods";
 
-import {
-  TESTE
-} from './actions'
+// import {
+//   TESTE
+// } from './actions'
 
-const testeInitialState: Teste ={
+const testeInitialState: Teste = {
     teste: false
-} 
+};
 
-
-function assign<T> (state : T, patch : Partial<T>) : T {
-  return Object.assign({}, state, patch);
+function assign<T>(state: T, patch: Partial<T>): T {
+    return Object.assign({}, state, patch);
 }
-    
-    
-export const listMethods  = handleActions<Teste>({
-    [TESTE]: (state : Teste , action : Action): Teste => {
-        return assign(state, { teste: !state.teste} );
-    },
 
-}, testeInitialState)
+export function todoApp(state = {}, action) {
+    switch (action.type) {
+        case "TOGGLE_TODO":
+            return state;
+        default:
+            return state;
+    }
+}
