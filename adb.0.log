@@ -1,0 +1,23 @@
+--- adb starting (pid 41436) ---
+adb I 41436 844396 main.cpp:79] Android Debug Bridge version 1.0.36
+adb I 41436 844396 main.cpp:79] Revision 0e9850346394-android
+adb I 41436 844396 main.cpp:79] 
+adb server killed by remote request
+--- adb starting (pid 41504) ---
+adb I 08-06 10:38:22 41504 845128 main.cpp:83] Android Debug Bridge version 1.0.39
+adb I 08-06 10:38:22 41504 845128 main.cpp:83] Revision 3db08f2c6889-android
+adb I 08-06 10:38:22 41504 845128 main.cpp:83] Installed as /Users/matheuscosta/Library/Android/sdk/platform-tools/adb
+adb I 08-06 10:38:22 41504 845128 main.cpp:83] 
+adb I 08-06 10:38:22 41504 845128 adb_auth_host.cpp:415] adb_auth_init...
+adb I 08-06 10:38:22 41504 845128 adb_auth_host.cpp:173] read_key_file '/Users/matheuscosta/.android/adbkey'...
+adb server killed by remote request
+--- adb starting (pid 41518) ---
+adb I 41518 845351 main.cpp:79] Android Debug Bridge version 1.0.36
+adb I 41518 845351 main.cpp:79] Revision 0e9850346394-android
+adb I 41518 845351 main.cpp:79] 
+adb server killed by remote request
+--- adb starting (pid 41528) ---
+adb I 41528 845430 main.cpp:79] Android Debug Bridge version 1.0.36
+adb I 41528 845430 main.cpp:79] Revision 0e9850346394-android
+adb I 41528 845430 main.cpp:79] 
+adb server killed by remote request
